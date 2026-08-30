@@ -60,10 +60,10 @@ Cada catálogo tiene ID estable, nombre, slug único, estado y orden. Los slugs 
 
 ### Monetización y B2B
 
-- `plans`: capacidades/precio configurables, `pricing_status` y vigencia. En el piloto, `BASE`, `IMPULSO` y `REFERENTE` tienen precio nulo y `DRAFT`.
+- `plans`: capacidades/precio configurables, `pricing_status`, `payment_model` (`RECURRING`/`ONE_TIME`), `commitment_cycles` y `grace_period_days`. En el piloto, sólo `PROFESSIONAL_MONTHLY` tiene precio y `PUBLISHED`; `PROFESSIONAL_6M`, `PROFESSIONAL_12M` y `PROFESSIONAL_ANNUAL_UPFRONT` quedan `DRAFT`.
 - `plan_entitlements`: capacidades y límites normalizados por plan.
-- `subscriptions`: profesional, plan, período, estado y snapshots. Proveedor/IDs externos quedan en las tablas privadas de pago.
-- `private.payment_customers` y `private.subscription_events`: IDs del proveedor y webhooks/idempotencia.
+- `subscriptions`: profesional, plan, período, estado, snapshot, `provider_account` (`personal`/`company`, fijo desde la creación), `provider_subscription_id`, último/próximo cobro y fin del período de gracia.
+- `private.payment_customers`, `private.subscription_events` y `private.plan_provider_mappings`: IDs del proveedor, webhooks/idempotencia y el mapeo plan interno ↔ `preapproval_plan_id` de Mercado Pago (uno distinto por cuenta).
 - `institutions`, `agreements`, `agreement_professionals`, `agreement_services`: convenio, reglas, vigencia y oferta participante.
 
 ### Contenido y control

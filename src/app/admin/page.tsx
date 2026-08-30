@@ -1,5 +1,5 @@
 import { ExternalLink, FileCheck2, ShieldCheck, UserRoundSearch } from "lucide-react";
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -113,6 +113,7 @@ export default async function AdminPage({
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <Link className={buttonStyles({ variant: "secondary" })} href={"/admin/suscripciones" as Route}>Suscripciones</Link>
             <Link className={buttonStyles({ variant: "secondary" })} href="/dashboard">Volver al dashboard</Link>
           </div>
         </div>

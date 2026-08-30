@@ -25,9 +25,10 @@ export default async function ProfessionalOnboardingPage({
   const supabase = await createClient();
   const requestedPlan = (await searchParams).plan?.toUpperCase();
   const initialPlan =
-    requestedPlan === "BASE" ||
-    requestedPlan === "IMPULSO" ||
-    requestedPlan === "REFERENTE"
+    requestedPlan === "PROFESSIONAL_MONTHLY" ||
+    requestedPlan === "PROFESSIONAL_6M" ||
+    requestedPlan === "PROFESSIONAL_12M" ||
+    requestedPlan === "PROFESSIONAL_ANNUAL_UPFRONT"
       ? requestedPlan
       : undefined;
   const [typesResult, needsResult, servicesResult, modalitiesResult, languagesResult, plansResult, credentialTypesResult, credentialsResult, profileResult] =
@@ -54,7 +55,7 @@ export default async function ProfessionalOnboardingPage({
     serviceIds: [] as string[],
     modalityIds: [] as string[],
     languageIds: [] as string[],
-    planCode: undefined as "BASE" | "IMPULSO" | "REFERENTE" | undefined,
+    planCode: undefined as "PROFESSIONAL_MONTHLY" | "PROFESSIONAL_6M" | "PROFESSIONAL_12M" | "PROFESSIONAL_ANNUAL_UPFRONT" | undefined,
   };
 
   if (profile) {
@@ -86,9 +87,10 @@ export default async function ProfessionalOnboardingPage({
       modalityIds: (modalityLinks.data ?? []).map((item) => item.modality_id),
       languageIds: (languageLinks.data ?? []).map((item) => item.language_id),
       planCode:
-        currentPlanCode === "BASE" ||
-        currentPlanCode === "IMPULSO" ||
-        currentPlanCode === "REFERENTE"
+        currentPlanCode === "PROFESSIONAL_MONTHLY" ||
+        currentPlanCode === "PROFESSIONAL_6M" ||
+        currentPlanCode === "PROFESSIONAL_12M" ||
+        currentPlanCode === "PROFESSIONAL_ANNUAL_UPFRONT"
           ? currentPlanCode
           : undefined,
     };
@@ -133,7 +135,10 @@ export default async function ProfessionalOnboardingPage({
           modalities={modalitiesResult.data ?? []}
           languages={languagesResult.data ?? []}
           plans={(plansResult.data ?? []).flatMap((plan) =>
-            plan.code === "BASE" || plan.code === "IMPULSO" || plan.code === "REFERENTE"
+            plan.code === "PROFESSIONAL_MONTHLY" ||
+            plan.code === "PROFESSIONAL_6M" ||
+            plan.code === "PROFESSIONAL_12M" ||
+            plan.code === "PROFESSIONAL_ANNUAL_UPFRONT"
               ? [{ ...plan, code: plan.code }]
               : [],
           )}
@@ -149,7 +154,7 @@ export default async function ProfessionalOnboardingPage({
             verification_status: item.verification_status,
             submitted_at: item.submitted_at,
           }))}
-          initialPlan={initialPlan ?? relations.planCode ?? "BASE"}
+          initialPlan={initialPlan ?? relations.planCode ?? "PROFESSIONAL_MONTHLY"}
           existing={existing}
         />
       </Container>

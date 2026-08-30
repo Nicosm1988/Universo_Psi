@@ -32,7 +32,7 @@ test.describe("vertical autenticado profesional y administración", () => {
     await login(
       page,
       AUTH_E2E.professionalEmail,
-      "/profesionales/sumarse?plan=IMPULSO",
+      "/profesionales/sumarse?plan=PROFESSIONAL_MONTHLY",
     );
 
     await expect(page).toHaveURL(/\/aceptar-terminos\?next=/);
@@ -48,7 +48,7 @@ test.describe("vertical autenticado profesional y administración", () => {
     await page.getByRole("button", { name: "Aceptar y continuar" }).click();
 
     await expect(page).toHaveURL(
-      /\/profesionales\/sumarse\?plan=IMPULSO$/,
+      /\/profesionales\/sumarse\?plan=PROFESSIONAL_MONTHLY$/,
     );
     await expect(
       page.getByRole("heading", {
@@ -157,7 +157,7 @@ test.describe("vertical autenticado profesional y administración", () => {
     ).toBeVisible();
 
     await expect.poll(() => fixture.readProfileSummary()).toMatchObject({
-      planCode: "IMPULSO",
+      planCode: "PROFESSIONAL_MONTHLY",
       publicationStatus: "PENDING_REVIEW",
       slug: fixture.expectedProfileSlug,
       subscriptionStatus: "PENDING_PAYMENT",

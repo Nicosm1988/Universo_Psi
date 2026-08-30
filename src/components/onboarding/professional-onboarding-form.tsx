@@ -138,7 +138,7 @@ export function ProfessionalOnboardingForm({
   modalities: Option[];
   languages: Option[];
   plans: {
-    code: "BASE" | "IMPULSO" | "REFERENTE";
+    code: "PROFESSIONAL_MONTHLY" | "PROFESSIONAL_6M" | "PROFESSIONAL_12M" | "PROFESSIONAL_ANNUAL_UPFRONT";
     name: string;
     description: string | null;
   }[];
@@ -150,7 +150,7 @@ export function ProfessionalOnboardingForm({
     verification_status: string;
     submitted_at: string;
   }[];
-  initialPlan?: "BASE" | "IMPULSO" | "REFERENTE";
+  initialPlan?: "PROFESSIONAL_MONTHLY" | "PROFESSIONAL_6M" | "PROFESSIONAL_12M" | "PROFESSIONAL_ANNUAL_UPFRONT";
 }) {
   const seedState: OnboardingState = existing
     ? { ...initialOnboardingState, profileId: existing.id }

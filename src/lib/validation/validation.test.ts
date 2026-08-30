@@ -213,7 +213,7 @@ describe("professional onboarding and moderation validation", () => {
     serviceIds: [serviceId],
     modalityIds: [modalityId],
     languageIds: [languageId],
-    planCode: "BASE",
+    planCode: "PROFESSIONAL_MONTHLY",
     intent: "submit",
   } as const;
 
@@ -263,13 +263,13 @@ describe("professional onboarding and moderation validation", () => {
     expect(
       selectPlanSchema.safeParse({
         professionalProfileId,
-        planCode: "BASE",
+        planCode: "PROFESSIONAL_MONTHLY",
       }).success,
     ).toBe(true);
     expect(
       selectPlanSchema.safeParse({
         professionalProfileId,
-        planCode: "IMPULSO",
+        planCode: "NONEXISTENT",
       }).success,
     ).toBe(false);
     expect(

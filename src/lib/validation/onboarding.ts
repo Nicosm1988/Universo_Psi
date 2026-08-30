@@ -25,13 +25,13 @@ export const onboardingSchema = z.object({
   serviceIds: z.array(z.uuid()).min(1).max(8),
   modalityIds: z.array(z.uuid()).min(1).max(3),
   languageIds: z.array(z.uuid()).min(1).max(8),
-  planCode: z.enum(["BASE", "IMPULSO", "REFERENTE"]),
+  planCode: z.enum(["PROFESSIONAL_MONTHLY", "PROFESSIONAL_6M", "PROFESSIONAL_12M", "PROFESSIONAL_ANNUAL_UPFRONT"]),
   intent: z.enum(["draft", "submit"]),
 });
 
 export const onboardingSubmissionSchema = z.object({
   profileId: z.uuid(),
-  planCode: z.enum(["BASE", "IMPULSO", "REFERENTE"]),
+  planCode: z.enum(["PROFESSIONAL_MONTHLY", "PROFESSIONAL_6M", "PROFESSIONAL_12M", "PROFESSIONAL_ANNUAL_UPFRONT"]),
   intent: z.literal("submit"),
 });
 

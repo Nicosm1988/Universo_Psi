@@ -4,9 +4,9 @@
 
 | Estado | Alcance |
 | --- | --- |
-| **Implementado** | Catálogo `BASE|IMPULSO|REFERENTE`, selección de plan propia y boost técnico limitado a 2 puntos. |
-| **Preparado** | Entitlements, suscripciones, snapshots y eventos idempotentes de proveedor. |
-| **Pendiente** | Validar propuesta/precios de planes B2P, definir dónde se comunican, checkout, cobro, facturación y un convenio real. Los honorarios profesionales no se publican. |
+| **Implementado** | Catálogo `PROFESSIONAL_MONTHLY|PROFESSIONAL_6M|PROFESSIONAL_12M|PROFESSIONAL_ANNUAL_UPFRONT`, selección de plan propia y boost técnico limitado a 2 puntos. Sólo `PROFESSIONAL_MONTHLY` tiene precio publicado ($120.000 ARS/mes); los otros tres son códigos preparados en `DRAFT` sin precio. |
+| **Preparado** | Entitlements, suscripciones, snapshots, mapeo plan interno↔`preapproval_plan_id` de Mercado Pago por cuenta (`personal`/`company`), checkout real (recurrente y pago único), webhook con reconciliación server-side, período de gracia configurable y panel admin de suscripciones. |
+| **Pendiente** | Precios de los planes 6M/12M/anual-upfront, credenciales reales de Mercado Pago (hoy sólo sandbox), pruebas E2E de checkout, definición fiscal/comercial del dueño y un convenio B2B real. Los honorarios profesionales no se publican. |
 
 ## Tesis
 
@@ -32,21 +32,22 @@ No se promete una cantidad fija de leads sin datos. El sistema sí registra impr
 
 Los nombres son una propuesta comercial administrable para profesionales, no honorarios de consulta ni precios hardcodeados en el marketplace:
 
-| Plan | Propuesta |
-| --- | --- |
-| `BASE` | Perfil, presencia en buscador y recepción de contactos. |
-| `IMPULSO` | Analítica, contenido y aumento moderado de exposición. |
-| `REFERENTE` | Analítica avanzada, contenido destacado y prioridad en programas/convenios. |
+| Plan | Cadencia de cobro | Compromiso | Precio |
+| --- | --- | --- | --- |
+| `PROFESSIONAL_MONTHLY` | Recurrente mensual (Mercado Pago Preapproval) | Ninguno | $120.000 ARS/mes, `PUBLISHED` |
+| `PROFESSIONAL_6M` | Recurrente mensual | 6 cobros | `DRAFT`, sin precio |
+| `PROFESSIONAL_12M` | Recurrente mensual | 12 cobros | `DRAFT`, sin precio |
+| `PROFESSIONAL_ANNUAL_UPFRONT` | Pago único (Mercado Pago Checkout Pro) | — | `DRAFT`, sin precio |
 
-`plans` define precio, `pricing_status`, `monthly_lead_quota`, `ranking_boost_points` (máximo 2) y `visibility_score`; `plan_entitlements` modela capacidades/límites. `subscriptions` conserva estado, período y snapshots, mientras los IDs/eventos del proveedor viven en `private`.
+`plans` define precio, `pricing_status`, `payment_model` (`RECURRING`/`ONE_TIME`), `commitment_cycles`, `grace_period_days`, `monthly_lead_quota`, `ranking_boost_points` (máximo 2) y `visibility_score`; `plan_entitlements` modela capacidades/límites. `subscriptions` conserva estado, período, snapshot, cuenta de Mercado Pago usada (`provider_account`), `provider_subscription_id`, último/próximo cobro y fin del período de gracia. El mapeo plan interno → `preapproval_plan_id` de Mercado Pago vive en `private.plan_provider_mappings`, separado del código interno para poder tener un `preapproval_plan_id` distinto por cuenta sin tocar `plans`.
 
-Estado actual: los tres planes del seed tienen `price_amount = null` y `pricing_status = DRAFT`. La página toma nombre/descripción/estado de precio desde Supabase, pero la lista editorial de beneficios aún vive en código. Elegir un plan sólo crea o reemplaza una selección `PENDING_PAYMENT`; no activa una suscripción paga ni un cobro. Definir importes, audiencia/visibilidad y convertir entitlements en la única fuente de beneficios es **pendiente**.
+Estado actual: sólo `PROFESSIONAL_MONTHLY` tiene precio y `pricing_status = PUBLISHED`; los otros tres son códigos preparados sin precio (no se inventa un importe que el dueño no aprobó). Elegir un plan crea una selección `PENDING_PAYMENT` y, si Mercado Pago está configurado, redirige a un checkout real — pero la redirección nunca activa la suscripción por sí sola: sólo el webhook, tras reconsultar el estado real contra la API de Mercado Pago, la marca `ACTIVE`.
 
 ## Separación obligatoria de precios
 
 - Los honorarios del servicio profesional no se publican en cards, perfil, filtros, búsqueda, DTOs ni ranking.
 - `professional_directory` y los contratos PostgREST públicos excluyen los campos de honorarios; la firma del ranking no acepta presupuesto.
-- Los planes `BASE|IMPULSO|REFERENTE` son una relación comercial B2P entre Universo Psi y el profesional. Sus importes, cuando se aprueben, no habilitan a reintroducir precios de consulta en la experiencia B2C.
+- Los planes `PROFESSIONAL_*` son una relación comercial B2P entre Universo Psi y el profesional. Sus importes, cuando se aprueben, no habilitan a reintroducir precios de consulta en la experiencia B2C.
 - Un plan puede mejorar capacidades o aplicar el boost acotado documentado, pero nunca compra verificación, rating, opiniones ni elegibilidad.
 
 ## Gobernanza comercial del ranking
@@ -98,4 +99,4 @@ No elegir uno de forma irreversible sin entrevistas, voluntad de pago y revisió
 | Mala retención | churn temprano | mejorar activación y valor, no prometer volumen |
 | Verificación costosa | cola de revisión creciente | reglas por tipo y SLA operativo |
 
-Mercado Pago queda detrás de un adaptador **preparado y cerrado**. El webhook actual responde 503 y no reconcilia eventos. Activar cobro real requiere precios aprobados, credenciales, firma completa, idempotencia/replay, pruebas sandbox y definición fiscal/comercial del dueño.
+Mercado Pago queda detrás de un adaptador que soporta cuentas `personal`/`company` (namespaced por variables de entorno, seleccionable con `MERCADOPAGO_ACTIVE_ACCOUNT` sin tocar código ni datos históricos), checkout recurrente y de pago único, webhook con verificación de firma y reconciliación server-side idempotente, y período de gracia configurable ante un cobro rechazado. Hoy no hay ninguna credencial cargada (ni sandbox ni producción): el webhook responde 503 hasta que se configure una cuenta. Activar cobro real requiere precios aprobados para los planes que faltan, credenciales, pruebas E2E en sandbox y definición fiscal/comercial del dueño — nunca activar producción sin haber verificado sandbox primero.

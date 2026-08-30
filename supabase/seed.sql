@@ -171,15 +171,19 @@ on conflict (id) do update set name = excluded.name, is_active = true;
 -- amounts. This avoids presenting invented subscription prices as final.
 insert into public.plans
   (id, code, name, description, price_amount, currency, billing_interval,
-   pricing_status, monthly_lead_quota, ranking_boost_points, visibility_score, sort_order, is_active)
+   pricing_status, monthly_lead_quota, ranking_boost_points, visibility_score, sort_order, is_active,
+   payment_model, commitment_cycles, grace_period_days)
 values
-  ('2b000000-0000-4000-8000-000000000001', 'BASE', 'Profesional', 'Perfil público, buscador, recepción de contactos y panel de leads.', 120000, 'ARS', 'MONTH', 'PUBLISHED', null, 0, 40, 10, true),
-  ('2b000000-0000-4000-8000-000000000002', 'IMPULSO', 'Impulso', 'Estadísticas, contenidos y prioridad moderada.', null, 'ARS', 'MONTH', 'DRAFT', null, 1, 70, 20, false),
-  ('2b000000-0000-4000-8000-000000000003', 'REFERENTE', 'Referente', 'Analítica avanzada y participación preferencial.', null, 'ARS', 'MONTH', 'DRAFT', null, 2, 100, 30, false)
+  ('2b000000-0000-4000-8000-000000000001', 'PROFESSIONAL_MONTHLY', 'Profesional · Mensual', 'Perfil público, buscador, recepción de contactos y panel de leads. Cobro mensual recurrente.', 120000, 'ARS', 'MONTH', 'PUBLISHED', null, 0, 40, 10, true, 'RECURRING', null, 3),
+  ('2b000000-0000-4000-8000-000000000002', 'PROFESSIONAL_6M', 'Profesional · Semestral', 'Igual que el plan mensual, con un compromiso de 6 cobros mensuales automáticos.', null, 'ARS', 'MONTH', 'DRAFT', null, 0, 40, 20, false, 'RECURRING', 6, 3),
+  ('2b000000-0000-4000-8000-000000000003', 'PROFESSIONAL_12M', 'Profesional · Anual (cuotas)', 'Igual que el plan mensual, con un compromiso de 12 cobros mensuales automáticos.', null, 'ARS', 'MONTH', 'DRAFT', null, 0, 40, 30, false, 'RECURRING', 12, 3),
+  ('2b000000-0000-4000-8000-000000000004', 'PROFESSIONAL_ANNUAL_UPFRONT', 'Profesional · Anual (pago único)', 'Un solo pago que cubre 12 meses, sin cobros recurrentes.', null, 'ARS', 'YEAR', 'DRAFT', null, 0, 40, 40, false, 'ONE_TIME', null, 3)
 on conflict (id) do update set
-  name = excluded.name, description = excluded.description,
+  code = excluded.code, name = excluded.name, description = excluded.description,
   price_amount = excluded.price_amount, pricing_status = excluded.pricing_status,
-  ranking_boost_points = excluded.ranking_boost_points, is_active = excluded.is_active;
+  ranking_boost_points = excluded.ranking_boost_points, is_active = excluded.is_active,
+  payment_model = excluded.payment_model, commitment_cycles = excluded.commitment_cycles,
+  grace_period_days = excluded.grace_period_days;
 
 insert into public.plan_entitlements (plan_id, entitlement_code, enabled, limit_value, configuration)
 values

@@ -421,7 +421,7 @@ describeIntegration(
         const planSelection = await professional.rpc(
           "select_professional_plan",
           {
-            p_plan_code: "BASE",
+            p_plan_code: "PROFESSIONAL_MONTHLY",
             p_profile_id: profile.id,
           },
         );
@@ -649,7 +649,7 @@ describeIntegration(
             "Consulta ficticia creada por la prueba de integración local.",
           p_need_id: needId,
           p_phone: null,
-          p_plan_code_snapshot: "BASE",
+          p_plan_code_snapshot: "PROFESSIONAL_MONTHLY",
           p_professional_profile_id: profile.id,
           p_source: "integration_test",
           p_utm_campaign: null,

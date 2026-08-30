@@ -116,6 +116,13 @@ export const professionalTypeOptions = [
   { value: "psiquiatria", label: "Psiquiatra" },
   { value: "musicoterapia", label: "Musicoterapeuta" },
   { value: "terapia-ocupacional", label: "Terapista ocupacional" },
+  { value: "fonoaudiologia", label: "Fonoaudiólogo/a" },
+  { value: "terapia-familiar-sistemica", label: "Terapeuta familiar sistémico/a" },
+  { value: "arteterapia", label: "Arteterapeuta" },
+  { value: "acompanamiento-en-adicciones", label: "Acompañante terapéutico en adicciones" },
+  { value: "educacion-especial", label: "Especialista en educación especial" },
+  { value: "trabajo-social", label: "Trabajador/a social" },
+  { value: "psicomotricidad", label: "Psicomotricista" },
 ] as const;
 
 export const modalityOptions = [

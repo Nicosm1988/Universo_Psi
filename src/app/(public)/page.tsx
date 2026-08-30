@@ -30,7 +30,7 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Universo Psi",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi.vercel.app",
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi-eight.vercel.app",
     description:
       "Red de profesionales de salud mental: psicólogos, psiquiatras, psicopedagogos y más.",
     areaServed: "AR",

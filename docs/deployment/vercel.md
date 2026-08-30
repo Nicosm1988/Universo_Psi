@@ -10,7 +10,7 @@
 - Repositorio: [Nicosm1988/universo_psi](https://github.com/Nicosm1988/universo_psi).
 - Proyecto activo: [universo-psi](https://vercel.com/nmarcosan-2648s-projects/universo-psi) en el equipo del dueño, ligado por `.vercel/project.json`.
 - Producción: branch `main` conectada al proyecto existente.
-- URL canónica activa: [https://universo-psi.vercel.app](https://universo-psi.vercel.app); `supabase/config.toml` usa esa Site URL y permite exactamente su `/auth/callback`, además de callbacks locales. Los previews no usan Auth productivo: tienen variables Supabase aisladas y no figuran en el allowlist del proyecto productivo.
+- URL canónica activa: [https://universo-psi-eight.vercel.app](https://universo-psi-eight.vercel.app); `supabase/config.toml` usa esa Site URL y permite exactamente su `/auth/callback`, además de callbacks locales. Los previews no usan Auth productivo: tienen variables Supabase aisladas y no figuran en el allowlist del proyecto productivo.
 - Runtime confirmado: Node.js `24.x`.
 - Región de Functions: `gru1` (São Paulo), cercana al mercado inicial y coherente con `vercel.json`.
 - Framework/root confirmado: `nextjs`, root del repositorio, install `npm ci`, build `npm run build`.

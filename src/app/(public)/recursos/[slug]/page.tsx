@@ -46,7 +46,7 @@ export default async function ResourceDetailPage({ params }: ResourcePageProps) 
     dateModified: article.publishedAt,
     author: { "@type": "Person", name: article.author },
     publisher: { "@type": "Organization", name: "Universo Psi" },
-    mainEntityOfPage: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi.vercel.app"}/recursos/${article.slug}`,
+    mainEntityOfPage: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi-eight.vercel.app"}/recursos/${article.slug}`,
   };
 
   return (

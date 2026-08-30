@@ -12,13 +12,13 @@ values
   ('20000000-0000-4000-8000-000000000003', 'psychiatrist', 'psiquiatria', 'Psiquiatra', 'Diagnóstico y tratamiento médico de la salud mental.', true, 30, true),
   ('20000000-0000-4000-8000-000000000004', 'music_therapist', 'musicoterapia', 'Musicoterapeuta', 'Intervención terapéutica a través de la música.', true, 40, true),
   ('20000000-0000-4000-8000-000000000005', 'occupational_therapist', 'terapia-ocupacional', 'Terapista ocupacional', 'Rehabilitación y desarrollo de habilidades para la vida diaria.', true, 50, true),
-  ('20000000-0000-4000-8000-000000000006', 'speech_therapist', 'fonoaudiologia', 'Fonoaudiólogo/a', 'Comunicación, lenguaje y deglución. Candidato a incorporación futura.', true, 60, false),
-  ('20000000-0000-4000-8000-000000000007', 'family_therapist', 'terapia-familiar-sistemica', 'Terapeuta familiar sistémico/a', 'Intervención sistémica sobre la familia como unidad. Candidato a incorporación futura.', false, 70, false),
-  ('20000000-0000-4000-8000-000000000008', 'art_therapist', 'arteterapia', 'Arteterapeuta', 'Intervención terapéutica a través de la expresión artística. Candidato a incorporación futura.', false, 80, false),
-  ('20000000-0000-4000-8000-000000000009', 'addiction_counselor', 'acompanamiento-en-adicciones', 'Acompañante terapéutico en adicciones', 'Acompañamiento especializado en consumos problemáticos. Candidato a incorporación futura.', false, 90, false),
-  ('20000000-0000-4000-8000-000000000010', 'special_education', 'educacion-especial', 'Especialista en educación especial', 'Apoyo pedagógico a trayectorias con necesidades específicas. Candidato a incorporación futura.', false, 100, false),
-  ('20000000-0000-4000-8000-000000000011', 'social_worker', 'trabajo-social', 'Trabajador/a social', 'Intervención social vinculada a la salud mental. Candidato a incorporación futura.', false, 110, false),
-  ('20000000-0000-4000-8000-000000000012', 'psychomotor_therapist', 'psicomotricidad', 'Psicomotricista', 'Intervención sobre el desarrollo psicomotor. Candidato a incorporación futura.', false, 120, false)
+  ('20000000-0000-4000-8000-000000000006', 'speech_therapist', 'fonoaudiologia', 'Fonoaudiólogo/a', 'Comunicación, lenguaje y deglución.', true, 60, true),
+  ('20000000-0000-4000-8000-000000000007', 'family_therapist', 'terapia-familiar-sistemica', 'Terapeuta familiar sistémico/a', 'Intervención sistémica sobre la familia como unidad.', false, 70, true),
+  ('20000000-0000-4000-8000-000000000008', 'art_therapist', 'arteterapia', 'Arteterapeuta', 'Intervención terapéutica a través de la expresión artística.', false, 80, true),
+  ('20000000-0000-4000-8000-000000000009', 'addiction_counselor', 'acompanamiento-en-adicciones', 'Acompañante terapéutico en adicciones', 'Acompañamiento especializado en consumos problemáticos.', false, 90, true),
+  ('20000000-0000-4000-8000-000000000010', 'special_education', 'educacion-especial', 'Especialista en educación especial', 'Apoyo pedagógico a trayectorias con necesidades específicas.', false, 100, true),
+  ('20000000-0000-4000-8000-000000000011', 'social_worker', 'trabajo-social', 'Trabajador/a social', 'Intervención social vinculada a la salud mental.', false, 110, true),
+  ('20000000-0000-4000-8000-000000000012', 'psychomotor_therapist', 'psicomotricidad', 'Psicomotricista', 'Intervención sobre el desarrollo psicomotor.', true, 120, true)
 on conflict (id) do update set
   code = excluded.code, slug = excluded.slug, name = excluded.name,
   description = excluded.description, is_regulated = excluded.is_regulated,
@@ -47,7 +47,19 @@ values
   ('20000000-0000-4000-8000-000000000005', '21000000-0000-4000-8000-000000000001', 'REQUIRED', true, 'Presentar matrícula vigente y jurisdicción.'),
   ('20000000-0000-4000-8000-000000000005', '21000000-0000-4000-8000-000000000002', 'REQUIRED', false, 'Presentar título universitario en terapia ocupacional.'),
   ('20000000-0000-4000-8000-000000000001', '21000000-0000-4000-8000-000000000005', 'OPTIONAL', false, 'Acreditar formación de especialización cuando corresponda.'),
-  ('20000000-0000-4000-8000-000000000003', '21000000-0000-4000-8000-000000000004', 'OPTIONAL', false, 'Acreditar experiencia institucional relevante.')
+  ('20000000-0000-4000-8000-000000000003', '21000000-0000-4000-8000-000000000004', 'OPTIONAL', false, 'Acreditar experiencia institucional relevante.'),
+  ('20000000-0000-4000-8000-000000000006', '21000000-0000-4000-8000-000000000001', 'REQUIRED', true, 'Presentar matrícula vigente y jurisdicción.'),
+  ('20000000-0000-4000-8000-000000000006', '21000000-0000-4000-8000-000000000002', 'REQUIRED', false, 'Presentar título universitario en fonoaudiología.'),
+  ('20000000-0000-4000-8000-000000000007', '21000000-0000-4000-8000-000000000002', 'REQUIRED', false, 'Presentar título universitario en salud mental o disciplina afín.'),
+  ('20000000-0000-4000-8000-000000000007', '21000000-0000-4000-8000-000000000003', 'REQUIRED', false, 'Presentar certificación en terapia familiar sistémica.'),
+  ('20000000-0000-4000-8000-000000000008', '21000000-0000-4000-8000-000000000003', 'REQUIRED', false, 'Presentar certificación en arteterapia y entidad emisora.'),
+  ('20000000-0000-4000-8000-000000000009', '21000000-0000-4000-8000-000000000003', 'REQUIRED', false, 'Presentar certificación en acompañamiento terapéutico y entidad emisora.'),
+  ('20000000-0000-4000-8000-000000000009', '21000000-0000-4000-8000-000000000004', 'OPTIONAL', false, 'Acreditar experiencia institucional relevante.'),
+  ('20000000-0000-4000-8000-000000000010', '21000000-0000-4000-8000-000000000002', 'REQUIRED', false, 'Presentar título docente o de especialización en educación especial.'),
+  ('20000000-0000-4000-8000-000000000011', '21000000-0000-4000-8000-000000000001', 'REQUIRED', true, 'Presentar matrícula vigente y jurisdicción.'),
+  ('20000000-0000-4000-8000-000000000011', '21000000-0000-4000-8000-000000000002', 'REQUIRED', false, 'Presentar título universitario en trabajo social.'),
+  ('20000000-0000-4000-8000-000000000012', '21000000-0000-4000-8000-000000000001', 'REQUIRED', true, 'Presentar matrícula vigente y jurisdicción.'),
+  ('20000000-0000-4000-8000-000000000012', '21000000-0000-4000-8000-000000000002', 'REQUIRED', false, 'Presentar título universitario en psicomotricidad.')
 on conflict (professional_type_id, credential_type_id) do update set
   requirement_level = excluded.requirement_level,
   jurisdiction_required = excluded.jurisdiction_required,

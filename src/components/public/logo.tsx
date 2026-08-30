@@ -26,7 +26,7 @@ export function Logo({ inverse = false }: { inverse?: boolean }) {
         <circle className="rs-logo__sun" cx="26" cy="26" r="3.6" />
       </svg>
       <span className="font-display text-xl font-medium tracking-[-0.02em] min-[360px]:text-2xl sm:text-3xl">
-        Red <span className={inverse ? "text-sand" : "text-senda"}>Senda</span>
+        Universo <span className={inverse ? "text-sand" : "text-senda"}>Psi</span>
       </span>
     </Link>
   );

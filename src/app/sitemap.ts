@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { publicRepository } from "@/lib/data/public-repository";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi-eight.vercel.app";
   const [professionalSlugs, resourceSlugs, agreementSlugs] = await Promise.all([
     publicRepository.listProfessionalSlugs(),
     publicRepository.listResourceSlugs(),

@@ -38,7 +38,7 @@ Es una plataforma B2C/B2P/B2B de SENDA, pero no es el servicio boutique SENDA. L
 | Pagos | Adaptador Mercado Pago preparado para sandbox/producción |
 | Analítica | Vercel Analytics/Speed Insights; eventos de negocio propios |
 | Calidad | ESLint, `tsc`, Vitest y Playwright |
-| Destino de producción | [Vercel](https://universo-psi.vercel.app), runtime Node.js 24, GitHub `main` → Production; release remoto verificado el 2026-08-15 |
+| Destino de producción | [Vercel](https://universo-psi-eight.vercel.app), runtime Node.js 24, GitHub `main` → Production; release remoto verificado el 2026-08-15 |
 
 Versiones exactas y lockfile se controlan en `package.json` y `package-lock.json`.
 

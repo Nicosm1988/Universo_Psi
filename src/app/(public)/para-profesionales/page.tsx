@@ -113,10 +113,12 @@ export default function ForProfessionalsPage() {
           <SectionHeading eyebrow="Quiénes pueden sumarse" title="Distintas disciplinas, un estándar compartido de claridad y cuidado." description="La publicación está reservada a profesionales de salud mental con la documentación correspondiente." />
           <div className="mt-10 grid gap-px overflow-hidden rounded-[1.5rem] border border-line bg-line sm:grid-cols-2">
             {[
-              ["Psicología", "Profesionales de Psicología que acompañan procesos terapéuticos, evaluación y tratamiento."],
-              ["Psiquiatría", "Profesionales de Psiquiatría que acompañan diagnóstico y tratamiento médico de la salud mental."],
-              ["Psicopedagogía", "Profesionales de Psicopedagogía que acompañan procesos de aprendizaje y evaluación psicopedagógica."],
-              ["Musicoterapia y Terapia ocupacional", "Profesionales que acompañan procesos terapéuticos y de rehabilitación a través de intervenciones específicas."],
+              ["Psicología y Psiquiatría", "Profesionales que acompañan evaluación, diagnóstico y tratamiento de la salud mental."],
+              ["Psicopedagogía y Educación especial", "Profesionales que acompañan procesos de aprendizaje y trayectorias con necesidades específicas."],
+              ["Musicoterapia y Arteterapia", "Profesionales que acompañan procesos terapéuticos a través de intervenciones creativas."],
+              ["Terapia ocupacional y Fonoaudiología", "Profesionales que acompañan rehabilitación, comunicación y habilidades para la vida diaria."],
+              ["Terapia familiar sistémica y Trabajo social", "Profesionales que acompañan a la familia y su entorno social."],
+              ["Acompañamiento terapéutico y Psicomotricidad", "Profesionales que acompañan consumos problemáticos y desarrollo psicomotor."],
             ].map(([title, description]) => (
               <article key={title} className="bg-canvas p-6 sm:p-7">
                 <h2 className="font-display text-2xl font-semibold tracking-[-0.03em] text-ink">{title}</h2>

@@ -14,7 +14,7 @@ El directorio y los perfiles publicados se leen desde Supabase. Cualquier tipo p
 | **Preparado, no activo** | Tablas/RPC históricas de matching; planes comerciales B2P separados en `DRAFT`, selección en `PENDING_PAYMENT`; adaptadores de Resend y Mercado Pago cerrados sin configuración válida. |
 | **Pendiente** | Consola admin para artículos/convenios; definir precio y checkout de los planes B2P sin mezclarlo con honorarios profesionales; credenciales y smoke tests de proveedores; primer `SUPERADMIN`. |
 
-Producción: [https://universo-psi.vercel.app](https://universo-psi.vercel.app). Forkeado de Red Senda (commit `4de373c`) el 2026-08-29; ver [SOURCE_STATE.md](https://github.com/Nicosm1988/red_senda/blob/main/SOURCE_STATE.md) en el repo de origen para la auditoría que justificó partir de HEAD. Backend Supabase propio pendiente de aprovisionar (bloqueado por el límite de proyectos free de la cuenta al momento del fork); hasta entonces la producción sirve el catálogo demo en memoria. El alcance del smoke y los límites externos están registrados en [despliegue](docs/deployment/vercel.md).
+Producción: [https://universo-psi-eight.vercel.app](https://universo-psi-eight.vercel.app). Forkeado de Red Senda (commit `4de373c`) el 2026-08-29; ver [SOURCE_STATE.md](https://github.com/Nicosm1988/red_senda/blob/main/SOURCE_STATE.md) en el repo de origen para la auditoría que justificó partir de HEAD. Backend Supabase propio pendiente de aprovisionar (bloqueado por el límite de proyectos free de la cuenta al momento del fork); hasta entonces la producción sirve el catálogo demo en memoria. El alcance del smoke y los límites externos están registrados en [despliegue](docs/deployment/vercel.md).
 
 ## Experiencia pública
 

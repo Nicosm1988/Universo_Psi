@@ -32,7 +32,10 @@ export async function findAdminUserIdByEmail(email: string): Promise<string | nu
     },
     cache: "no-store",
   });
-  if (!response.ok) return null;
+  if (!response.ok) {
+    console.error("find_admin_user_by_email_failed", { status: response.status });
+    return null;
+  }
 
   const data: unknown = await response.json();
   const users = Array.isArray(data)
@@ -46,5 +49,9 @@ export async function findAdminUserIdByEmail(email: string): Promise<string | nu
       typeof (candidate as { email?: unknown }).email === "string" &&
       (candidate as { email: string }).email.toLowerCase() === email.toLowerCase(),
   );
+  console.info("find_admin_user_by_email_result", {
+    usersReturned: users.length,
+    matched: Boolean(match),
+  });
   return match?.id ?? null;
 }

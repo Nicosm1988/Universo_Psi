@@ -132,6 +132,7 @@ export async function signUpAction(
         message: "Revisá tu email para confirmar la cuenta. El enlace vence por seguridad.",
       };
     }
+    console.info("test_account_reset_user_not_found", { email: parsed.data.email });
     // First time this test email signs up: fall through to a normal signup.
   }
 
@@ -172,6 +173,11 @@ export async function signUpAction(
       });
     }
   }
+
+  console.info("signup_result", {
+    hasSession: Boolean(data.session),
+    identityCount: data.user?.identities?.length ?? null,
+  });
 
   if (!data.session) {
     return {

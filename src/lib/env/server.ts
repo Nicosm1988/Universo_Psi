@@ -2,11 +2,22 @@ import "server-only";
 
 import { z } from "zod";
 
+// Resend's `from` field accepts either a bare email or an RFC 5322
+// "Display Name <email>" pair, so z.email() alone (bare-email-only) rejects
+// the display-name form we ask operators to use (e.g. "Universo Psi
+// <onboarding@resend.dev>").
+const emailFromSchema = z
+  .string()
+  .regex(
+    /^(?:[^<>]+<[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+>|[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+)$/,
+    "EMAIL_FROM must be a bare email or \"Display Name <email>\"",
+  );
+
 const serverEnvSchema = z.object({
   SUPABASE_SECRET_KEY: z.string().min(20),
   RATE_LIMIT_SALT: z.string().min(16),
   RESEND_API_KEY: z.string().min(1).optional(),
-  EMAIL_FROM: z.email().optional(),
+  EMAIL_FROM: emailFromSchema.optional(),
   SEND_EMAIL_HOOK_SECRET: z.string().min(16).optional(),
   CRON_SECRET: z.string().min(32).optional(),
   // Mercado Pago credentials are namespaced per account so a future

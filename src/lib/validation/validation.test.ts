@@ -263,9 +263,15 @@ describe("professional onboarding and moderation validation", () => {
     expect(
       selectPlanSchema.safeParse({
         professionalProfileId,
-        planCode: "IMPULSO",
+        planCode: "BASE",
       }).success,
     ).toBe(true);
+    expect(
+      selectPlanSchema.safeParse({
+        professionalProfileId,
+        planCode: "IMPULSO",
+      }).success,
+    ).toBe(false);
     expect(
       selectPlanSchema.safeParse({
         professionalProfileId,

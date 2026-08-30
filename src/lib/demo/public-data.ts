@@ -1075,32 +1075,13 @@ const agreements: Agreement[] = [
 const plans: Plan[] = [
   {
     slug: "base",
-    name: "Base",
-    description: "Para construir una presencia profesional clara y empezar a recibir consultas.",
-    monthlyPrice: null,
-    currency: "ARS",
-    features: ["Perfil público completo", "Presencia en el buscador", "Recepción y gestión de contactos", "Verificación según tu profesión", "Panel con métricas esenciales"],
-    cta: "Empezar con Base",
-  },
-  {
-    slug: "impulso",
-    name: "Impulso",
-    description: "Para profesionales que quieren desarrollar autoridad y comprender mejor su demanda.",
-    monthlyPrice: null,
+    name: "Profesional",
+    description: "Un solo plan con todo lo necesario para tener presencia profesional y recibir consultas.",
+    monthlyPrice: 120000,
     currency: "ARS",
     featured: true,
-    badge: "Más elegido",
-    features: ["Todo lo incluido en Base", "Publicación de recursos", "Analítica de visitas y contactos", "Participación en convenios", "Posicionamiento destacado y siempre identificado"],
-    cta: "Elegir Impulso",
-  },
-  {
-    slug: "referente",
-    name: "Referente",
-    description: "Para quienes ya tienen trayectoria y buscan ampliar alcance, alianzas y participación.",
-    monthlyPrice: null,
-    currency: "ARS",
-    features: ["Todo lo incluido en Impulso", "Analítica avanzada", "Prioridad en convocatorias", "Encuentros editoriales y profesionales", "Acompañamiento de posicionamiento"],
-    cta: "Conversar sobre Referente",
+    features: ["Perfil público completo", "Presencia en el buscador", "Recepción y gestión de contactos", "Verificación según tu profesión", "Panel con métricas esenciales"],
+    cta: "Suscribirme",
   },
 ];
 

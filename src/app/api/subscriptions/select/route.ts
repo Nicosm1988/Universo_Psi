@@ -4,6 +4,7 @@ import { isSameOrigin } from "@/lib/http/origin";
 import { readJsonBody, RequestBodyTooLargeError } from "@/lib/http/body";
 import { serverEnv } from "@/lib/env/server";
 import { paymentAvailability } from "@/lib/integrations/payments";
+import { createCheckoutRedirectUrl } from "@/lib/subscriptions/checkout";
 import { TERMS_VERSION } from "@/lib/legal";
 import { createClient } from "@/lib/supabase/server";
 import { selectPlanSchema } from "@/lib/validation/subscription";
@@ -69,12 +70,26 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const payment = paymentAvailability();
+  const redirectUrl = payment.configured
+    ? await createCheckoutRedirectUrl(supabase, {
+        subscriptionId,
+        profileId: parsed.data.professionalProfileId,
+        email: claims.claims.email as string | undefined,
+      })
+    : null;
+
   return NextResponse.json({
     ok: true,
     subscriptionId,
     status: "PENDING_PAYMENT",
-    payment: paymentAvailability(),
-    message:
-      "Guardamos tu elección. Te avisaremos cuando el cobro en línea esté habilitado.",
+    payment,
+    ...(redirectUrl
+      ? { redirectUrl }
+      : {
+          message: payment.configured
+            ? "Guardamos tu elección, pero no pudimos iniciar el cobro. Volvé a intentar en unos minutos."
+            : "Guardamos tu elección. Te avisaremos cuando el cobro en línea esté habilitado.",
+        }),
   });
 }

@@ -21,9 +21,9 @@ export default async function PlansPage() {
       <PageHero
         eyebrow="Planes para profesionales"
         title="Una suscripción clara, sin promesas de contactos garantizados."
-        description="Compará el nivel de herramientas y participación que acompaña tu práctica actual. La selección inicial no activa cobros ni una suscripción paga."
+        description="Un solo plan con todo lo necesario para tener presencia profesional en Universo Psi. Al suscribirte te redirigimos a Mercado Pago para completar el pago."
         breadcrumbs={[{ label: "Inicio", href: "/" }, { label: "Para profesionales", href: "/para-profesionales" }, { label: "Planes" }]}
-        aside={<p className="rounded-[1.25rem] border border-line bg-paper p-5 text-sm leading-6 text-muted"><strong className="block text-ink">Condiciones en definición</strong>Los importes, impuestos y términos comerciales se informarán antes de habilitar cualquier contratación.</p>}
+        aside={<p className="rounded-[1.25rem] border border-line bg-paper p-5 text-sm leading-6 text-muted"><strong className="block text-ink">Suscripción mensual</strong>El cobro se procesa mensualmente a través de Mercado Pago. Podés cancelar cuando quieras desde tu panel.</p>}
       />
 
       <section className="bg-canvas py-14 sm:py-18 lg:py-20">
@@ -63,7 +63,7 @@ export default async function PlansPage() {
                 ["¿El plan garantiza consultas?", "No. La demanda depende de cada especialidad, momento y encaje. La plataforma mejora la posibilidad de ser encontrado y ofrece información para comprender el rendimiento."],
                 ["¿Puedo publicar mi perfil sin verificación?", "Podés prepararlo y enviarlo a revisión. Sólo se publica cuando cumple los requisitos definidos para tu tipo profesional."],
                 ["¿Cómo se identifica un perfil destacado?", "Con una etiqueta visible en la tarjeta y el perfil. La verificación, las opiniones y el encaje permanecen como señales independientes."],
-                ["¿Puedo cambiar de plan?", "La arquitectura contempla cambios y cancelación por período. Esa operación se habilitará junto con los términos comerciales y la integración de cobro."],
+                ["¿Puedo cancelar la suscripción?", "Sí, desde tu panel de Mercado Pago o contactándonos. La cancelación aplica al finalizar el período ya pagado."],
               ].map(([question, answer]) => (
                 <details key={question} className="group py-5">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-5 font-semibold text-ink focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/25"><span>{question}</span><span aria-hidden="true" className="text-xl font-normal text-senda-dark group-open:rotate-45">+</span></summary>

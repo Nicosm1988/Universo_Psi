@@ -216,9 +216,17 @@ export default async function DashboardPage({
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-senda">Suscripción</p>
           <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink">{plan?.name ?? "Sin plan seleccionado"}</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            {subscription?.status === "PENDING_PAYMENT"
-              ? "Tu elección está guardada. No se activará ningún cobro hasta completar la integración segura."
-              : "Elegí el nivel de visibilidad y herramientas que mejor acompañe tu etapa."}
+            {subscription?.status === "ACTIVE"
+              ? "Tu suscripción está activa. El próximo cobro es automático a través de Mercado Pago."
+              : subscription?.status === "PENDING_PAYMENT"
+                ? "Tu elección está guardada. Completá el pago en Mercado Pago para activar tu suscripción."
+                : subscription?.status === "PAST_DUE"
+                  ? "Hay un pago pendiente. Revisá tu método de pago en Mercado Pago para evitar la suspensión."
+                  : subscription?.status === "PAUSED"
+                    ? "Tu suscripción está pausada."
+                    : subscription?.status === "CANCELED"
+                      ? "Tu suscripción fue cancelada."
+                      : "Elegí el plan para tener presencia profesional en Universo Psi."}
           </p>
           <Link className={`${buttonStyles({ variant: "secondary" })} mt-6`} href="/planes">Ver planes</Link>
         </section>

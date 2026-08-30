@@ -1,8 +1,11 @@
 "use server";
 
+import type { Route } from "next";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 import { requireCurrentUser } from "@/lib/dal/auth";
+import { createCheckoutRedirectUrl } from "@/lib/subscriptions/checkout";
 import { createClient } from "@/lib/supabase/server";
 import {
   onboardingSchema,
@@ -52,9 +55,9 @@ export async function saveOnboardingAction(
       };
     }
 
-    await requireCurrentUser("/profesionales/sumarse");
+    const user = await requireCurrentUser("/profesionales/sumarse");
     const supabase = await createClient();
-    const { error: planError } = await supabase.rpc(
+    const { data: subscriptionId, error: planError } = await supabase.rpc(
       "select_professional_plan",
       {
         p_profile_id: submission.data.profileId,
@@ -83,10 +86,22 @@ export async function saveOnboardingAction(
 
     revalidatePath("/dashboard");
     revalidatePath("/profesionales/sumarse");
+
+    const redirectUrl = subscriptionId
+      ? await createCheckoutRedirectUrl(supabase, {
+          subscriptionId,
+          profileId: submission.data.profileId,
+          email: user.email,
+        })
+      : null;
+    if (redirectUrl) {
+      redirect(redirectUrl as Route);
+    }
+
     return {
       status: "submitted",
       message:
-        "Perfil enviado. El equipo revisará tu identidad y documentación.",
+        "Perfil enviado. El equipo revisará tu identidad y documentación. Te avisaremos cuando el cobro en línea esté habilitado.",
       profileId: submission.data.profileId,
     };
   }

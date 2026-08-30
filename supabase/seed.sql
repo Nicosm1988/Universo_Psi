@@ -171,15 +171,15 @@ on conflict (id) do update set name = excluded.name, is_active = true;
 -- amounts. This avoids presenting invented subscription prices as final.
 insert into public.plans
   (id, code, name, description, price_amount, currency, billing_interval,
-   pricing_status, monthly_lead_quota, ranking_boost_points, visibility_score, sort_order)
+   pricing_status, monthly_lead_quota, ranking_boost_points, visibility_score, sort_order, is_active)
 values
-  ('2b000000-0000-4000-8000-000000000001', 'BASE', 'Base', 'Perfil, buscador y recepción de contactos.', null, 'ARS', 'MONTH', 'DRAFT', null, 0, 40, 10),
-  ('2b000000-0000-4000-8000-000000000002', 'IMPULSO', 'Impulso', 'Estadísticas, contenidos y prioridad moderada.', null, 'ARS', 'MONTH', 'DRAFT', null, 1, 70, 20),
-  ('2b000000-0000-4000-8000-000000000003', 'REFERENTE', 'Referente', 'Analítica avanzada y participación preferencial.', null, 'ARS', 'MONTH', 'DRAFT', null, 2, 100, 30)
+  ('2b000000-0000-4000-8000-000000000001', 'BASE', 'Profesional', 'Perfil público, buscador, recepción de contactos y panel de leads.', 120000, 'ARS', 'MONTH', 'PUBLISHED', null, 0, 40, 10, true),
+  ('2b000000-0000-4000-8000-000000000002', 'IMPULSO', 'Impulso', 'Estadísticas, contenidos y prioridad moderada.', null, 'ARS', 'MONTH', 'DRAFT', null, 1, 70, 20, false),
+  ('2b000000-0000-4000-8000-000000000003', 'REFERENTE', 'Referente', 'Analítica avanzada y participación preferencial.', null, 'ARS', 'MONTH', 'DRAFT', null, 2, 100, 30, false)
 on conflict (id) do update set
   name = excluded.name, description = excluded.description,
   price_amount = excluded.price_amount, pricing_status = excluded.pricing_status,
-  ranking_boost_points = excluded.ranking_boost_points, is_active = true;
+  ranking_boost_points = excluded.ranking_boost_points, is_active = excluded.is_active;
 
 insert into public.plan_entitlements (plan_id, entitlement_code, enabled, limit_value, configuration)
 values

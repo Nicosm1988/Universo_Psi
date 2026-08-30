@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_ci_placeholder
+      SUPABASE_SECRET_KEY: sb_secret_ci_placeholder
+      RATE_LIMIT_SALT: ci-only-rate-limit-salt-at-least-32-characters
+      UNIVERSO_PSI_TEST_MODE: "true"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+
+  supabase-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Install authenticated browser
+        run: npx playwright install --with-deps chromium
+      - name: Start isolated Supabase
+        run: npx supabase start
+      - name: Run database and authenticated verticals
+        shell: bash
+        run: |
+          status_env="${RUNNER_TEMP}/universo-psi-supabase.env"
+          npx supabase status -o env > "${status_env}"
+          set -a
+          source "${status_env}"
+          set +a
+          npm run test:db:search
+          npm run test:db:workflow
+          SUPABASE_TEST_URL="${API_URL}" \
+          SUPABASE_TEST_PUBLISHABLE_KEY="${PUBLISHABLE_KEY}" \
+          SUPABASE_TEST_SECRET_KEY="${SECRET_KEY}" \
+          npm run test:integration
+          SUPABASE_TEST_URL="${API_URL}" \
+          SUPABASE_TEST_PUBLISHABLE_KEY="${PUBLISHABLE_KEY}" \
+          SUPABASE_TEST_SECRET_KEY="${SECRET_KEY}" \
+          npm run test:e2e:auth
+      - name: Stop isolated Supabase
+        if: always()
+        run: npx supabase stop --no-backup

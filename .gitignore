@@ -1,0 +1,16 @@
+.vercel
+.env*
+.next/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+.playwright-cli/
+output/
+*.tsbuildinfo
+npm-debug.log*
+!.env.example
+node_modules
+
+# Spec document, not part of the shipped product
+/PROMPT MAESTRO*.odt

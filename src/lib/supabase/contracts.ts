@@ -1,0 +1,26 @@
+export type MyProfessionalProfile = {
+  id: string;
+  slug: string;
+  first_name: string;
+  last_name: string;
+  pronouns: string | null;
+  avatar_path: string | null;
+  headline: string;
+  bio: string;
+  approach: string | null;
+  experience_summary: string | null;
+  education_summary: string | null;
+  years_experience: number;
+  availability_status: string;
+  next_available_on: string | null;
+  availability_note: string | null;
+  linkedin_url: string | null;
+  website_url: string | null;
+  instagram_url: string | null;
+  publication_status: string;
+  verification_state: string;
+  published_at: string | null;
+  is_accepting_leads: boolean;
+  created_at: string;
+  updated_at: string;
+};

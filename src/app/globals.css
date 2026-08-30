@@ -1,0 +1,487 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fbf9fc;
+  --color-canvas: #f5f5f5;
+  --color-mist: #ece8ef;
+  --color-ink: #1d172c;
+  --color-muted: #57506b;
+  --color-line: #e1dce8;
+  --color-line-strong: #cbc2d8;
+  --color-senda: #cc148c;
+  --color-senda-dark: #a80e70;
+  --color-senda-soft: #f3e6f0;
+  --color-clay: #6b3fa0;
+  --color-clay-dark: #4d2d74;
+  --color-clay-soft: #ece5f5;
+  --color-sand: #d50034;
+  --color-sky-soft: #efe9f7;
+  --color-sky-dark: #5a3f8f;
+  --shadow-soft: 0 16px 48px rgba(29, 23, 44, 0.09);
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.55;
+  --text-base: 1rem;
+  --text-base--line-height: 1.55;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.4;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.3;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.18;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 1.12;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.08;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1.04;
+  --text-7xl: 4.5rem;
+  --text-7xl--line-height: 1;
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+}
+
+:root {
+  color-scheme: light;
+  --font-body: var(--font-raleway), "Raleway", Arial, sans-serif;
+  --font-heading: var(--font-raleway), "Raleway", Arial, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #221b34;
+  --color-canvas: #1d172c;
+  --color-mist: #241d38;
+  --color-ink: #f5f2f7;
+  --color-muted: #c9bfe0;
+  --color-line: #3a3050;
+  --color-line-strong: #4a3a5c;
+  --color-senda: #e8459e;
+  --color-senda-dark: #a80e70;
+  --color-senda-soft: #2a1f38;
+  --color-clay: #c9a6f0;
+  --color-clay-dark: #dcc4f7;
+  --color-clay-soft: #2a2140;
+  --color-sand: #ff6b9e;
+  --color-sky-soft: #241d38;
+  --color-sky-dark: #b8a0e8;
+  --shadow-soft: 0 18px 55px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-paper);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  /* Ported from Universo Senda's body background: the same soft radial +
+     diagonal pastel wash on every page, not just hero bands. */
+  background-image:
+    radial-gradient(circle at 14% -6%, color-mix(in srgb, var(--color-sky-dark) 14%, transparent), transparent 34%),
+    radial-gradient(circle at 88% 4%, color-mix(in srgb, var(--color-senda) 9%, transparent), transparent 30%),
+    linear-gradient(180deg, var(--color-paper) 0%, var(--color-senda-soft) 46%, var(--color-paper) 100%);
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a,
+button,
+input,
+select,
+summary,
+textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(66, 108, 94, 0.16);
+}
+
+::selection {
+  background: #c8ded4;
+  color: #17201d;
+}
+
+:root[data-theme="dark"] ::selection {
+  background: #4f806f;
+  color: #ffffff;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  translate: 0 -200%;
+  border-radius: 999px;
+  background: #17201d;
+  color: white;
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: translate 160ms ease;
+}
+
+.skip-link:focus {
+  translate: 0;
+  outline: 3px solid var(--color-sand);
+  outline-offset: 2px;
+}
+
+.mobile-nav summary::-webkit-details-marker,
+.filter-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-nav[open] > summary,
+.filter-panel[open] > summary {
+  border-color: var(--color-senda);
+}
+
+.theme-icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+  display: block;
+}
+
+/* Accent tokens are brighter in dark mode for readable text and focus rings.
+   Filled controls and dark editorial panels keep deeper, white-safe surfaces. */
+:root[data-theme="dark"] .bg-ink,
+:root[data-theme="dark"] [class~="bg-ink/90"] {
+  background-color: #18131f;
+}
+
+:root[data-theme="dark"] .border-ink {
+  border-color: #18131f;
+}
+
+:root[data-theme="dark"] .bg-senda,
+:root[data-theme="dark"] .hover\:bg-senda:hover {
+  background-color: #a80e70;
+}
+
+:root[data-theme="dark"] .bg-senda-dark {
+  background-color: #a80e70;
+}
+
+:root[data-theme="dark"] .text-senda-dark {
+  color: #f0a8d2;
+}
+
+:root[data-theme="dark"] .bg-clay {
+  background-color: #6b3fa0;
+}
+
+:root[data-theme="dark"] .bg-sand.text-ink,
+:root[data-theme="dark"] .hover\:bg-sand:hover {
+  color: #1d172c;
+}
+
+:root[data-theme="dark"] .text-red-700,
+:root[data-theme="dark"] .text-red-800 {
+  color: #fca5a5;
+}
+
+/* Ported from Universo Senda's animated orbiting-rings mark (senda-logo.tsx),
+   renamed to avoid colliding with that repo's own class names. */
+.rs-logo__mark {
+  overflow: visible;
+}
+
+.rs-logo__boundary,
+.rs-logo__orbit ellipse {
+  stroke: currentColor;
+  stroke-width: 1.1;
+  opacity: 0.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.rs-logo__orbit {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
+.rs-logo__orbit--one {
+  transform: rotate(-18deg);
+}
+
+.rs-logo__orbit--two {
+  opacity: 0.75;
+  transform: rotate(31deg);
+}
+
+.rs-logo__waypoint {
+  fill: currentColor;
+  stroke: none;
+}
+
+.rs-logo__waypoint--accent {
+  fill: var(--color-sand);
+}
+
+.rs-logo__sun {
+  fill: var(--color-senda);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rs-logo__orbit--one {
+    animation: rs-logo-orbit-clockwise 28s linear infinite;
+  }
+
+  .rs-logo__orbit--two {
+    animation: rs-logo-orbit-counterclockwise 37s linear infinite;
+  }
+}
+
+@keyframes rs-logo-orbit-clockwise {
+  from {
+    transform: rotate(-18deg);
+  }
+  to {
+    transform: rotate(342deg);
+  }
+}
+
+@keyframes rs-logo-orbit-counterclockwise {
+  from {
+    transform: rotate(31deg);
+  }
+  to {
+    transform: rotate(-329deg);
+  }
+}
+
+/* Atmospheric hero wash, ported from Universo Senda's --senda-atmosphere-bg:
+   a diagonal pastel gradient (paper -> senda-soft -> paper) with two radial
+   accent washes, plus a faint fading dot-grid texture. The diagonal gradient
+   is the dominant effect on purpose -- it is what actually reads as "the
+   same design system" at a glance, not just a subtle tint. */
+.rs-atmosphere-hero {
+  position: relative;
+  background:
+    radial-gradient(circle at 80% 15%, color-mix(in srgb, var(--color-sky-dark) 22%, transparent), transparent 30%),
+    radial-gradient(circle at 14% 85%, color-mix(in srgb, var(--color-senda) 16%, transparent), transparent 28%),
+    linear-gradient(145deg, var(--color-paper) 0%, var(--color-senda-soft) 54%, var(--color-paper) 100%);
+}
+
+/* Ported from Universo Senda's RouteMap illustration + universe-drift
+   keyframe: slow-orbiting rings and a gently drifting connecting path. */
+.rs-routemap__ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  stroke: var(--color-line-strong);
+}
+
+.rs-routemap__path-group {
+  animation: rs-drift 34s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rs-routemap__ring--one {
+    animation: rs-logo-orbit-clockwise 90s linear infinite;
+  }
+
+  .rs-routemap__ring--two {
+    animation: rs-logo-orbit-counterclockwise 120s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-routemap__path-group {
+    animation: none;
+  }
+}
+
+@keyframes rs-drift {
+  from {
+    opacity: 0.72;
+    transform: translate3d(-0.4rem, 0.2rem, 0) scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0.5rem, -0.35rem, 0) scale(1.015);
+  }
+}
+
+.rs-atmosphere-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.3;
+  background-image:
+    radial-gradient(circle at 22% 28%, var(--color-ink) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 68% 72%, var(--color-sand) 0 1.2px, transparent 1.7px);
+  background-size: 9rem 9rem, 13rem 13rem;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+  pointer-events: none;
+}
+
+/* Ported from Universo Senda's pointer-illumination effect: a soft glow
+   that follows the mouse, plus an optional stronger glow on elements
+   marked [data-cursor-glow] (e.g. cards). Disabled for touch/coarse
+   pointers and prefers-reduced-motion. */
+.pointer-illumination {
+  --pointer-illumination-size: 16rem;
+  position: fixed;
+  top: calc(var(--pointer-illumination-size) / -2);
+  left: calc(var(--pointer-illumination-size) / -2);
+  z-index: 40;
+  width: var(--pointer-illumination-size);
+  height: var(--pointer-illumination-size);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-senda) 12%, transparent) 0%,
+    color-mix(in srgb, var(--color-clay) 7%, transparent) 38%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-100vw, -100vh, 0);
+  contain: strict;
+  transition: opacity 160ms ease-out;
+  will-change: transform, opacity;
+}
+
+.pointer-illumination[data-visible="true"] {
+  opacity: 0.82;
+}
+
+[data-cursor-glow] {
+  position: relative;
+  isolation: isolate;
+}
+
+[data-cursor-glow]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    9rem circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    color-mix(in srgb, var(--color-senda) 10%, transparent),
+    transparent 72%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease-out;
+}
+
+[data-cursor-glow][data-cursor-active="true"]::before {
+  opacity: 1;
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .pointer-illumination,
+  [data-cursor-glow]::before {
+    display: none;
+  }
+}
+
+@keyframes home-showcase-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0.45rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.home-showcase-slide {
+  animation: home-showcase-enter 240ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-showcase-slide {
+    animation: none;
+  }
+}
+
+.editorial-rule {
+  width: 3.25rem;
+  height: 2px;
+  background: var(--color-clay);
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-mist);
+  animation: skeleton-pulse 1.45s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton-pulse {
+  to {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

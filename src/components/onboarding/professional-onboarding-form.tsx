@@ -162,6 +162,20 @@ export function ProfessionalOnboardingForm({
   const formRef = useRef<HTMLFormElement>(null);
   const submittedSnapshot = useRef<FormData | null>(null);
 
+  // Guardar en el paso de presentación crea el perfil (necesario para subir
+  // documentación en el paso siguiente): un guardado exitoso ahí avanza
+  // directo, en vez de dejar un segundo botón "Continuar" que confunde con
+  // el guardado normal de borrador. Ajustado durante el render con useState
+  // (no useRef ni un efecto) siguiendo el patrón de React para "storing
+  // information from previous renders", el único que el compilador acepta.
+  const [previousStatus, setPreviousStatus] = useState(state.status);
+  if (previousStatus !== state.status) {
+    setPreviousStatus(state.status);
+    if (state.status === "saved" && step === 2) {
+      setStep(3);
+    }
+  }
+
   useEffect(() => {
     const warnBeforeLeaving = (event: BeforeUnloadEvent) => {
       if (!hasUnsavedChanges.current) return;
@@ -379,22 +393,9 @@ export function ProfessionalOnboardingForm({
             <ChevronLeft className="size-4" aria-hidden="true" /> Atrás
           </Button>
           {step === 2 ? (
-            state.status === "saved" ? (
-              <Button
-                key="continue-to-documents"
-                type="button"
-                onClick={(event) => {
-                  event.preventDefault();
-                  setStep(3);
-                }}
-              >
-                Continuar a documentos
-              </Button>
-            ) : (
-              <Button key="save-draft" type="submit" name="intent" value="draft">
-                Guardar borrador
-              </Button>
-            )
+            <Button key="save-draft" type="submit" name="intent" value="draft">
+              Guardar y continuar
+            </Button>
           ) : (
             <Button
               key={`next-${step}`}

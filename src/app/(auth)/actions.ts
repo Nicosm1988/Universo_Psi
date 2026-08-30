@@ -5,6 +5,12 @@ import { redirect } from "next/navigation";
 
 import { publicEnv } from "@/lib/env/public";
 import { safeInternalPath } from "@/lib/http/origin";
+import {
+  renderAuthEmailHtml,
+  renderAuthEmailText,
+  resolveAuthEmailContent,
+} from "@/lib/integrations/auth-email-templates";
+import { deliverTransactionalEmail } from "@/lib/integrations/email";
 import { TERMS_VERSION } from "@/lib/legal";
 import { createAdminClient, findAdminUserIdByEmail } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -126,16 +132,38 @@ export async function signUpAction(
       // generateLink's recovery type has no such guard and, once the link
       // is verified, GoTrue confirms the email as a side effect — so it
       // reliably re-establishes a fresh, confirmed session for this account.
-      const { error: linkError } = await admin.auth.admin.generateLink({
+      // generateLink never sends anything itself (by design — it hands back
+      // the token so the caller can deliver it), so we send it ourselves
+      // through the same branded pipeline the Send Email hook uses.
+      const { data: linkData, error: linkError } = await admin.auth.admin.generateLink({
         type: "recovery",
         email: parsed.data.email,
         options: { redirectTo: callback.toString() },
       });
-      if (linkError) {
-        console.error("test_account_generate_link_failed", { code: linkError.code });
+      if (linkError || !linkData.properties?.hashed_token) {
+        console.error("test_account_generate_link_failed", { code: linkError?.code });
         return {
           status: "error",
           message: "No pudimos reenviar el mail de confirmación. Probá de nuevo.",
+        };
+      }
+
+      const actionUrl = new URL("/auth/confirm", publicEnv.NEXT_PUBLIC_SITE_URL);
+      actionUrl.searchParams.set("token_hash", linkData.properties.hashed_token);
+      actionUrl.searchParams.set("type", "recovery");
+      actionUrl.searchParams.set("next", next);
+      const content = resolveAuthEmailContent("recovery");
+      const delivery = await deliverTransactionalEmail({
+        to: parsed.data.email,
+        subject: content.subject,
+        text: renderAuthEmailText(content, actionUrl.toString()),
+        html: renderAuthEmailHtml(content, actionUrl.toString()),
+      });
+      if (delivery.status !== "sent") {
+        console.error("test_account_email_delivery_failed", { status: delivery.status });
+        return {
+          status: "error",
+          message: "No pudimos enviar el mail de confirmación. Probá de nuevo.",
         };
       }
 

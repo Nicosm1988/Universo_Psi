@@ -118,13 +118,23 @@ export async function signUpAction(
         };
       }
 
-      const { error: resendError } = await supabase.auth.resend({
+      // supabase.auth.resend() silently no-ops here: GoTrue only resends
+      // within an existing pending-confirmation token window, which an
+      // admin-driven email_confirm:false reset does not create. generateLink
+      // mints a fresh signup token itself, which reliably fires the Send
+      // Email hook.
+      const { error: linkError } = await admin.auth.admin.generateLink({
         type: "signup",
         email: parsed.data.email,
-        options: { emailRedirectTo: callback.toString() },
+        password: parsed.data.password,
+        options: { redirectTo: callback.toString() },
       });
-      if (resendError) {
-        console.error("test_account_resend_failed", { code: resendError.code });
+      if (linkError) {
+        console.error("test_account_generate_link_failed", { code: linkError.code });
+        return {
+          status: "error",
+          message: "No pudimos reenviar el mail de confirmación. Probá de nuevo.",
+        };
       }
 
       return {

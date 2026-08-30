@@ -4,6 +4,7 @@ import {
 } from "@/components/public/home-network-showcase";
 import { Container } from "@/components/ui/container";
 import { publicRepository } from "@/lib/data/public-repository";
+import { modalityLabel } from "@/lib/demo/public-data";
 
 const ratingFormatter = new Intl.NumberFormat("es-AR", {
   minimumFractionDigits: 1,
@@ -22,9 +23,7 @@ async function getHomeShowcaseProfessionals(): Promise<HomeShowcaseProfessional[
 
     return professionals.map((professional) => {
       const reviewLabel = `${professional.reviewCount} ${professional.reviewCount === 1 ? "opinión" : "opiniones"}`;
-      const modalities = professional.modalities
-        .map((modality) => (modality === "online" ? "Online" : "Presencial"))
-        .join(" · ");
+      const modalities = professional.modalities.map((modality) => modalityLabel(modality)).join(" · ");
 
       return {
         slug: professional.slug,

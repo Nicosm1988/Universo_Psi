@@ -273,7 +273,8 @@ function modalityIds(entries: TaxonomyEntry[], filters?: string[]) {
       }
       return (
         (entry.code === "ONLINE" && wanted.has("online")) ||
-        (entry.code === "IN_PERSON" && wanted.has("presencial"))
+        (entry.code === "IN_PERSON" && wanted.has("presencial")) ||
+        (entry.code === "HOME_VISIT" && wanted.has("a_domicilio"))
       );
     })
     .map((entry) => entry.id);
@@ -386,6 +387,7 @@ function toProfessional(
         if (entry.code === "HYBRID") return ["online", "presencial"] as const;
         if (entry.code === "ONLINE") return ["online"] as const;
         if (entry.code === "IN_PERSON") return ["presencial"] as const;
+        if (entry.code === "HOME_VISIT") return ["a_domicilio"] as const;
         return [];
       }),
     ),

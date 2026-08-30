@@ -7,6 +7,7 @@ const serverEnvSchema = z.object({
   RATE_LIMIT_SALT: z.string().min(16),
   RESEND_API_KEY: z.string().min(1).optional(),
   EMAIL_FROM: z.email().optional(),
+  SEND_EMAIL_HOOK_SECRET: z.string().min(16).optional(),
   CRON_SECRET: z.string().min(32).optional(),
   // Mercado Pago credentials are namespaced per account so a future
   // migration from the founder's personal account to the company's account
@@ -28,6 +29,7 @@ export const serverEnv = serverEnvSchema.parse({
   RATE_LIMIT_SALT: process.env.RATE_LIMIT_SALT,
   RESEND_API_KEY: process.env.RESEND_API_KEY || undefined,
   EMAIL_FROM: process.env.EMAIL_FROM || undefined,
+  SEND_EMAIL_HOOK_SECRET: process.env.SEND_EMAIL_HOOK_SECRET || undefined,
   CRON_SECRET: process.env.CRON_SECRET || undefined,
   MERCADOPAGO_ACTIVE_ACCOUNT: process.env.MERCADOPAGO_ACTIVE_ACCOUNT || undefined,
   MERCADOPAGO_PERSONAL_ACCESS_TOKEN:

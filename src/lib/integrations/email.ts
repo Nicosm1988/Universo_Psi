@@ -13,6 +13,7 @@ export async function deliverTransactionalEmail(input: {
   to: string;
   subject: string;
   text: string;
+  html?: string;
 }): Promise<EmailDeliveryResult> {
   if (
     !serverEnv.RESEND_API_KEY ||
@@ -29,6 +30,7 @@ export async function deliverTransactionalEmail(input: {
     to: input.to,
     subject: input.subject,
     text: input.text,
+    ...(input.html ? { html: input.html } : {}),
   });
 
   if (error) return { status: "failed", reason: "provider_error" };

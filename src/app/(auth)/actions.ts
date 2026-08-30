@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { publicEnv } from "@/lib/env/public";
 import { safeInternalPath } from "@/lib/http/origin";
 import { TERMS_VERSION } from "@/lib/legal";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createAdminClient, findAdminUserIdByEmail } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import {
   passwordResetRequestSchema,
@@ -15,6 +15,12 @@ import {
   signUpSchema,
   type AuthFormState,
 } from "@/lib/validation/auth";
+
+// A single test account (this founder's own inbox) that always behaves like
+// a brand-new signup when submitted through /registro, so it can be reused
+// for repeated E2E QA runs without leaving stale "already registered"
+// state — but never touches the profile data attached to that account.
+const TEST_ACCOUNT_RESET_EMAIL = "nmarcosan@gmail.com";
 
 function formValue(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -91,10 +97,44 @@ export async function signUpAction(
       ? "/profesionales/sumarse"
       : "/dashboard",
   );
-  const callback = new URL("/auth/callback", publicEnv.NEXT_PUBLIC_SITE_URL);
+  const callback = new URL("/auth/confirm", publicEnv.NEXT_PUBLIC_SITE_URL);
   callback.searchParams.set("next", next);
 
   const supabase = await createClient();
+
+  if (parsed.data.email.trim().toLowerCase() === TEST_ACCOUNT_RESET_EMAIL) {
+    const existingUserId = await findAdminUserIdByEmail(parsed.data.email);
+    if (existingUserId) {
+      const admin = createAdminClient();
+      const { error: resetError } = await admin.auth.admin.updateUserById(existingUserId, {
+        password: parsed.data.password,
+        email_confirm: false,
+      });
+      if (resetError) {
+        console.error("test_account_reset_failed", { code: resetError.code });
+        return {
+          status: "error",
+          message: "No pudimos reiniciar la cuenta de prueba. Probá de nuevo.",
+        };
+      }
+
+      const { error: resendError } = await supabase.auth.resend({
+        type: "signup",
+        email: parsed.data.email,
+        options: { emailRedirectTo: callback.toString() },
+      });
+      if (resendError) {
+        console.error("test_account_resend_failed", { code: resendError.code });
+      }
+
+      return {
+        status: "success",
+        message: "Revisá tu email para confirmar la cuenta. El enlace vence por seguridad.",
+      };
+    }
+    // First time this test email signs up: fall through to a normal signup.
+  }
+
   const { data, error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
@@ -194,7 +234,7 @@ export async function requestPasswordResetAction(
   });
   if (!parsed.success) return invalidState(parsed.error);
 
-  const callback = new URL("/auth/callback", publicEnv.NEXT_PUBLIC_SITE_URL);
+  const callback = new URL("/auth/confirm", publicEnv.NEXT_PUBLIC_SITE_URL);
   callback.searchParams.set("next", "/actualizar-contrasena");
   const supabase = await createClient();
   await supabase.auth.resetPasswordForEmail(parsed.data.email, {

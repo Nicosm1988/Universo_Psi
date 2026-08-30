@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
-import { formatRating, getNeedLabel, type Professional } from "@/lib/demo/public-data";
+import { formatRating, getNeedLabel, modalityLabel, type Professional } from "@/lib/demo/public-data";
 
 type ProfessionalCardProps = {
   professional: Professional;
@@ -73,7 +73,7 @@ function ProfessionalListingCard({ professional, priority }: Omit<ProfessionalCa
           <div className="min-w-0">
             <dt className="font-semibold text-muted">Modalidad</dt>
             <dd className="mt-1 break-words leading-5 text-ink">
-              {professional.modalities.map((item) => (item === "online" ? "Online" : "Presencial")).join(" · ")}
+              {professional.modalities.map((item) => modalityLabel(item)).join(" · ")}
             </dd>
           </div>
           <div className="min-w-0">
@@ -164,7 +164,7 @@ export function ProfessionalCard({ professional, priority = false, variant = "ca
       <dl data-card-section="facts" className="relative grid grid-cols-2 overflow-hidden rounded-xl border border-line bg-line text-xs">
         <div className="min-w-0 bg-paper p-3">
           <dt className="font-semibold text-muted">Modalidad</dt>
-          <dd className="mt-1 break-words leading-5 text-ink">{professional.modalities.map((item) => (item === "online" ? "Online" : "Presencial")).join(" · ")}</dd>
+          <dd className="mt-1 break-words leading-5 text-ink">{professional.modalities.map((item) => modalityLabel(item)).join(" · ")}</dd>
         </div>
         <div className="min-w-0 border-l border-line bg-paper p-3">
           <dt className="font-semibold text-muted">Ubicación</dt>

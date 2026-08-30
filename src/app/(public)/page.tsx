@@ -132,6 +132,7 @@ export default function HomePage() {
                     <option value="">Online o presencial</option>
                     <option value="online">Online</option>
                     <option value="presencial">Presencial</option>
+                    <option value="a_domicilio">A domicilio</option>
                   </select>
                 </div>
 

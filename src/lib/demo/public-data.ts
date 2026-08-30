@@ -1,4 +1,14 @@
-export type Modality = "online" | "presencial";
+export type Modality = "online" | "presencial" | "a_domicilio";
+
+const MODALITY_LABELS: Record<Modality, string> = {
+  online: "Online",
+  presencial: "Presencial",
+  a_domicilio: "A domicilio",
+};
+
+export function modalityLabel(modality: Modality): string {
+  return MODALITY_LABELS[modality];
+}
 
 export type Professional = {
   id: string;
@@ -128,6 +138,7 @@ export const professionalTypeOptions = [
 export const modalityOptions = [
   { value: "online", label: "Online" },
   { value: "presencial", label: "Presencial" },
+  { value: "a_domicilio", label: "A domicilio" },
 ] as const;
 
 export const locationOptions = [

@@ -118,15 +118,17 @@ export async function signUpAction(
         };
       }
 
-      // supabase.auth.resend() silently no-ops here: GoTrue only resends
-      // within an existing pending-confirmation token window, which an
-      // admin-driven email_confirm:false reset does not create. generateLink
-      // mints a fresh signup token itself, which reliably fires the Send
-      // Email hook.
+      // Neither supabase.auth.resend() nor generateLink({type:"signup"})
+      // work here: resend silently no-ops (no pending token to resend) and
+      // generateLink's signup type refuses with "email_exists" because the
+      // row still exists (we only flip email_confirm, we never delete it —
+      // deleting would cascade and wipe the profile, which must survive).
+      // generateLink's recovery type has no such guard and, once the link
+      // is verified, GoTrue confirms the email as a side effect — so it
+      // reliably re-establishes a fresh, confirmed session for this account.
       const { error: linkError } = await admin.auth.admin.generateLink({
-        type: "signup",
+        type: "recovery",
         email: parsed.data.email,
-        password: parsed.data.password,
         options: { redirectTo: callback.toString() },
       });
       if (linkError) {
@@ -139,7 +141,7 @@ export async function signUpAction(
 
       return {
         status: "success",
-        message: "Revisá tu email para confirmar la cuenta. El enlace vence por seguridad.",
+        message: "Revisá tu email para completar el acceso a la cuenta de prueba. El enlace vence por seguridad.",
       };
     }
     console.info("test_account_reset_user_not_found", { email: parsed.data.email });

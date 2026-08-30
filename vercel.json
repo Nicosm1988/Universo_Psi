@@ -7,5 +7,12 @@
       "path": "/api/internal/notifications/process",
       "schedule": "17 12 * * *"
     }
-  ]
+  ],
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://universo-psi.vercel.app",
+    "NEXT_PUBLIC_SUPABASE_URL": "https://example.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY": "demo-mode-placeholder-publishable-key",
+    "SUPABASE_SECRET_KEY": "demo-mode-placeholder-secret-key",
+    "RATE_LIMIT_SALT": "demo-mode-placeholder-salt"
+  }
 }

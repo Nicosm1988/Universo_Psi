@@ -48,6 +48,7 @@ export async function signInAction(
   });
 
   if (error) {
+    console.error("signin_failed", { code: error.code, status: error.status });
     return {
       status: "error",
       message: "No pudimos iniciar sesión. Revisá tus datos o recuperá tu acceso.",
@@ -108,6 +109,7 @@ export async function signUpAction(
   });
 
   if (error) {
+    console.error("signup_failed", { code: error.code, status: error.status });
     return {
       status: "error",
       message:

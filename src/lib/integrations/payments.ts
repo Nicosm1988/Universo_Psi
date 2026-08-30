@@ -8,6 +8,22 @@ import { publicEnv } from "@/lib/env/public";
 const MERCADO_PAGO_API = "https://api.mercadopago.com";
 
 /**
+ * Thrown by the fetch* lookups below when Mercado Pago responds with a
+ * specific HTTP status, so callers can react to "resource not found" (404)
+ * differently from a real upstream failure — needed to recognize Mercado
+ * Pago's official webhook simulator, which always sends the fixed
+ * placeholder id "123456" that does not exist in any real account.
+ */
+export class MercadoPagoHttpError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "MercadoPagoHttpError";
+    this.status = status;
+  }
+}
+
+/**
  * A "payment account" is one Mercado Pago application/merchant account
  * (credentials + webhook secret). Today only "personal" is configured
  * (the founder's account, used for sandbox testing); "company" exists so
@@ -236,7 +252,10 @@ export async function fetchPreapproval(
 
   const body = await response.json().catch(() => null);
   if (!response.ok || !body?.id) {
-    throw new Error(`Mercado Pago preapproval lookup failed: ${response.status}`);
+    throw new MercadoPagoHttpError(
+      `Mercado Pago preapproval lookup failed: ${response.status}`,
+      response.status,
+    );
   }
 
   return {
@@ -270,7 +289,10 @@ export async function fetchAuthorizedPayment(
 
   const body = await response.json().catch(() => null);
   if (!response.ok || !body?.id) {
-    throw new Error(`Mercado Pago authorized payment lookup failed: ${response.status}`);
+    throw new MercadoPagoHttpError(
+      `Mercado Pago authorized payment lookup failed: ${response.status}`,
+      response.status,
+    );
   }
 
   return {

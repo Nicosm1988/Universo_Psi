@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import {
+  MercadoPagoHttpError,
   SUBSCRIPTION_STATUS_BY_PREAPPROVAL_STATUS,
   fetchAuthorizedPayment,
   fetchPreapproval,
@@ -11,6 +12,13 @@ import {
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
+
+// Mercado Pago's own "Simulate" button (developer panel) always sends this
+// exact placeholder resource id, for every notification type, in every
+// account — it does not exist in any real merchant account. A signed
+// request for this id that 404s against the real API is a connectivity
+// test, not a real event; anything else keeps failing loudly (502).
+const MERCADO_PAGO_SIMULATOR_TEST_ID = "123456";
 
 // Each Mercado Pago account (personal / company) is a distinct MP
 // application with its own webhook secret, so the account is encoded in
@@ -116,7 +124,10 @@ export async function POST(
       );
       const payment = await response.json().catch(() => null);
       if (!response.ok || !payment?.id || !payment?.external_reference) {
-        return NextResponse.json({ ok: false, reason: "upstream_lookup_failed" }, { status: 502 });
+        throw new MercadoPagoHttpError(
+          `Mercado Pago payment lookup failed: ${response.status}`,
+          response.status,
+        );
       }
 
       const { error } = await admin.rpc("apply_subscription_payment_event", {
@@ -133,6 +144,24 @@ export async function POST(
 
     return NextResponse.json({ ok: true, ignored: true });
   } catch (fetchError) {
+    const isSimulatorProbe =
+      String(dataId) === MERCADO_PAGO_SIMULATOR_TEST_ID &&
+      fetchError instanceof MercadoPagoHttpError &&
+      fetchError.status === 404;
+
+    if (isSimulatorProbe) {
+      // Signature already verified above; this is Mercado Pago's own test
+      // ping, not a real event. Acknowledge connectivity without touching
+      // any subscription — activation only ever happens for a real,
+      // resolvable resource.
+      console.info("synthetic Mercado Pago webhook test received", {
+        account,
+        type: notification.type,
+        externalEventId,
+      });
+      return NextResponse.json({ ok: true, synthetic: true });
+    }
+
     console.error("Failed to reconcile Mercado Pago webhook event", fetchError);
     return NextResponse.json({ ok: false, reason: "reconciliation_failed" }, { status: 502 });
   }

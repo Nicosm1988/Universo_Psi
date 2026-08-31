@@ -152,7 +152,19 @@ export async function signUpAction(
       actionUrl.searchParams.set("token_hash", linkData.properties.hashed_token);
       actionUrl.searchParams.set("type", "recovery");
       actionUrl.searchParams.set("next", next);
-      const content = resolveAuthEmailContent("recovery");
+      // GoTrue's recovery link is the only mechanism that works for an
+      // existing, admin-reset row (see comment above), but its default
+      // copy talks about a forgotten password — wrong framing for what is,
+      // from this account's point of view, a fresh signup. Override it.
+      const content = {
+        ...resolveAuthEmailContent("recovery"),
+        subject: "Confirmá el acceso a tu cuenta de prueba de Universo Psi",
+        kicker: "Cuenta de prueba",
+        heading: "Confirmá el acceso",
+        bodyText:
+          "Reiniciamos tu cuenta de prueba en Universo Psi para que puedas volver a probar el registro desde cero. Tocá el botón para confirmar el acceso con tu nueva contraseña.",
+        buttonLabel: "Confirmar acceso",
+      };
       const delivery = await deliverTransactionalEmail({
         to: parsed.data.email,
         subject: content.subject,

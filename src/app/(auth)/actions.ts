@@ -81,6 +81,27 @@ export async function signInAction(
   redirect(safeInternalPath(parsed.data.next ?? null) as Route);
 }
 
+export async function signInWithGoogleAction(formData: FormData) {
+  const next = safeInternalPath(formValue(formData, "next"));
+  const callback = new URL("/auth/callback", publicEnv.NEXT_PUBLIC_SITE_URL);
+  callback.searchParams.set("next", next);
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: callback.toString() },
+  });
+
+  if (error || !data.url) {
+    console.error("google_signin_failed", { code: error?.code });
+    const errorUrl = new URL("/ingresar", publicEnv.NEXT_PUBLIC_SITE_URL);
+    errorUrl.searchParams.set("error", "No pudimos iniciar sesión con Google. Probá de nuevo.");
+    redirect(`${errorUrl.pathname}${errorUrl.search}` as Route);
+  }
+
+  redirect(data.url as Route);
+}
+
 export async function signUpAction(
   _previousState: AuthFormState,
   formData: FormData,

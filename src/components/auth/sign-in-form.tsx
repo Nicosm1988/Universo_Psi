@@ -5,6 +5,7 @@ import type { Route } from "next";
 import { useActionState } from "react";
 
 import { signInAction } from "@/app/(auth)/actions";
+import { GoogleSignInButton } from "@/components/auth/google-sign-in-button";
 import { SubmitButton } from "@/components/auth/submit-button";
 import { initialAuthState } from "@/lib/validation/auth";
 
@@ -30,6 +31,12 @@ export function SignInForm({ next, error }: { next?: string; error?: string }) {
           {message}
         </p>
       ) : null}
+      <GoogleSignInButton next={next} />
+      <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-widest text-muted">
+        <span className="h-px flex-1 bg-line" aria-hidden="true" />
+        o con tu email
+        <span className="h-px flex-1 bg-line" aria-hidden="true" />
+      </div>
       <label className="block text-sm font-semibold text-ink">
         Email
         <input

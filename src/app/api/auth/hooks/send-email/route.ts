@@ -1,6 +1,5 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
-
 import { NextResponse, type NextRequest } from "next/server";
+import { Webhook, WebhookVerificationError } from "standardwebhooks";
 
 import { publicEnv } from "@/lib/env/public";
 import { serverEnv } from "@/lib/env/server";
@@ -17,27 +16,10 @@ import { deliverTransactionalEmail } from "@/lib/integrations/email";
 // rendered and delivered by us via Resend, and the link inside points at
 // our own domain (never *.supabase.co). Signed with the Standard Webhooks
 // scheme; secret comes from Supabase Dashboard > Authentication > Hooks.
-function verifySignature(
-  body: string,
-  headers: { id: string | null; timestamp: string | null; signature: string | null },
-  secret: string,
-): boolean {
-  if (!headers.id || !headers.timestamp || !headers.signature) return false;
-
-  const secretBytes = Buffer.from(secret.replace(/^v1,?/, "").replace(/^whsec_/, ""), "base64");
-  const signedContent = `${headers.id}.${headers.timestamp}.${body}`;
-  const expected = createHmac("sha256", secretBytes).update(signedContent).digest("base64");
-  const expectedBuffer = Buffer.from(expected);
-
-  return headers.signature
-    .split(" ")
-    .map((part) => part.split(",")[1])
-    .filter((sig): sig is string => Boolean(sig))
-    .some((sig) => {
-      const provided = Buffer.from(sig, "base64");
-      return provided.length === expectedBuffer.length && timingSafeEqual(provided, expectedBuffer);
-    });
-}
+// Uses the official `standardwebhooks` library rather than a hand-rolled
+// HMAC check — a prior manual implementation rejected genuinely-signed
+// Supabase requests (401 on every real signup, not just our own test
+// pings), which silently blocked real users from registering at all.
 
 type HookPayload = {
   user: { email: string };
@@ -55,25 +37,18 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.text();
-  const signed = verifySignature(
-    body,
-    {
-      id: request.headers.get("webhook-id"),
-      timestamp: request.headers.get("webhook-timestamp"),
-      signature: request.headers.get("webhook-signature"),
-    },
-    serverEnv.SEND_EMAIL_HOOK_SECRET,
-  );
-
-  if (!signed) {
-    console.error("send_email_hook_invalid_signature");
-    return NextResponse.json({ error: "invalid_signature" }, { status: 401 });
-  }
+  const headers = Object.fromEntries(request.headers);
 
   let payload: HookPayload;
   try {
-    payload = JSON.parse(body);
-  } catch {
+    const wh = new Webhook(serverEnv.SEND_EMAIL_HOOK_SECRET.replace(/^v1,/, ""));
+    payload = wh.verify(body, headers) as HookPayload;
+  } catch (err) {
+    if (err instanceof WebhookVerificationError) {
+      console.error("send_email_hook_invalid_signature");
+      return NextResponse.json({ error: "invalid_signature" }, { status: 401 });
+    }
+    console.error("send_email_hook_invalid_payload", err);
     return NextResponse.json({ error: "invalid_payload" }, { status: 400 });
   }
 

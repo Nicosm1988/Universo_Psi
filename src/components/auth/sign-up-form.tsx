@@ -133,6 +133,10 @@ export function SignUpForm({ next }: { next?: string }) {
         ¿Ya tenés cuenta?{" "}
         <Link className="font-semibold text-ink underline-offset-4 hover:underline" href="/ingresar">
           Ingresá
+        </Link>{" "}
+        ·{" "}
+        <Link className="font-semibold text-ink underline-offset-4 hover:underline" href="/recuperar-acceso">
+          Olvidé mi contraseña
         </Link>
       </p>
     </form>

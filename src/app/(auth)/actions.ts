@@ -3,6 +3,7 @@
 import type { Route } from "next";
 import { redirect } from "next/navigation";
 
+import { signInErrorMessage, signUpErrorMessage } from "@/lib/auth/error-messages";
 import { publicEnv } from "@/lib/env/public";
 import { safeInternalPath } from "@/lib/http/origin";
 import {
@@ -63,7 +64,7 @@ export async function signInAction(
     console.error("signin_failed", { code: error.code, status: error.status });
     return {
       status: "error",
-      message: "No pudimos iniciar sesión. Revisá tus datos o recuperá tu acceso.",
+      message: signInErrorMessage(error.code),
     };
   }
 
@@ -226,8 +227,7 @@ export async function signUpAction(
     console.error("signup_failed", { code: error.code, status: error.status });
     return {
       status: "error",
-      message:
-        "No pudimos crear la cuenta. Probá de nuevo o ingresá si ya te registraste.",
+      message: signUpErrorMessage(error.code),
     };
   }
 

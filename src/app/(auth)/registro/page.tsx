@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { googleAvailability } from "@/lib/auth/providers";
+
 import { SignUpForm } from "@/components/auth/sign-up-form";
 
 export const metadata: Metadata = {
@@ -13,7 +15,7 @@ export default async function SignUpPage({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  const params = await searchParams;
+  const [params, google] = await Promise.all([searchParams, googleAvailability()]);
 
   return (
     <>
@@ -24,7 +26,7 @@ export default async function SignUpPage({
       <p className="mt-4 leading-relaxed text-muted">
         La cuenta es gratuita. Tus datos de contacto nunca se publican sin tu permiso.
       </p>
-      <SignUpForm next={params.next} />
+      <SignUpForm googleAvailable={google === "available"} next={params.next} />
     </>
   );
 }

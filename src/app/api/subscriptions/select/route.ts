@@ -4,7 +4,7 @@ import { isSameOrigin } from "@/lib/http/origin";
 import { readJsonBody, RequestBodyTooLargeError } from "@/lib/http/body";
 import { serverEnv } from "@/lib/env/server";
 import { paymentAvailability } from "@/lib/integrations/payments";
-import { createCheckoutRedirectUrl } from "@/lib/subscriptions/checkout";
+import { createHostedCheckoutRedirectUrl as createCheckoutRedirectUrl } from "@/lib/subscriptions/checkout";
 import { TERMS_VERSION } from "@/lib/legal";
 import { createClient } from "@/lib/supabase/server";
 import { selectPlanSchema } from "@/lib/validation/subscription";
@@ -75,7 +75,6 @@ export async function POST(request: NextRequest) {
     ? await createCheckoutRedirectUrl(supabase, {
         subscriptionId,
         profileId: parsed.data.professionalProfileId,
-        email: claims.claims.email as string | undefined,
       })
     : null;
 

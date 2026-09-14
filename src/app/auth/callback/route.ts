@@ -8,7 +8,9 @@ export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   const next = safeInternalPath(request.nextUrl.searchParams.get("next"));
 
-  if (code) {
+  const providerError = request.nextUrl.searchParams.get("error");
+
+  if (code && !providerError) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
@@ -27,9 +29,12 @@ export async function GET(request: NextRequest) {
   }
 
   const errorUrl = new URL("/ingresar", request.url);
+  errorUrl.searchParams.set("next", next);
   errorUrl.searchParams.set(
     "error",
-    "El enlace no es válido o venció. Solicitá uno nuevo.",
+    providerError === "access_denied"
+      ? "El acceso con Google se canceló. Podés intentarlo de nuevo o ingresar con email."
+      : "No pudimos completar el acceso. Volvé a intentarlo desde esta página.",
   );
   return NextResponse.redirect(errorUrl);
 }

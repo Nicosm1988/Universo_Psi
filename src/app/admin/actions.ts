@@ -3,13 +3,10 @@
 import type { Route } from "next";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { z } from "zod";
 
 import { requireCurrentUser } from "@/lib/dal/auth";
-import {
-  SUBSCRIPTION_STATUS_BY_PREAPPROVAL_STATUS,
-  fetchPreapproval,
-  type PaymentAccountKey,
-} from "@/lib/integrations/payments";
+import { reconcileSubscriptionResources } from "@/lib/subscriptions/reconcile-search";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -85,13 +82,11 @@ export async function resolvePublicationAction(formData: FormData) {
 /**
  * Manual reconciliation: re-fetches the authoritative subscription state
  * from Mercado Pago (never trusts a client-supplied status) and applies it
- * through the same idempotent RPC the webhook uses. Only supports
- * RECURRING (Preapproval) subscriptions today — one-time payments have no
- * standalone resource to re-fetch once the original webhook is processed.
+ * through the same idempotent RPCs the webhook uses, including payment recovery.
  */
 export async function reconcileSubscriptionAction(formData: FormData) {
   const subscriptionId = formString(formData, "subscriptionId");
-  if (!subscriptionId) {
+  if (!z.uuid().safeParse(subscriptionId).success) {
     redirect("/admin/suscripciones?error=reconcile-invalid" as Route);
   }
 
@@ -107,34 +102,18 @@ export async function reconcileSubscriptionAction(formData: FormData) {
     redirect("/admin/suscripciones?error=reconcile-not-linked" as Route);
   }
 
-  const paymentModel = (subscription.plan_snapshot as { payment_model?: string } | null)
-    ?.payment_model;
-  if (paymentModel === "ONE_TIME") {
-    redirect("/admin/suscripciones?error=reconcile-one-time-unsupported" as Route);
-  }
-
+  const paymentModel = z.enum(["RECURRING", "ONE_TIME"]).safeParse(
+    (subscription.plan_snapshot as { payment_model?: string } | null)?.payment_model,
+  );
+  const account = z.enum(["personal", "company"]).safeParse(subscription.provider_account);
+  if (!paymentModel.success || !account.success) redirect("/admin/suscripciones?error=reconcile-invalid" as Route);
   try {
-    const preapproval = await fetchPreapproval(
-      subscription.provider_subscription_id,
-      subscription.provider_account as PaymentAccountKey,
-    );
-    const mappedStatus = SUBSCRIPTION_STATUS_BY_PREAPPROVAL_STATUS[preapproval.status];
-
-    const admin = createAdminClient();
-    const { error } = await admin.rpc("apply_subscription_webhook_event", {
-      p_provider_subscription_id: preapproval.id,
-      p_external_event_id: `manual:${Date.now()}`,
-      p_event_type: "manual_reconciliation",
-      p_status: mappedStatus ?? null,
-      p_period_start: null,
-      p_period_end: null,
-      p_next_payment_at: preapproval.nextPaymentDate,
-      p_payload: preapproval.raw,
-      p_occurred_at: new Date().toISOString(),
+    await reconcileSubscriptionResources({
+      subscriptionId, providerSubscriptionId: subscription.provider_subscription_id,
+      accountKey: account.data, paymentModel: paymentModel.data,
     });
-    if (error) throw error;
-  } catch (error) {
-    console.error("manual_reconciliation_failed", error);
+  } catch {
+    console.error("manual_reconciliation_failed");
     redirect("/admin/suscripciones?error=reconcile-failed" as Route);
   }
 

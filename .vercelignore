@@ -1,0 +1,26 @@
+# Keep generated dependencies/builds out of CLI uploads.
+.git
+.vercel
+node_modules
+.next
+*.tsbuildinfo
+npm-debug.log*
+
+# Local credentials and agent/browser configuration never ship.
+.env*
+.mcp.json
+.codex
+.agents
+.claude
+.playwright-mcp
+.playwright-cli
+
+# Local test results and Supabase connection/runtime caches.
+coverage
+playwright-report
+test-results
+output
+supabase/.temp
+supabase/.branches
+.supabase
+/PROMPT MAESTRO*.odt

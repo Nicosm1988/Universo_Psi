@@ -277,8 +277,26 @@ $$;
 
 savepoint unsupported_catalog_guardrails;
 
--- A forged relation to a historical professional type cannot be submitted or
--- published, even if a privileged actor later forces the profile status.
+-- A forged relation to a historical (inactive) professional type cannot be
+-- submitted or published, even if a privileged actor later forces the
+-- profile status. Since the mental-health taxonomy pivot (D-013) opened
+-- submission to every *active* professional type — psychiatrist included —
+-- this guardrail needs a genuinely inactive type to stay meaningful; reusing
+-- an active code here would no longer exercise the rejection path at all.
+-- Catalog writes need an elevated role; the session is currently
+-- impersonating 'authenticated' (set above), which RLS correctly forbids
+-- from writing to professional_types.
+reset role;
+insert into public.professional_types (id, code, slug, name, is_active)
+values (
+  '20000000-0000-4000-8000-000000000099',
+  'retired_test_type',
+  'retired-test-type',
+  'Tipo retirado (fixture)',
+  false
+);
+set local role authenticated;
+
 delete from public.professional_profile_types
 where professional_profile_id = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbb02';
 
@@ -289,7 +307,7 @@ insert into public.professional_profile_types (
 )
 values (
   'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbb02',
-  '20000000-0000-4000-8000-000000000003',
+  '20000000-0000-4000-8000-000000000099',
   true
 );
 

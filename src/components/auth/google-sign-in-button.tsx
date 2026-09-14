@@ -29,10 +29,12 @@ function GoogleGlyph() {
   );
 }
 
-export function GoogleSignInButton({ next }: { next?: string }) {
+// OAuth has its own form. If this submit button shares the password form,
+// browsers can choose it as the implicit submitter when Enter is pressed.
+export function GoogleSignInButton({ next }: { next: string }) {
   return (
     <form action={signInWithGoogleAction}>
-      <input type="hidden" name="next" value={next ?? ""} />
+      <input type="hidden" name="next" value={next} />
       <button
         type="submit"
         className="flex min-h-12 w-full items-center justify-center gap-3 rounded-2xl border border-[#747775] bg-white px-4 text-sm font-medium text-[#1f1f1f] transition hover:bg-[#f8f9fa] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/25"

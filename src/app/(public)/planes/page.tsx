@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { publicRepository } from "@/lib/data/public-repository";
+import { paymentAvailability } from "@/lib/integrations/payments";
 import { formatPlanPrice } from "@/lib/demo/public-data";
 
 export const metadata: Metadata = {
@@ -15,21 +16,23 @@ export const metadata: Metadata = {
 
 export default async function PlansPage() {
   const plans = await publicRepository.listPlans();
+  const publishedPlans = plans.filter((plan) => plan.monthlyPrice !== null);
+  const payment = paymentAvailability();
 
   return (
     <>
       <PageHero
         eyebrow="Planes para profesionales"
         title="Una suscripción clara, sin promesas de contactos garantizados."
-        description="Un solo plan con todo lo necesario para tener presencia profesional en Universo Psi. Al suscribirte te redirigimos a Mercado Pago para completar el pago."
+        description={payment.configured ? "Elegí tu plan. La suscripción se activa cuando confirmamos el pago con Mercado Pago." : "Elegí tu plan y prepará tu perfil. El cobro en línea todavía no está habilitado."}
         breadcrumbs={[{ label: "Inicio", href: "/" }, { label: "Para profesionales", href: "/para-profesionales" }, { label: "Planes" }]}
-        aside={<p className="rounded-[1.25rem] border border-line bg-paper p-5 text-sm leading-6 text-muted"><strong className="block text-ink">Suscripción mensual</strong>El cobro se procesa mensualmente a través de Mercado Pago. Podés cancelar cuando quieras desde tu panel.</p>}
+        aside={<p className="rounded-[1.25rem] border border-line bg-paper p-5 text-sm leading-6 text-muted"><strong className="block text-ink">Suscripción mensual</strong>Cuando el cobro esté habilitado, la autorización del débito se realiza en Mercado Pago. La selección del plan no genera un cargo.</p>}
       />
 
       <section className="bg-canvas py-14 sm:py-18 lg:py-20">
         <Container>
           <div className="grid gap-5 lg:grid-cols-3 lg:items-start">
-            {plans.map((plan) => (
+            {publishedPlans.map((plan) => (
               <article key={plan.slug} className={`relative rounded-[1.6rem] border bg-paper p-6 sm:p-7 ${plan.featured ? "border-senda shadow-soft lg:-mt-4 lg:pb-10 lg:pt-8" : "border-line"}`}>
                 {plan.badge ? <Badge tone="senda">{plan.badge}</Badge> : <span className="block h-6" />}
                 <h2 className="mt-5 font-display text-3xl font-semibold tracking-[-0.035em] text-ink">{plan.name}</h2>
@@ -46,6 +49,9 @@ export default async function PlansPage() {
               </article>
             ))}
           </div>
+          {publishedPlans.length === 0 ? (
+            <p className="rounded-[1.25rem] border border-line bg-paper p-6 text-center text-muted">Todavía no hay planes disponibles para seleccionar. Volvé a consultar más adelante.</p>
+          ) : null}
           <p className="mx-auto mt-8 max-w-3xl text-center text-xs leading-5 text-muted">La prioridad de visibilidad es moderada, siempre identificada y nunca reemplaza la pertinencia temática. Ningún plan garantiza una cantidad de contactos.</p>
         </Container>
       </section>
@@ -63,7 +69,7 @@ export default async function PlansPage() {
                 ["¿El plan garantiza consultas?", "No. La demanda depende de cada especialidad, momento y encaje. La plataforma mejora la posibilidad de ser encontrado y ofrece información para comprender el rendimiento."],
                 ["¿Puedo publicar mi perfil sin verificación?", "Podés prepararlo y enviarlo a revisión. Sólo se publica cuando cumple los requisitos definidos para tu tipo profesional."],
                 ["¿Cómo se identifica un perfil destacado?", "Con una etiqueta visible en la tarjeta y el perfil. La verificación, las opiniones y el encaje permanecen como señales independientes."],
-                ["¿Puedo cancelar la suscripción?", "Sí, desde tu panel de Mercado Pago o contactándonos. La cancelación aplica al finalizar el período ya pagado."],
+                ["¿Puedo cancelar la suscripción?", "La cancelación del débito se gestiona en tu cuenta de Mercado Pago. Este sitio muestra el estado una vez confirmado por el proveedor."],
               ].map(([question, answer]) => (
                 <details key={question} className="group py-5">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-5 font-semibold text-ink focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/25"><span>{question}</span><span aria-hidden="true" className="text-xl font-normal text-senda-dark group-open:rotate-45">+</span></summary>

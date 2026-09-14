@@ -22,9 +22,12 @@ export function ContactForm({
   const [errorMessage, setErrorMessage] = useState("");
   const idempotencyKey = useRef<string | null>(null);
   const contactStarted = useRef(false);
+  const submitting = useRef(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting.current) return;
+    submitting.current = true;
     setState("submitting");
     setErrorMessage("");
     const form = event.currentTarget;
@@ -73,6 +76,8 @@ export function ContactForm({
       setState("success");
     } catch {
       setState("error");
+    } finally {
+      submitting.current = false;
     }
   }
 
@@ -88,6 +93,7 @@ export function ContactForm({
             ? `Registramos la consulta de prueba asociada a ${professionalName}. Este perfil es ficticio y no contacta a una persona real.`
             : `La consulta quedó disponible en el panel de ${professionalName}. Tus datos de contacto no se publican.`}
         </p>
+        <p className="mt-3 text-sm leading-6 text-muted">Todavía no hay un turno confirmado. La coordinación continúa cuando el profesional te responda.</p>
         <Button className="mt-5" variant="secondary" onClick={() => setState("idle")}>
           Enviar otra consulta
         </Button>
@@ -98,6 +104,7 @@ export function ContactForm({
   return (
     <form
       onSubmit={submit}
+      aria-busy={state === "submitting"}
       onFocusCapture={() => {
         if (contactStarted.current) return;
         contactStarted.current = true;
@@ -179,7 +186,7 @@ export function ContactForm({
           minLength={20}
           rows={5}
           className="mt-2 w-full resize-y rounded-xl border border-line-strong bg-paper px-4 py-3 font-normal leading-6 text-ink placeholder:text-muted/65 focus-visible:border-senda focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/20"
-          placeholder="Contale brevemente qué momento estás atravesando…"
+          placeholder="Por ejemplo: quisiera consultar modalidad y horarios para una primera entrevista."
         />
       </label>
       <div className="absolute left-[-9999px] top-auto size-px overflow-hidden" aria-hidden="true">

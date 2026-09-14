@@ -12,6 +12,7 @@ export const AUTH_E2E = {
   professionalLastName: "Navegador E2E",
   professionalFullName: "Nadia Navegador E2E",
   credentialTitle: "Certificación ficticia de navegador",
+  licenseCredentialTitle: "Matrícula ficticia de navegador",
   legalVersion: "2026-08",
 } as const;
 

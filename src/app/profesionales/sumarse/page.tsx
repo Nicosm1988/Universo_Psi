@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 
 import { Container } from "@/components/ui/container";
@@ -42,7 +43,7 @@ export default async function ProfessionalOnboardingPage({
       supabase.from("services").select("id,name,description").eq("is_active", true).order("sort_order"),
       supabase.from("modalities").select("id,name").eq("is_active", true).order("sort_order"),
       supabase.from("languages").select("id,name").eq("is_active", true).order("sort_order"),
-      supabase.from("plans").select("code,name,description").eq("is_active", true).order("sort_order"),
+      supabase.from("plans").select("code,name,description,price_amount,currency").eq("is_active", true).eq("pricing_status", "PUBLISHED").order("sort_order"),
       supabase.from("credential_types").select("id,name").eq("is_active", true).order("sort_order"),
       supabase.rpc("my_credential_statuses"),
       supabase.rpc("my_professional_profile").maybeSingle(),
@@ -118,7 +119,8 @@ export default async function ProfessionalOnboardingPage({
   return (
     <main id="contenido" className="bg-paper py-12 sm:py-20">
       <Container className="max-w-4xl">
-        <div className="mb-5 flex justify-end">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <Link href="/dashboard" className="inline-flex min-h-11 items-center font-semibold text-senda underline underline-offset-4">Volver a mi espacio</Link>
           <ThemeToggle />
         </div>
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-senda">Perfil profesional</p>

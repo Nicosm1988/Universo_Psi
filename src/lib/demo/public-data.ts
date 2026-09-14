@@ -1085,7 +1085,7 @@ const agreements: Agreement[] = [
 
 const plans: Plan[] = [
   {
-    slug: "base",
+    slug: "professional_monthly",
     name: "Profesional",
     description: "Un solo plan con todo lo necesario para tener presencia profesional y recibir consultas.",
     monthlyPrice: 120000,

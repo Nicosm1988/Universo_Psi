@@ -91,7 +91,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       suppressHydrationWarning
     >
       <head>
-        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
+        <script id="universo-psi-document-bootstrap" nonce={nonce} dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
       </head>
       <body>
         <a href="#contenido" className="skip-link">

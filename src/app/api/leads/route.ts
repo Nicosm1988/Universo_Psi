@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(genericSuccess, { status: 201 });
   }
 
-  const fingerprint = requestFingerprint(request);
+  const fingerprint = requestFingerprint(request.headers);
   const rawIdempotencyKey = request.headers.get("idempotency-key")?.slice(0, 160);
   const idempotencyKeyHash = hashIdentifier(
     rawIdempotencyKey

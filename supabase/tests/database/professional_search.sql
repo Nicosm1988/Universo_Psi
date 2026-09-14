@@ -121,10 +121,13 @@ begin
       v_accented, v_unaccented;
   end if;
 
+  -- need_id 0007 (learning_difficulties) replaces the old 0001 (anxiety):
+  -- the mental-health taxonomy pivot reseeded Inés (a psicopedagoga) with
+  -- needs that fit her specialty; she was never seeded with 'anxiety'.
   if not exists (
     select 1
     from public.rank_professionals(
-      p_need_ids => array['22000000-0000-4000-8000-000000000001'::uuid],
+      p_need_ids => array['22000000-0000-4000-8000-000000000007'::uuid],
       p_modality_ids => array['26000000-0000-4000-8000-000000000001'::uuid],
       p_search => 'ines psicopedagogia'
     ) r

@@ -1,0 +1,10 @@
+{
+  "20260815161322_initial_red_senda_schema.sql": "07261305c2556861ebf87cd97b90a208144cb87166c3ef5e49e14e192b2cb419",
+  "20260815174429_fix_professional_submission_workflow.sql": "7f87dac692064fcc2574382e29c92793dfef77f7e2e1a319447ac183ff4e7974",
+  "20260815210300_add_accent_insensitive_professional_search.sql": "7de5501cff1420f7ba94171c3687ec6fe69b35b03714d35a38d52b1a1332840d",
+  "20260815233718_restrict_public_catalog_to_orientation_professionals.sql": "3b7f8d610b50744f5bfa7b425555047933565db94c5c65b2a5f0d011e1e0f3bb",
+  "20260819120000_add_article_and_agreement_editorial_fields.sql": "f609b79d43e521285e031e56105104453fad2ccc514b92932c504e1ef1a5498a",
+  "20260830000000_expand_public_catalog_to_mental_health.sql": "c37088b37aea9098deb670f8fcb613bbcbf8cddb973be9729b164dcd1aa690ca",
+  "20260830020000_add_mercadopago_subscription_support.sql": "a00c3035a28ebc17bd169bc576c6f596f2c7a1ae7ede80e8ee539cfdb038bc21",
+  "20260830030000_allow_digits_in_plan_code.sql": "6c669f486f34ebff50beb6379648d62aa339d0ef1844c4506b606d09fe37cddb"
+}

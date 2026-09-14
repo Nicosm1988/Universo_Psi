@@ -24,13 +24,19 @@ const serverEnvSchema = z.object({
   // migration from the founder's personal account to the company's account
   // is a config change (flip MERCADOPAGO_ACTIVE_ACCOUNT), never a code
   // change or a rewrite of historical data. See src/lib/integrations/payments.ts.
+  // Close checkout independently; keep credentials for historical reconciliation.
+  MERCADOPAGO_CHECKOUT_ENABLED: z.enum(["true", "false"]).default("false"),
   MERCADOPAGO_ACTIVE_ACCOUNT: z.enum(["personal", "company"]).default("personal"),
   MERCADOPAGO_PERSONAL_ACCESS_TOKEN: z.string().min(1).optional(),
   MERCADOPAGO_PERSONAL_PUBLIC_KEY: z.string().min(1).optional(),
   MERCADOPAGO_PERSONAL_WEBHOOK_SECRET: z.string().min(16).optional(),
+  MERCADOPAGO_PERSONAL_ENVIRONMENT: z.enum(["sandbox", "production"]).optional(),
+  MERCADOPAGO_PERSONAL_COLLECTOR_ID: z.string().regex(/^\d+$/).optional(),
   MERCADOPAGO_COMPANY_ACCESS_TOKEN: z.string().min(1).optional(),
   MERCADOPAGO_COMPANY_PUBLIC_KEY: z.string().min(1).optional(),
   MERCADOPAGO_COMPANY_WEBHOOK_SECRET: z.string().min(16).optional(),
+  MERCADOPAGO_COMPANY_ENVIRONMENT: z.enum(["sandbox", "production"]).optional(),
+  MERCADOPAGO_COMPANY_COLLECTOR_ID: z.string().regex(/^\d+$/).optional(),
   SENTRY_DSN: z.url().optional(),
   UNIVERSO_PSI_TEST_MODE: z.enum(["true", "false"]).default("false"),
 });
@@ -42,6 +48,7 @@ export const serverEnv = serverEnvSchema.parse({
   EMAIL_FROM: process.env.EMAIL_FROM || undefined,
   SEND_EMAIL_HOOK_SECRET: process.env.SEND_EMAIL_HOOK_SECRET || undefined,
   CRON_SECRET: process.env.CRON_SECRET || undefined,
+  MERCADOPAGO_CHECKOUT_ENABLED: process.env.MERCADOPAGO_CHECKOUT_ENABLED || undefined,
   MERCADOPAGO_ACTIVE_ACCOUNT: process.env.MERCADOPAGO_ACTIVE_ACCOUNT || undefined,
   MERCADOPAGO_PERSONAL_ACCESS_TOKEN:
     process.env.MERCADOPAGO_PERSONAL_ACCESS_TOKEN || undefined,
@@ -49,12 +56,20 @@ export const serverEnv = serverEnvSchema.parse({
     process.env.MERCADOPAGO_PERSONAL_PUBLIC_KEY || undefined,
   MERCADOPAGO_PERSONAL_WEBHOOK_SECRET:
     process.env.MERCADOPAGO_PERSONAL_WEBHOOK_SECRET || undefined,
+  MERCADOPAGO_PERSONAL_ENVIRONMENT:
+    process.env.MERCADOPAGO_PERSONAL_ENVIRONMENT || undefined,
+  MERCADOPAGO_PERSONAL_COLLECTOR_ID:
+    process.env.MERCADOPAGO_PERSONAL_COLLECTOR_ID || undefined,
   MERCADOPAGO_COMPANY_ACCESS_TOKEN:
     process.env.MERCADOPAGO_COMPANY_ACCESS_TOKEN || undefined,
   MERCADOPAGO_COMPANY_PUBLIC_KEY:
     process.env.MERCADOPAGO_COMPANY_PUBLIC_KEY || undefined,
   MERCADOPAGO_COMPANY_WEBHOOK_SECRET:
     process.env.MERCADOPAGO_COMPANY_WEBHOOK_SECRET || undefined,
+  MERCADOPAGO_COMPANY_ENVIRONMENT:
+    process.env.MERCADOPAGO_COMPANY_ENVIRONMENT || undefined,
+  MERCADOPAGO_COMPANY_COLLECTOR_ID:
+    process.env.MERCADOPAGO_COMPANY_COLLECTOR_ID || undefined,
   SENTRY_DSN: process.env.SENTRY_DSN || undefined,
   UNIVERSO_PSI_TEST_MODE: process.env.UNIVERSO_PSI_TEST_MODE ?? "false",
 });

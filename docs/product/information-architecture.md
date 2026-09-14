@@ -66,6 +66,8 @@ Ocultar navegación no es autorización. Cada ruta, consulta y mutación verific
 
 **Breadcrumbs:** obligatorios en perfiles, contenidos, landings de taxonomía y convenios publicables.
 
+**Espacio profesional (13/09/2026):** Inicio usa `/dashboard`; Consultas y Suscripción usan `?seccion=consultas` y `?seccion=suscripcion`, con estados vacíos navegables incluso sin perfil. Mi perfil abre `/profesionales/sumarse`, con regreso al espacio. Contenido abre la biblioteca existente `/recursos`; no representa un editor de publicaciones.
+
 ## Taxonomía visible
 
 La entrada primaria es la búsqueda por texto y `Need` (situación). Se cruza con `ProfessionalType`, `Service`, `Specialty`, `Audience`, `CareerStage`, `Modality`, `Location`, `Language`, `Industry`, disponibilidad y convenio. El selector de tipo inicia en “Profesional orientador” y sólo ofrece “Psicólogo/a” y “Psicopedagogo/a”. No hay precio en taxonomía visible, filtros ni orden.

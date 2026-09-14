@@ -2,6 +2,8 @@ import { ArrowRight, BarChart3, CircleDot, Eye, MessageSquareText, UserRoundChec
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { retrySubscriptionCheckoutAction } from "@/app/dashboard/subscription-actions";
+import { paymentAvailability } from "@/lib/integrations/payments";
 import { updateLeadStatusAction } from "@/app/dashboard/actions";
 import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
@@ -62,7 +64,7 @@ type DashboardLead = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ notice?: string; error?: string }>;
+  searchParams: Promise<{ notice?: string; error?: string; subscription?: string; seccion?: string }>;
 }) {
   const feedback = await searchParams;
   const user = await getCurrentUser();
@@ -79,37 +81,29 @@ export default async function DashboardPage({
   }
   const profile = profileRow as MyProfessionalProfile | null;
 
-  if (!profile) {
-    return (
-      <section className="rounded-[2rem] border border-line bg-paper p-7 sm:p-10">
-        <div className="flex size-12 items-center justify-center rounded-full bg-senda/10 text-senda">
-          <UserRoundCheck aria-hidden="true" />
-        </div>
-        <p className="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-senda">Primer paso</p>
-        <h1 className="mt-3 max-w-xl text-4xl font-semibold tracking-[-0.04em] text-ink">Construí un perfil que explique cómo podés ayudar.</h1>
-        <p className="mt-5 max-w-2xl leading-relaxed text-muted">Guardalo como borrador, cargá tus credenciales de forma privada y envialo cuando esté listo.</p>
-        <Link className={`${buttonStyles({ size: "lg" })} mt-8`} href="/profesionales/sumarse">
-          Crear mi perfil <ArrowRight className="size-4" aria-hidden="true" />
-        </Link>
-      </section>
-    );
-  }
+  const section = ["consultas", "suscripcion"].includes(feedback.seccion ?? "") ? feedback.seccion : undefined;
 
-  const [{ data: leads }, { data: subscription }, { data: metrics }] = await Promise.all([
-    supabase.rpc("my_professional_leads", { p_profile_id: profile.id, p_limit: 20 }),
-    supabase
+  const [leadResult, subscriptionResult, metricsResult] = profile ? await Promise.all([
+    section !== "suscripcion" ? supabase.rpc("my_professional_leads", { p_profile_id: profile.id, p_limit: 20 }) : Promise.resolve({ data: null, error: null }),
+    section !== "consultas" ? supabase
       .from("subscriptions")
-      .select("status,current_period_end,plans(code,name)")
+      .select("id,status,provider_account,current_period_end,plans(code,name)")
       .eq("professional_profile_id", profile.id)
-      .in("status", ["PENDING_PAYMENT", "TRIALING", "ACTIVE", "PAST_DUE", "PAUSED"])
-      .maybeSingle(),
-    supabase
+      .order("created_at", { ascending: false }).limit(1)
+      .maybeSingle() : Promise.resolve({ data: null, error: null }),
+    !section ? supabase
       .from("professional_metrics_daily")
       .select("impressions,profile_views,contact_starts,leads")
       .eq("professional_profile_id", profile.id)
       .order("metric_date", { ascending: false })
-      .limit(30),
-  ]);
+      .limit(30) : Promise.resolve({ data: null, error: null }),
+  ]) : [{ data: null, error: null }, { data: null, error: null }, { data: null, error: null }];
+  if (leadResult.error || subscriptionResult.error || metricsResult.error) {
+    throw new Error("No se pudo cargar la información del panel.");
+  }
+  const leads = leadResult.data;
+  const subscription = subscriptionResult.data;
+  const metrics = metricsResult.data;
 
   const totals = (metrics ?? []).reduce(
     (sum, day) => ({
@@ -124,9 +118,12 @@ export default async function DashboardPage({
   const newLeadCount = professionalLeads.filter((lead) => lead.status === "NEW").length;
   const planRelation = subscription?.plans as { code?: string; name?: string } | { code?: string; name?: string }[] | null | undefined;
   const plan = Array.isArray(planRelation) ? planRelation[0] : planRelation;
+  const account = subscription?.provider_account;
+  const payment = paymentAvailability(account === "personal" || account === "company" ? account : undefined);
 
   return (
     <div className="space-y-7">
+      {section ? <h1 className="sr-only">{section === "consultas" ? "Consultas" : "Suscripción"}</h1> : null}
       {feedback.notice === "lead-updated" ? (
         <p className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900" role="status">
           Estado de la consulta actualizado.
@@ -134,10 +131,23 @@ export default async function DashboardPage({
       ) : null}
       {feedback.error ? (
         <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900" role="alert">
-          No pudimos actualizar esa consulta. Revisá la transición e intentá nuevamente.
+          {feedback.error === "signout" ? "No pudimos cerrar la sesión. Intentá nuevamente." : "No pudimos actualizar esa consulta. Revisá la transición e intentá nuevamente."}
         </p>
       ) : null}
-      <section className="rounded-[2rem] border border-line bg-paper p-7 sm:p-9">
+      {!section && !profile ? (
+      <section className="rounded-[2rem] border border-line bg-paper p-7 sm:p-10">
+        <div className="flex size-12 items-center justify-center rounded-full bg-senda/10 text-senda">
+          <UserRoundCheck aria-hidden="true" />
+        </div>
+        <p className="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-senda">Primer paso</p>
+        <h1 className="mt-3 max-w-xl text-4xl font-semibold tracking-[-0.04em] text-ink">Construí un perfil que explique cómo podés ayudar.</h1>
+        <p className="mt-5 max-w-2xl leading-relaxed text-muted">Guardalo como borrador, cargá tus credenciales de forma privada y envialo cuando esté listo.</p>
+        <Link className={`${buttonStyles({ size: "lg" })} mt-8`} href="/profesionales/sumarse">
+          Crear mi perfil <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
+      </section>
+      ) : null}
+      {!section && profile ? <section className="rounded-[2rem] border border-line bg-paper p-7 sm:p-9">
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-senda">Panel profesional</p>
@@ -162,9 +172,9 @@ export default async function DashboardPage({
             </div>
           ))}
         </div>
-      </section>
+      </section> : null}
 
-      <section id="leads" className="scroll-mt-28 rounded-[2rem] border border-line bg-paper p-7 sm:p-9">
+      {section !== "suscripcion" ? <section id="leads" className="scroll-mt-28 rounded-[2rem] border border-line bg-paper p-7 sm:p-9">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-senda">Consultas</p>
@@ -206,20 +216,23 @@ export default async function DashboardPage({
           <div className="mt-6 rounded-3xl border border-dashed border-line bg-mist p-8 text-center">
             <MessageSquareText className="mx-auto size-7 text-senda" aria-hidden="true" />
             <p className="mt-4 font-semibold text-ink">Todavía no llegaron consultas.</p>
-            <p className="mt-2 text-sm text-muted">Cuando alguien te contacte, vas a encontrar el mensaje y su preferencia de contacto acá.</p>
+            <p className="mt-2 text-sm text-muted">{profile ? "Cuando alguien te contacte, vas a encontrar el mensaje y su preferencia de contacto acá." : "Primero creá tu perfil profesional para poder recibir consultas."}</p>
+            {!profile ? <Link className={`${buttonStyles({ variant: "secondary" })} mt-5`} href="/profesionales/sumarse">Crear mi perfil</Link> : null}
           </div>
         )}
-      </section>
+      </section> : null}
 
-      <div className="grid gap-7 xl:grid-cols-2">
+      {section !== "consultas" ? <div className="grid gap-7">
         <section id="suscripcion" className="scroll-mt-28 rounded-[2rem] border border-line bg-paper p-7">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-senda">Suscripción</p>
           <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink">{plan?.name ?? "Sin plan seleccionado"}</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
             {subscription?.status === "ACTIVE"
-              ? "Tu suscripción está activa. El próximo cobro es automático a través de Mercado Pago."
+              ? "Tu suscripción está activa. Confirmamos el pago con Mercado Pago."
               : subscription?.status === "PENDING_PAYMENT"
-                ? "Tu elección está guardada. Completá el pago en Mercado Pago para activar tu suscripción."
+                ? payment.configured
+                  ? "Tu elección está guardada y el pago todavía no está confirmado. Si ya lo autorizaste, esperá la confirmación de Mercado Pago."
+                  : "Tu elección está guardada. El cobro en línea todavía no está habilitado."
                 : subscription?.status === "PAST_DUE"
                   ? "Hay un pago pendiente. Revisá tu método de pago en Mercado Pago para evitar la suspensión."
                   : subscription?.status === "PAUSED"
@@ -228,15 +241,19 @@ export default async function DashboardPage({
                       ? "Tu suscripción fue cancelada."
                       : "Elegí el plan para tener presencia profesional en Universo Psi."}
           </p>
+          {feedback.subscription === "checkout-failure" ? <p className="mt-4 text-sm text-red-800" role="alert">El pago no se completó. Podés revisar el resultado en Mercado Pago y volver a intentar.</p> : null}
+          {feedback.subscription === "checkout-error" ? <p className="mt-4 text-sm text-red-800" role="alert">No pudimos retomar el pago. Volvé a intentar en unos minutos. Si continúa, contactanos para revisar el intento existente.</p> : null}
+          {["checkout-return", "checkout-pending"].includes(feedback.subscription ?? "") && subscription?.status !== "ACTIVE" ? <p className="mt-4 text-sm text-muted" role="status">Recibimos tu regreso de Mercado Pago. Estamos esperando la confirmación del pago; volver a esta página no lo acredita.</p> : null}
+          {subscription?.status === "PENDING_PAYMENT" && payment.configured ? <form action={retrySubscriptionCheckoutAction} className="mt-6">
+            <input type="hidden" name="subscriptionId" value={subscription.id} />
+            <button className={buttonStyles({ variant: "primary" })} type="submit">Continuar con el pago</button>
+          </form> : null}
+          {!profile ? <p className="mt-4 text-sm text-muted">Para suscribirte, primero creá tu perfil profesional. Podés guardarlo como borrador.</p> : null}
+          {!profile ? <Link className={`${buttonStyles({ variant: "primary" })} mt-6 mr-3`} href="/profesionales/sumarse">Crear mi perfil</Link> : null}
           <Link className={`${buttonStyles({ variant: "secondary" })} mt-6`} href="/planes">Ver planes</Link>
         </section>
-        <section id="contenido" className="scroll-mt-28 rounded-[2rem] border border-line bg-paper p-7">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-senda">Autoridad</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink">Compartí conocimiento</h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted">La publicación profesional llegará en la siguiente iteración. La arquitectura editorial ya contempla autoría y moderación.</p>
-          <span className="mt-6 inline-flex rounded-full bg-mist px-4 py-2 text-xs font-bold text-muted">Próximamente</span>
-        </section>
-      </div>
+
+      </div> : null}
     </div>
   );
 }

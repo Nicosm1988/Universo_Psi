@@ -16,6 +16,11 @@ import { formatRating, getNeedLabel } from "@/lib/demo/public-data";
 type ProfessionalPageProps = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
+  // QA resuelve cada perfil al visitarlo, sin precargar el catálogo en el build.
+  if (process.env.SITE_NOINDEX === "true" || process.env.VERCEL_ENV === "preview") {
+    return [];
+  }
+
   return publicRepository.listProfessionalSlugs();
 }
 

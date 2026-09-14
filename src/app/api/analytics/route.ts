@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     typeof claimsData?.claims?.sub === "string" ? claimsData.claims.sub : null;
   const anonymousIdHash = parsed.data.anonymousId
     ? hashIdentifier(parsed.data.anonymousId)
-    : requestFingerprint(request);
+    : requestFingerprint(request.headers);
   const sessionId = parsed.data.sessionId
     ? hashIdentifier(parsed.data.sessionId)
     : null;
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
   const admin = createAdminClient();
   const rateLimit = await consumeRateLimit(admin, {
     scope: "analytics.network",
-    keyHash: requestFingerprint(request),
+    keyHash: requestFingerprint(request.headers),
     limit: 120,
     windowSeconds: 60,
   });

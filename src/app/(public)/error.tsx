@@ -5,7 +5,7 @@ import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
-export default function PublicError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function PublicError({ retry }: { error: Error & { digest?: string }; retry: () => void }) {
   return (
     <section className="bg-canvas py-20 sm:py-28" aria-labelledby="public-error-title">
       <Container className="max-w-3xl text-center">
@@ -19,7 +19,7 @@ export default function PublicError({ reset }: { error: Error & { digest?: strin
         <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-muted">
           Tus datos no se perdieron. Podés volver a intentar ahora o regresar más tarde.
         </p>
-        <Button className="mt-7" onClick={reset}>Volver a intentar</Button>
+        <Button className="mt-7" onClick={retry}>Volver a intentar</Button>
       </Container>
     </section>
   );

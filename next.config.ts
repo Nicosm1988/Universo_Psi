@@ -1,5 +1,12 @@
 import type { NextConfig } from "next";
 
+const supabaseUrl = new URL(
+  process.env.NEXT_PUBLIC_SUPABASE_URL ??
+    "https://gwizdgboqwpzyiaqcxbb.supabase.co",
+);
+const preventIndexing =
+  process.env.SITE_NOINDEX === "true" || process.env.VERCEL_ENV === "preview";
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
@@ -13,8 +20,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "bdxwbklitnxdthwkygtb.supabase.co",
+        protocol: supabaseUrl.protocol === "http:" ? "http" : "https",
+        hostname: supabaseUrl.hostname,
+        port: supabaseUrl.port,
         pathname: "/storage/v1/object/public/**",
       },
     ],
@@ -24,6 +32,9 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: [
+          ...(preventIndexing
+            ? [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]
+            : []),
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "DENY" },
           {

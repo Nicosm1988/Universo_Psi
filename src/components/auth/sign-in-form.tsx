@@ -12,13 +12,12 @@ import { initialAuthState } from "@/lib/validation/auth";
 const inputClass =
   "mt-2 min-h-12 w-full rounded-2xl border border-line bg-paper px-4 text-base text-ink outline-none transition focus-visible:border-senda focus-visible:ring-3 focus-visible:ring-senda/15";
 
-export function SignInForm({ next, error }: { next?: string; error?: string }) {
+export function SignInForm({ next, error, googleAvailable }: { next?: string; error?: string; googleAvailable: boolean }) {
   const [state, formAction] = useActionState(signInAction, initialAuthState);
   const message = error || state.message;
 
   return (
-    <form action={formAction} className="mt-8 space-y-5" noValidate>
-      <input type="hidden" name="next" value={next ?? "/dashboard"} />
+    <div className="mt-8 space-y-5">
       {message ? (
         <p
           className={`rounded-2xl border px-4 py-3 text-sm ${
@@ -31,12 +30,18 @@ export function SignInForm({ next, error }: { next?: string; error?: string }) {
           {message}
         </p>
       ) : null}
-      <GoogleSignInButton next={next} />
-      <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-widest text-muted">
-        <span className="h-px flex-1 bg-line" aria-hidden="true" />
-        o con tu email
-        <span className="h-px flex-1 bg-line" aria-hidden="true" />
-      </div>
+      {googleAvailable ? (
+        <>
+          <GoogleSignInButton next={next ?? "/dashboard"} />
+          <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-widest text-muted">
+            <span className="h-px flex-1 bg-line" aria-hidden="true" />
+            o con tu email
+            <span className="h-px flex-1 bg-line" aria-hidden="true" />
+          </div>
+        </>
+      ) : null}
+      <form action={formAction} className="space-y-5" noValidate>
+      <input type="hidden" name="next" value={next ?? "/dashboard"} />
       <label className="block text-sm font-semibold text-ink">
         Email
         <input
@@ -85,6 +90,7 @@ export function SignInForm({ next, error }: { next?: string; error?: string }) {
           Registrate
         </Link>
       </p>
-    </form>
+      </form>
+    </div>
   );
 }

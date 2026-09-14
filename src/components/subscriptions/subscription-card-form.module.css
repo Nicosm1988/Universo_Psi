@@ -1,0 +1,7 @@
+.secureField iframe {
+  height: 44px !important;
+  min-height: 44px !important;
+  border: 0;
+  color-scheme: normal;
+  width: 100% !important;
+}

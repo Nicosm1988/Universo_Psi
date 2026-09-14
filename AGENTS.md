@@ -22,3 +22,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - No agregues scraping ni copies contenido de RedPsi; el benchmark es clean-room.
 - Antes de entregar ejecutá `npm run lint`, `npm run typecheck`, `npm run test`, `npm run build` y los flujos Playwright pertinentes.
 - No afirmes que pagos, correo, observabilidad o proveedores opcionales están activos si sus credenciales y smoke tests no están verificados.
+
+## Agentes de pagos
+
+Para tareas de habilitación, corrección o validación de Mercado Pago, delegá los trabajos independientes a los agentes del proyecto en `.codex/agents/`: `psi_pagos` (checkout, webhooks y UI), `psi_datos_pagos` (RPC, migraciones y permisos), `psi_qa_pagos` (pruebas) y `psi_release_pagos` (configuración y despliegue). Usá sólo los roles necesarios para la tarea; una consulta simple no requiere delegación.
+
+El agente principal coordina dependencias, asigna archivos sin superposición y reúne las evidencias. Ejecutá cambios de contrato y release en secuencia; evitá builds concurrentes sobre `.next`. Los agentes heredan modelo y permisos de la sesión y no amplían la autorización del usuario. Guía, invocación y criterios de entrega: `docs/deployment/payment-agents.md`.

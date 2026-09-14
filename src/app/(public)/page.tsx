@@ -41,7 +41,7 @@ export default function HomePage() {
       <JsonLd data={organizationJsonLd} />
 
       <section
-        className="rs-atmosphere-hero overflow-hidden py-5 max-[359px]:py-3 sm:py-6 lg:py-7"
+        className="rs-atmosphere-hero overflow-hidden py-5 max-[359px]:py-2 sm:py-6 lg:py-7"
         data-testid="home-search-hero"
       >
         <Container>
@@ -99,10 +99,10 @@ export default function HomePage() {
                   autoComplete="off"
                   maxLength={80}
                   placeholder="Ej.: ansiedad, terapia de pareja…"
-                  className="mt-2 min-h-11 w-full rounded-xl border border-line-strong bg-canvas px-4 text-base text-ink placeholder:text-muted/75 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/30 sm:text-sm"
+                  className="mt-2 min-h-11 w-full rounded-xl border border-line-strong bg-canvas px-4 text-base text-ink placeholder:text-muted/75 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/30 max-[359px]:mt-1.5 sm:text-sm"
                 />
 
-                <div className="mt-3 grid gap-2 sm:grid-cols-2 sm:gap-3">
+                <div className="mt-3 grid gap-2 max-[359px]:mt-2 max-[359px]:gap-1.5 sm:grid-cols-2 sm:gap-3">
                   <label className="sr-only" htmlFor="home-professional-type">
                     Tipo de profesional
                   </label>

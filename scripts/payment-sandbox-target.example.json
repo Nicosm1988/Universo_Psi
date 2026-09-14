@@ -1,0 +1,9 @@
+{
+  "environment": "sandbox",
+  "checkout_enabled": false,
+  "transport": "supabase-management",
+  "project_ref": "gzsbndvaxdyuyhjidfqq",
+  "organization_id": "qwxmgztzoidyzkelupdr",
+  "project_name": "universo-psi-mp-sandbox",
+  "migration_sha256": "10b29b93ea002e68ab8657797b6a650b0346e53f1187792189c4051fcf105e19"
+}

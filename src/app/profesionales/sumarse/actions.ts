@@ -5,7 +5,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireCurrentUser } from "@/lib/dal/auth";
-import { createCheckoutRedirectUrl } from "@/lib/subscriptions/checkout";
+import { paymentAvailability } from "@/lib/integrations/payments";
+import { createHostedCheckoutRedirectUrl as createCheckoutRedirectUrl } from "@/lib/subscriptions/checkout";
 import { createClient } from "@/lib/supabase/server";
 import {
   onboardingSchema,
@@ -39,7 +40,7 @@ export async function saveOnboardingAction(
   formData: FormData,
 ): Promise<OnboardingState> {
   const intent = value(formData, "intent");
-  if (intent === "submit") {
+  if (intent === "submit" || intent === "checkout") {
     const submission = onboardingSubmissionSchema.safeParse({
       profileId: value(formData, "profileId") || previousState.profileId,
       planCode: value(formData, "planCode"),
@@ -55,7 +56,7 @@ export async function saveOnboardingAction(
       };
     }
 
-    const user = await requireCurrentUser("/profesionales/sumarse");
+    await requireCurrentUser("/profesionales/sumarse");
     const supabase = await createClient();
     const { data: subscriptionId, error: planError } = await supabase.rpc(
       "select_professional_plan",
@@ -72,16 +73,18 @@ export async function saveOnboardingAction(
       };
     }
 
-    const { error } = await supabase.rpc("submit_professional_profile", {
-      p_profile_id: submission.data.profileId,
-    });
-    if (error) {
-      return {
-        status: "error",
-        message:
-          "El borrador está guardado, pero todavía faltan datos o documentación para enviarlo a revisión.",
-        profileId: submission.data.profileId,
-      };
+    if (intent === "submit") {
+      const { error } = await supabase.rpc("submit_professional_profile", {
+        p_profile_id: submission.data.profileId,
+      });
+      if (error) {
+        return {
+          status: "error",
+          message:
+            "El borrador está guardado, pero todavía faltan datos o documentación para enviarlo a revisión.",
+          profileId: submission.data.profileId,
+        };
+      }
     }
 
     revalidatePath("/dashboard");
@@ -91,17 +94,26 @@ export async function saveOnboardingAction(
       ? await createCheckoutRedirectUrl(supabase, {
           subscriptionId,
           profileId: submission.data.profileId,
-          email: user.email,
         })
       : null;
     if (redirectUrl) {
       redirect(redirectUrl as Route);
     }
 
+    if (intent === "checkout") {
+      return {
+        status: "error",
+        message: "Tu borrador está guardado. No pudimos abrir el pago; podés reintentarlo desde Suscripción en tu panel.",
+        profileId: submission.data.profileId,
+      };
+    }
+
     return {
       status: "submitted",
       message:
-        "Perfil enviado. El equipo revisará tu identidad y documentación. Te avisaremos cuando el cobro en línea esté habilitado.",
+        paymentAvailability().configured
+          ? "Perfil enviado a revisión. No pudimos iniciar el pago; podés reintentarlo desde la sección Suscripción de tu panel."
+          : "Perfil enviado. El equipo revisará tu identidad y documentación. El cobro en línea todavía no está habilitado.",
       profileId: submission.data.profileId,
     };
   }
@@ -131,7 +143,7 @@ export async function saveOnboardingAction(
   if (!parsed.success) {
     return {
       status: "error",
-      message: "Revisá los campos marcados antes de continuar.",
+      message: parsed.error.issues.map((issue) => issue.message).join(" "),
       profileId: previousState.profileId,
       errors: parsed.error.flatten().fieldErrors,
     };
@@ -141,24 +153,26 @@ export async function saveOnboardingAction(
   const userId = user.id;
   const supabase = await createClient();
 
-  const { data: supportedType, error: supportedTypeError } = await supabase
-    .from("professional_types")
-    .select("id")
-    .eq("id", parsed.data.professionalTypeId)
-    .eq("is_active", true)
-    .maybeSingle();
+  if (parsed.data.professionalTypeId) {
+    const { data: supportedType, error: supportedTypeError } = await supabase
+      .from("professional_types")
+      .select("id")
+      .eq("id", parsed.data.professionalTypeId)
+      .eq("is_active", true)
+      .maybeSingle();
 
-  if (supportedTypeError || !supportedType) {
-    return {
-      status: "error",
-      message: "Elegí un tipo de profesional válido para continuar.",
-      profileId: previousState.profileId,
-      errors: {
-        professionalTypeId: [
-          "Universo Psi publica únicamente perfiles de tipos de profesional activos.",
-        ],
-      },
-    };
+    if (supportedTypeError || !supportedType) {
+      return {
+        status: "error",
+        message: "Elegí un tipo de profesional válido para continuar.",
+        profileId: previousState.profileId,
+        errors: {
+          professionalTypeId: [
+            "Universo Psi publica únicamente perfiles de tipos de profesional activos.",
+          ],
+        },
+      };
+    }
   }
 
   const profilePayload = {
@@ -232,36 +246,36 @@ export async function saveOnboardingAction(
   }
 
   const insertResults = await Promise.all([
-    supabase.from("professional_profile_types").insert({
+    parsed.data.professionalTypeId ? supabase.from("professional_profile_types").insert({
       professional_profile_id: profileId,
       professional_type_id: parsed.data.professionalTypeId,
       is_primary: true,
-    }),
-    supabase.from("professional_needs").insert(
+    }) : Promise.resolve({ error: null }),
+    parsed.data.needIds.length ? supabase.from("professional_needs").insert(
       parsed.data.needIds.map((needId) => ({
         professional_profile_id: profileId,
         need_id: needId,
       })),
-    ),
-    supabase.from("professional_services").insert(
+    ) : Promise.resolve({ error: null }),
+    parsed.data.serviceIds.length ? supabase.from("professional_services").insert(
       parsed.data.serviceIds.map((serviceId) => ({
         professional_profile_id: profileId,
         service_id: serviceId,
       })),
-    ),
-    supabase.from("professional_modalities").insert(
+    ) : Promise.resolve({ error: null }),
+    parsed.data.modalityIds.length ? supabase.from("professional_modalities").insert(
       parsed.data.modalityIds.map((modalityId) => ({
         professional_profile_id: profileId,
         modality_id: modalityId,
       })),
-    ),
-    supabase.from("professional_languages").insert(
+    ) : Promise.resolve({ error: null }),
+    parsed.data.languageIds.length ? supabase.from("professional_languages").insert(
       parsed.data.languageIds.map((languageId) => ({
         professional_profile_id: profileId,
         language_id: languageId,
         proficiency: "PROFESSIONAL",
       })),
-    ),
+    ) : Promise.resolve({ error: null }),
   ]);
   if (insertResults.some(({ error }) => error)) {
     return {

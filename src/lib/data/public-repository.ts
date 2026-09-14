@@ -5,6 +5,7 @@ import { createHash } from "node:crypto";
 import { cache } from "react";
 
 import { publicEnv } from "@/lib/env/public";
+import { fetchPublicCatalog } from "@/lib/data/public-fetch";
 import {
   publicRepository as demoRepository,
   type Agreement,
@@ -173,6 +174,7 @@ function createPublicClient() {
         detectSessionInUrl: false,
         persistSession: false,
       },
+      global: { fetch: fetchPublicCatalog },
     },
   );
 }

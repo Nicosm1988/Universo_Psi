@@ -1,10 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { safeInternalPath } from "@/lib/http/origin";
+
 const protectedPrefixes = ["/dashboard", "/admin", "/profesionales/sumarse"];
 const authPaths = ["/ingresar", "/registro"];
 
-function buildContentSecurityPolicy(nonce: string, supabaseUrl: string) {
+function buildContentSecurityPolicy(nonce: string, supabaseUrl: string, embeddedCheckout = false) {
   const supabaseOrigin = new URL(supabaseUrl).origin;
   const websocketOrigin = supabaseOrigin.replace("https://", "wss://");
   const development = process.env.NODE_ENV === "development";
@@ -17,7 +19,8 @@ function buildContentSecurityPolicy(nonce: string, supabaseUrl: string) {
     "style-src-attr 'none'",
     `img-src 'self' data: blob: ${supabaseOrigin}`,
     "font-src 'self' data:",
-    `connect-src 'self' ${supabaseOrigin} ${websocketOrigin} https://*.vercel-insights.com https://vitals.vercel-insights.com`,
+    `connect-src 'self' ${supabaseOrigin} ${websocketOrigin} https://*.vercel-insights.com https://vitals.vercel-insights.com${embeddedCheckout ? " https://api.mercadopago.com https://*.mercadopago.com https://*.mercadolibre.com https://*.mlstatic.com" : ""}`,
+    ...(embeddedCheckout ? ["frame-src https://*.mercadopago.com"] : []),
     `media-src 'self' blob: ${supabaseOrigin}`,
     "object-src 'none'",
     "base-uri 'self'",
@@ -51,7 +54,7 @@ export async function proxy(request: NextRequest) {
   }
 
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-  const csp = buildContentSecurityPolicy(nonce, supabaseUrl);
+  const csp = buildContentSecurityPolicy(nonce, supabaseUrl, request.nextUrl.pathname === "/dashboard/suscripcion/pagar");
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", csp);
@@ -74,6 +77,11 @@ export async function proxy(request: NextRequest) {
         cookiesToSet.forEach(({ name, value }) => {
           request.cookies.set(name, value);
         });
+        // Forward refreshed credentials to the current handler, not just the
+        // browser's next request. The CSP header clone predates the refresh.
+        const refreshedCookie = request.headers.get("cookie");
+        if (refreshedCookie) requestHeaders.set("cookie", refreshedCookie);
+        else requestHeaders.delete("cookie");
 
         response = NextResponse.next({
           request: { headers: requestHeaders },
@@ -108,10 +116,13 @@ export async function proxy(request: NextRequest) {
   }
 
   if (authPaths.includes(pathname) && isAuthenticated) {
-    const dashboardUrl = request.nextUrl.clone();
-    dashboardUrl.pathname = "/dashboard";
-    dashboardUrl.search = "";
-    return copyResponseState(response, NextResponse.redirect(dashboardUrl));
+    const destination = new URL(safeInternalPath(request.nextUrl.searchParams.get("next")), request.url);
+    // Preserve checkout/deep links for an existing session without auth loops.
+    if (authPaths.includes(destination.pathname)) {
+      destination.pathname = "/dashboard";
+      destination.search = "";
+    }
+    return copyResponseState(response, NextResponse.redirect(destination));
   }
 
   return response;

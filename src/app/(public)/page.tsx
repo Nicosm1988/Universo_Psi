@@ -69,14 +69,14 @@ export default function HomePage() {
                   <li>Opiniones visibles</li>
                 </ul>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <Link href="/ingresar?next=/profesionales" className={buttonStyles({ variant: "inverse", size: "sm" })}>
-                    Ingresar para contactar
+                  <Link href="/profesionales" className={buttonStyles({ variant: "inverse", size: "sm" })}>
+                    Explorar perfiles
                   </Link>
                   <Link
-                    href="/registro?next=/profesionales"
+                    href="/para-profesionales"
                     className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/28 px-4 text-xs font-semibold text-white transition-colors hover:border-white hover:bg-white/8 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-sand/50 motion-reduce:transition-none"
                   >
-                    Crear cuenta gratuita
+                    Soy profesional
                   </Link>
                 </div>
               </div>
@@ -146,14 +146,14 @@ export default function HomePage() {
                   href="/ingresar?next=/profesionales"
                   className="rounded-sm text-senda-dark underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/30"
                 >
-                  Ingresar para contactar
+                  Explorar perfiles
                 </Link>
                 <span aria-hidden="true" className="text-line-strong">·</span>
                 <Link
-                  href="/registro?next=/profesionales"
+                  href="/para-profesionales"
                   className="rounded-sm text-senda-dark underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/30"
                 >
-                  Crear cuenta gratuita
+                  Soy profesional
                 </Link>
               </div>
 

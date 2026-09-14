@@ -297,6 +297,9 @@ test.describe("vertical autenticado profesional y administración", () => {
       }),
     ).toBeVisible();
     await expect(page.getByText("Publicado", { exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Ver perfil público", exact: true })).toHaveAttribute("href", `/profesionales/${fixture.expectedProfileSlug}`);
+    await expect(page.getByRole("link", { name: "Editar mi perfil", exact: true })).toHaveAttribute("href", "/profesionales/sumarse");
+    await expect(page.getByRole("link", { name: "Gestionar suscripción", exact: true })).toHaveAttribute("href", "/dashboard?seccion=suscripcion");
 
     const subscription = page.locator("#suscripcion");
     await expect(

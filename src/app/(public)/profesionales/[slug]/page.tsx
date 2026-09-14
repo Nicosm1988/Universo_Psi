@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
+import { directoryReturnUrl } from "@/lib/directory-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -11,9 +12,9 @@ import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { publicRepository } from "@/lib/data/public-repository";
-import { formatRating, getNeedLabel } from "@/lib/demo/public-data";
+import { formatRating, getNeedLabel, modalityLabel } from "@/lib/demo/public-data";
 
-type ProfessionalPageProps = { params: Promise<{ slug: string }> };
+type ProfessionalPageProps = { params: Promise<{ slug: string }>; searchParams: Promise<{ desde?: string | string[] }> };
 
 export async function generateStaticParams() {
   // QA resuelve cada perfil al visitarlo, sin precargar el catálogo en el build.
@@ -42,10 +43,13 @@ export async function generateMetadata({ params }: ProfessionalPageProps): Promi
   };
 }
 
-export default async function ProfessionalProfilePage({ params }: ProfessionalPageProps) {
+export default async function ProfessionalProfilePage({ params, searchParams }: ProfessionalPageProps) {
   const { slug } = await params;
   const professional = await publicRepository.getProfessional(slug);
   if (!professional) notFound();
+
+  const { desde } = await searchParams;
+  const returnTo = directoryReturnUrl(typeof desde === "string" ? desde : undefined) as Route;
 
   const compatible = await publicRepository.listProfessionals({ need: professional.needs, sort: "match" });
   const otherProfessionals = compatible.filter((item) => item.slug !== professional.slug).slice(0, 2);
@@ -85,14 +89,14 @@ export default async function ProfessionalProfilePage({ params }: ProfessionalPa
 
       <section className="border-b border-line bg-canvas py-9 sm:py-12">
         <Container>
-          <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Profesionales", href: "/profesionales" }, { label: professional.name }]} />
+          <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Profesionales", href: returnTo }, { label: professional.name }]} />
           <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_310px] lg:items-end">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
               <Avatar initials={professional.initials} size="xl" toneIndex={Number(professional.id.at(-1)) || 0} />
               <div>
                 <div className="flex flex-wrap gap-2">
                   {professional.isDemo === false ? null : <Badge>Perfil demo</Badge>}
-                  {professional.verified ? <Badge tone="senda">✓ Perfil verificado</Badge> : <Badge>Verificación en curso</Badge>}
+                  {professional.verified ? <Badge tone="senda">✓ Perfil verificado</Badge> : <Badge>Sin verificación acreditada</Badge>}
                   {professional.featured ? <Badge tone="clay">Perfil destacado</Badge> : null}
                 </div>
                 <h1 className="mt-4 text-4xl font-semibold leading-none tracking-[-0.04em] text-ink text-balance sm:text-5xl">{professional.name}</h1>
@@ -100,7 +104,7 @@ export default async function ProfessionalProfilePage({ params }: ProfessionalPa
                 <p className="mt-4 max-w-2xl text-base font-medium leading-7 text-ink text-pretty">{professional.headline}</p>
                 <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted">
                   <span>{professional.city}, {professional.country}</span>
-                  <span>{professional.modalities.map((mode) => (mode === "online" ? "Online" : "Presencial")).join(" · ")}</span>
+                  <span>{professional.modalities.map(modalityLabel).join(" · ")}</span>
                   <span><span aria-hidden="true" className="text-clay">★</span> {formatRating(professional.rating)} · {reviewLabel}</span>
                 </div>
               </div>
@@ -128,7 +132,7 @@ export default async function ProfessionalProfilePage({ params }: ProfessionalPa
       </section>
 
       {professional.acceptingLeads === false ? null : (
-        <nav aria-label="Acciones del perfil" className="sticky top-16 z-30 border-b border-line bg-paper/95 py-2 backdrop-blur lg:hidden">
+        <nav aria-label="Acciones del perfil" className="sticky top-20 z-30 border-b border-line bg-paper/95 py-2 backdrop-blur sm:top-24 lg:hidden">
           <Container className="flex items-center justify-between gap-3">
             <p className="min-w-0 truncate text-xs font-semibold text-ink">{professional.name}</p>
             <Link href="#contactar" className={buttonStyles({ size: "sm" })}>Contactar ahora</Link>
@@ -136,36 +140,6 @@ export default async function ProfessionalProfilePage({ params }: ProfessionalPa
         </nav>
       )}
 
-      <section id="contactar" aria-labelledby="contact-title" className="scroll-mt-28 bg-senda-dark py-10 text-white sm:py-12">
-        <Container>
-          {professional.acceptingLeads === false ? (
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-sand">Agenda pausada</p>
-              <h2 id="contact-title" className="mt-3 text-3xl font-semibold tracking-[-0.035em]">Este perfil no recibe consultas por el momento.</h2>
-              <p className="mt-4 text-sm leading-6 text-white/68">Podés comparar otros enfoques y disponibilidades en el directorio.</p>
-              <Link href="/profesionales" className={`${buttonStyles({ variant: "inverse" })} mt-6`}>Ver otros perfiles</Link>
-            </div>
-          ) : (
-            <div className="grid gap-7 lg:grid-cols-[.7fr_1.3fr] lg:items-start lg:gap-12">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.12em] text-sand">Primer contacto</p>
-                <h2 id="contact-title" className="mt-3 text-3xl font-semibold leading-[1.06] tracking-[-0.035em] text-balance sm:text-4xl">Contactá a {professional.name.split(" ")[0]}.</h2>
-                <p className="mt-4 max-w-lg text-sm leading-6 text-white/68">Dejá tus datos y una consulta breve. No incluyas información clínica, documentos ni datos sensibles.</p>
-              </div>
-              <div className="rounded-[1.5rem] bg-paper p-5 text-ink sm:p-7">
-                <ContactForm
-                  professionalId={professional.id}
-                  professionalName={professional.name}
-                  isDemo={professional.isDemo !== false}
-                  needs={professional.contactNeeds?.length
-                    ? professional.contactNeeds
-                    : professional.needs.map((need) => ({ id: need, label: getNeedLabel(need) }))}
-                />
-              </div>
-            </div>
-          )}
-        </Container>
-      </section>
 
       <div className="bg-paper py-10 sm:py-12">
         <Container>
@@ -261,21 +235,21 @@ export default async function ProfessionalProfilePage({ params }: ProfessionalPa
               {professional.acceptingLeads === false ? null : (
                 <div className="rounded-[1.35rem] border border-senda/30 bg-paper p-5 shadow-soft">
                   <h2 className="text-lg font-semibold tracking-[-0.02em] text-ink">¿Querés conversar?</h2>
-                  <p className="mt-2 text-xs leading-5 text-muted">Volvé al formulario y enviá tu consulta directamente.</p>
+                  <p className="mt-2 text-xs leading-5 text-muted">Enviá una consulta desde el formulario. El envío no confirma un turno.</p>
                   <Link href="#contactar" className={`${buttonStyles()} mt-4 w-full`}>Contactar ahora</Link>
                 </div>
               )}
               <div className="rounded-[1.35rem] border border-line bg-canvas p-5">
                 <h2 className="font-display text-xl font-semibold tracking-[-0.025em] text-ink">Información práctica</h2>
                 <dl className="mt-5 space-y-4 text-sm">
-                  <div className="border-b border-line pb-4"><dt className="text-xs font-semibold text-muted">Modalidad</dt><dd className="mt-1 text-ink">{professional.modalities.map((mode) => (mode === "online" ? "Online" : `Presencial en ${professional.city}`)).join(" · ")}</dd></div>
+                  <div className="border-b border-line pb-4"><dt className="text-xs font-semibold text-muted">Modalidad</dt><dd className="mt-1 text-ink">{professional.modalities.map(modalityLabel).join(" · ")}</dd></div>
                   <div className="border-b border-line pb-4"><dt className="text-xs font-semibold text-muted">Idiomas</dt><dd className="mt-1 capitalize text-ink">{professional.languages.join(" · ")}</dd></div>
                   <div className="border-b border-line pb-4"><dt className="text-xs font-semibold text-muted">Públicos</dt><dd className="mt-1 text-ink">{professional.audiences.join(" · ")}</dd></div>
                   <div><dt className="text-xs font-semibold text-muted">Industrias</dt><dd className="mt-1 text-ink">{professional.industries.join(" · ")}</dd></div>
                 </dl>
               </div>
               <div className="rounded-[1.35rem] border border-senda/20 bg-senda-soft p-5">
-                <Badge tone="senda">{professional.verified ? "Verificación completa" : "En revisión"}</Badge>
+                <Badge tone="senda">{professional.verified ? "Verificación completa" : "Sin verificación acreditada"}</Badge>
                 <ul className="mt-4 space-y-2 text-xs leading-5 text-muted">
                   {professional.credentials.map((credential) => <li key={credential} className="flex gap-2"><span aria-hidden="true" className="text-senda-dark">✓</span>{credential}</li>)}
                 </ul>
@@ -286,12 +260,43 @@ export default async function ProfessionalProfilePage({ params }: ProfessionalPa
         </Container>
       </div>
 
+      <section id="contactar" aria-labelledby="contact-title" className="scroll-mt-40 bg-senda-dark py-10 text-white sm:py-12 lg:scroll-mt-28">
+        <Container>
+          {professional.acceptingLeads === false ? (
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-sand">Agenda pausada</p>
+              <h2 id="contact-title" className="mt-3 text-3xl font-semibold tracking-[-0.035em]">Este perfil no recibe consultas por el momento.</h2>
+              <p className="mt-4 text-sm leading-6 text-white/68">Podés comparar otros enfoques y disponibilidades en el directorio.</p>
+              <Link href={returnTo} className={`${buttonStyles({ variant: "inverse" })} mt-6`}>Ver otros perfiles</Link>
+            </div>
+          ) : (
+            <div className="grid gap-7 lg:grid-cols-[.7fr_1.3fr] lg:items-start lg:gap-12">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.12em] text-sand">Primer contacto</p>
+                <h2 id="contact-title" className="mt-3 text-3xl font-semibold leading-[1.06] tracking-[-0.035em] text-balance sm:text-4xl">Contactá a {professional.name.split(" ")[0]}.</h2>
+                <p className="mt-4 max-w-lg text-sm leading-6 text-white/68">Este formulario deja tu consulta en el panel del profesional. No abre WhatsApp ni confirma un turno. Evitá incluir información clínica, documentos o datos sensibles.</p>
+              </div>
+              <div className="rounded-[1.5rem] bg-paper p-5 text-ink sm:p-7">
+                <ContactForm
+                  professionalId={professional.id}
+                  professionalName={professional.name}
+                  isDemo={professional.isDemo !== false}
+                  needs={professional.contactNeeds?.length
+                    ? professional.contactNeeds
+                    : professional.needs.map((need) => ({ id: need, label: getNeedLabel(need) }))}
+                />
+              </div>
+            </div>
+          )}
+        </Container>
+      </section>
+
       {otherProfessionals.length ? (
         <section className="bg-canvas py-14 sm:py-18">
           <Container>
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div><p className="text-xs font-bold uppercase tracking-[0.12em] text-senda-dark">Seguir comparando</p><h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.035em] text-ink">Otros enfoques compatibles</h2></div>
-              <Link href="/profesionales" className={buttonStyles({ variant: "secondary" })}>Volver al buscador</Link>
+              <Link href={returnTo} className={buttonStyles({ variant: "secondary" })}>Volver al buscador</Link>
             </div>
             <div className="mt-8 grid gap-5 lg:grid-cols-2">{otherProfessionals.map((item) => <ProfessionalCard key={item.id} professional={item} />)}</div>
           </Container>
@@ -311,7 +316,7 @@ export default async function ProfessionalProfilePage({ params }: ProfessionalPa
               {professional.acceptingLeads === false ? null : (
                 <Link href="#contactar" className={buttonStyles()}>Contactar a {professional.name.split(" ")[0]}</Link>
               )}
-              <Link href="/profesionales" className={buttonStyles({ variant: "secondary" })}>Volver al buscador</Link>
+              <Link href={returnTo} className={buttonStyles({ variant: "secondary" })}>Volver al buscador</Link>
             </div>
           </div>
         </Container>

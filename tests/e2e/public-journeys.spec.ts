@@ -31,8 +31,8 @@ test("home is search-first, compact, and free of photos or questionnaires", asyn
 
   const search = page.getByRole("search");
   await expect(search).toBeVisible();
-  await expect(page.getByRole("link", { name: "Ingresar para contactar" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Crear cuenta gratuita" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Explorar perfiles" })).toBeVisible();
+  await expect(page.locator("main").getByRole("link", { name: "Soy profesional", exact: true })).toBeVisible();
   await expect(page.locator("main img, main picture")).toHaveCount(0);
   await expect(page.locator('a[href="/matching"]')).toHaveCount(0);
   await expect(page.getByText(/No sé qué ayuda necesito/i)).toHaveCount(0);
@@ -139,7 +139,7 @@ test("home → filtered search → profile → contact", async ({ page }) => {
   const professionalName = (await firstResult.getByRole("heading").innerText()).trim();
   await firstResult.getByRole("link", { name: "Ver perfil" }).click();
 
-  await expect(page).toHaveURL(/\/profesionales\/[a-z0-9-]+$/);
+  await expect(page).toHaveURL(/\/profesionales\/[a-z0-9-]+(?:\?desde=.+)?$/);
   await expect(
     page.getByRole("heading", { level: 1, name: professionalName }),
   ).toBeVisible();
@@ -178,7 +178,7 @@ test("home → filtered search → profile → contact", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText(professionalName);
 });
 
-test("directory filters apply immediately and stay synchronized with the URL", async ({ page }) => {
+test("directory filters apply together and stay synchronized with the URL", async ({ page }) => {
   await page.goto("/profesionales");
 
   const mobileFilterPanel = page.locator("details.filter-panel");
@@ -217,11 +217,14 @@ test("directory filters apply immediately and stay synchronized with the URL", a
   ]);
 
   await professionalType.selectOption("psicologia");
+  await expect(page).toHaveURL(/\/profesionales$/);
+  await filterForm.getByRole("button", { name: "Buscar", exact: true }).click();
   await expect(page).toHaveURL(/type=psicologia/);
   await expect(professionalType).toHaveValue("psicologia");
 
   await revealMobileFilters();
   await anxietyNeed.check();
+  await filterForm.getByRole("button", { name: "Buscar", exact: true }).click();
   await expect(page).toHaveURL(/need=ansiedad/);
   await revealMobileFilters();
   await expect(anxietyNeed).toBeChecked();
@@ -374,12 +377,12 @@ test("every professional card communicates its verification state", async ({ pag
   expect(await cards.count()).toBeGreaterThan(0);
 
   for (const card of await cards.all()) {
-    await expect(card.getByText(/^(?:✓ Verificado|Verificación en curso)$/)).toHaveCount(1);
+    await expect(card.getByText(/^(?:✓ Verificado|Sin verificación acreditada)$/)).toHaveCount(1);
   }
 
-  const pendingCard = cards.filter({ hasText: "Verificación en curso" });
+  const pendingCard = cards.filter({ hasText: "Sin verificación acreditada" });
   expect(await pendingCard.count()).toBeGreaterThan(0);
-  await expect(pendingCard.first().getByText("Verificación en curso", { exact: true })).toBeVisible();
+  await expect(pendingCard.first().getByText("Sin verificación acreditada", { exact: true })).toBeVisible();
 });
 
 test("the end of a professional profile repeats the contact action", async ({ page }) => {

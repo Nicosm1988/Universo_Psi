@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
@@ -6,17 +7,20 @@ import { formatRating, getNeedLabel, modalityLabel, type Professional } from "@/
 
 type ProfessionalCardProps = {
   professional: Professional;
+  returnTo?: string;
   priority?: boolean;
   variant?: "card" | "listing";
 };
 
-function ProfessionalListingCard({ professional, priority }: Omit<ProfessionalCardProps, "variant">) {
+function ProfessionalListingCard({ professional, priority, returnTo }: Omit<ProfessionalCardProps, "variant">) {
+  const profileHref = `/profesionales/${professional.slug}${returnTo ? `?desde=${encodeURIComponent(`${returnTo}#professional-${professional.id}`)}` : ""}`;
   const reviewLabel = `${professional.reviewCount} ${professional.reviewCount === 1 ? "opinión" : "opiniones"}`;
 
   return (
     <article
+      id={`professional-${professional.id}`}
       data-testid="professional-card"
-      className={`group grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-3 gap-y-4 rounded-[1.35rem] border bg-paper p-4 transition-colors duration-200 hover:border-senda/45 motion-reduce:transition-none sm:gap-x-4 md:grid-cols-[4rem_minmax(0,1fr)_10.5rem] md:gap-x-5 ${
+      className={`scroll-mt-28 group grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-3 gap-y-4 rounded-[1.35rem] border bg-paper p-4 transition-colors duration-200 hover:border-senda/45 motion-reduce:transition-none sm:gap-x-4 md:grid-cols-[4rem_minmax(0,1fr)_10.5rem] md:gap-x-5 ${
         professional.featured ? "border-clay/35" : "border-line"
       }`}
     >
@@ -31,11 +35,11 @@ function ProfessionalListingCard({ professional, priority }: Omit<ProfessionalCa
 
       <div className="min-w-0">
         <header data-card-section="identity" className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between lg:gap-4">
-          {priority ? <span className="sr-only">Resultado recomendado. </span> : null}
+          {priority ? <span className="sr-only">Primer resultado. </span> : null}
           <div className="min-w-0">
             <h2 className="break-words text-lg font-semibold leading-snug tracking-[-0.025em] text-ink sm:text-xl">
               <Link
-                href={`/profesionales/${professional.slug}`}
+                href={profileHref as Route}
                 className="rounded-sm underline-offset-4 hover:text-senda-dark hover:underline focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/35"
               >
                 {professional.name}
@@ -47,7 +51,7 @@ function ProfessionalListingCard({ professional, priority }: Omit<ProfessionalCa
             {professional.verified ? (
               <Badge tone="senda">✓ Verificado</Badge>
             ) : (
-              <Badge tone="neutral">Verificación en curso</Badge>
+              <Badge tone="neutral">Sin verificación acreditada</Badge>
             )}
             {professional.featured ? <Badge tone="clay">Perfil destacado</Badge> : null}
             {professional.isDemo === false ? null : <Badge tone="neutral">Perfil demo</Badge>}
@@ -96,13 +100,13 @@ function ProfessionalListingCard({ professional, priority }: Omit<ProfessionalCa
         <div className="mt-auto grid grid-cols-2 gap-2 md:grid-cols-1">
           <Link
             className={buttonStyles({ size: "sm", className: "w-full" })}
-            href={`/profesionales/${professional.slug}#contactar`}
+            href={`${profileHref}#contactar` as Route}
           >
             Contactar
           </Link>
           <Link
             className={buttonStyles({ variant: "secondary", size: "sm", className: "w-full" })}
-            href={`/profesionales/${professional.slug}`}
+            href={profileHref as Route}
           >
             Ver perfil
           </Link>
@@ -112,9 +116,9 @@ function ProfessionalListingCard({ professional, priority }: Omit<ProfessionalCa
   );
 }
 
-export function ProfessionalCard({ professional, priority = false, variant = "card" }: ProfessionalCardProps) {
+export function ProfessionalCard({ professional, priority = false, variant = "card", returnTo }: ProfessionalCardProps) {
   if (variant === "listing") {
-    return <ProfessionalListingCard professional={professional} priority={priority} />;
+    return <ProfessionalListingCard professional={professional} priority={priority} returnTo={returnTo} />;
   }
 
   const reviewLabel = `${professional.reviewCount} ${professional.reviewCount === 1 ? "opinión" : "opiniones"}`;
@@ -127,7 +131,7 @@ export function ProfessionalCard({ professional, priority = false, variant = "ca
       }`}
     >
       <header data-card-section="identity" className="flex min-w-0 items-start gap-4">
-        {priority ? <span className="sr-only">Resultado recomendado. </span> : null}
+        {priority ? <span className="sr-only">Primer resultado. </span> : null}
         <Avatar initials={professional.initials} size="lg" toneIndex={Number(professional.id.at(-1)) || 0} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -136,7 +140,7 @@ export function ProfessionalCard({ professional, priority = false, variant = "ca
             {professional.verified ? (
               <Badge tone="senda">✓ Verificado</Badge>
             ) : (
-              <Badge tone="neutral">Verificación en curso</Badge>
+              <Badge tone="neutral">Sin verificación acreditada</Badge>
             )}
           </div>
           <h2 className="mt-3 text-xl font-semibold tracking-[-0.025em] text-ink text-balance">

@@ -158,6 +158,26 @@ export default async function DashboardPage({
             {profileStateCopy[profile.publication_status] ?? profile.publication_status}
           </Badge>
         </div>
+        <div className="mt-6 rounded-2xl border border-line bg-canvas p-4 sm:p-5">
+          <p className="text-sm leading-6 text-muted">
+            {profile.publication_status === "PUBLISHED"
+              ? "Tu perfil está publicado. Revisá cómo se ve y mantené actualizada tu información."
+              : profile.publication_status === "PENDING_REVIEW"
+                ? "Recibimos tu perfil para revisión. La publicación depende de la aprobación del equipo."
+                : profile.publication_status === "REJECTED"
+                  ? "Tu perfil tiene observaciones. Revisalas en la edición y corregí los datos antes de volver a enviarlo."
+                  : profile.publication_status === "SUSPENDED"
+                    ? "Tu perfil está pausado y no aparece en la búsqueda. Revisá su estado desde la edición."
+                    : "Tu borrador todavía no aparece en la búsqueda. Completá el perfil y la documentación para enviarlo a revisión."}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link href="/profesionales/sumarse" className={buttonStyles({ size: "sm" })}>Editar mi perfil</Link>
+            {profile.publication_status === "PUBLISHED" ? (
+              <Link href={`/profesionales/${profile.slug}`} className={buttonStyles({ variant: "secondary", size: "sm" })}>Ver perfil público</Link>
+            ) : null}
+            <Link href="/dashboard?seccion=suscripcion" className={buttonStyles({ variant: "quiet", size: "sm" })}>Gestionar suscripción</Link>
+          </div>
+        </div>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {[
             { label: "Apariciones", value: totals.impressions, icon: Eye },

@@ -253,8 +253,7 @@ export default function TermsPage() {
               una nueva aceptación cuando corresponda.
             </p>
             <p>
-              Las consultas, reportes y solicitudes legales podrán presentarse por los canales de contacto que
-              Universo Psi publique en la plataforma. La versión definitiva deberá incluir un canal electrónico estable
+              Las consultas, reportes y solicitudes legales pueden enviarse a <a className="font-semibold underline underline-offset-4" href="mailto:hola@universosenda.com">hola@universosenda.com</a>. La versión definitiva deberá incluir un canal electrónico estable
               y la identificación legal completa de su responsable antes de habilitar servicios pagos.
             </p>
           </section>

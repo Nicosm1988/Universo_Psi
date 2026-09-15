@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
-import { requireCurrentUser } from "@/lib/dal/auth";
+import { requireAdmin } from "@/lib/dal/auth";
 import { reconcileSubscriptionResources } from "@/lib/subscriptions/reconcile-search";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -17,13 +17,6 @@ import {
 function formString(formData: FormData, name: string) {
   const value = formData.get(name);
   return typeof value === "string" ? value : "";
-}
-
-async function requireAdmin() {
-  const user = await requireCurrentUser("/admin");
-  if (!user.roles.some((role) => role === "ADMIN" || role === "SUPERADMIN")) {
-    redirect("/dashboard" as Route);
-  }
 }
 
 export async function resolveCredentialAction(formData: FormData) {

@@ -3,6 +3,7 @@
 import { FileCheck2, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 
+import { credentialFileType, MAX_CREDENTIAL_BYTES } from "@/lib/security/credential-file";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 
@@ -28,6 +29,7 @@ export function CredentialUploader({
   credentialTypes: { id: string; name: string }[];
   initialCredentials: CredentialStatus[];
 }) {
+  const uploading = useRef(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const [credentialTypeId, setCredentialTypeId] = useState(credentialTypes[0]?.id ?? "");
   const [title, setTitle] = useState("");
@@ -41,14 +43,15 @@ export function CredentialUploader({
   const [pending, setPending] = useState(false);
 
   async function uploadCredential() {
+    if (uploading.current) return;
     const file = fileRef.current?.files?.[0];
     const extension = file ? mimeExtensions[file.type] : undefined;
     if (!profileId) {
       setMessage("Guardá el borrador antes de cargar documentos.");
       return;
     }
-    if (!file || !extension || file.size > 10 * 1024 * 1024) {
-      setMessage("Elegí un PDF, JPG o PNG de hasta 10 MB.");
+    if (!file || !extension || file.size > MAX_CREDENTIAL_BYTES) {
+      setMessage("Elegí un PDF, JPG o PNG de hasta 4 MB.");
       return;
     }
     if (!credentialTypeId || title.trim().length < 2) {
@@ -56,8 +59,15 @@ export function CredentialUploader({
       return;
     }
 
+    uploading.current = true;
     setPending(true);
+    try {
     setMessage(undefined);
+    const signature = credentialFileType(new Uint8Array(await file.slice(0, 16).arrayBuffer()));
+    if (!signature || signature.mime !== file.type) {
+      setMessage("El contenido no coincide con un PDF, JPG o PNG. Elegí otro archivo.");
+      return;
+    }
     const supabase = createClient();
     const { data: claims } = await supabase.auth.getClaims();
     const userId = claims?.claims?.sub;
@@ -119,7 +129,12 @@ export function CredentialUploader({
     setExpiresOn("");
     if (fileRef.current) fileRef.current.value = "";
     setMessage("Documento recibido y pendiente de revisión.");
-    setPending(false);
+    } catch {
+      setMessage("Se interrumpió la conexión. Revisá los documentos recibidos antes de volver a cargarlo.");
+    } finally {
+      uploading.current = false;
+      setPending(false);
+    }
   }
 
   return (
@@ -146,7 +161,7 @@ export function CredentialUploader({
         </label>
         <label className="text-sm font-semibold text-ink">
           Título
-          <input className="mt-2 min-h-11 w-full rounded-xl border border-line bg-paper px-3 text-ink" value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Ej.: Licenciatura en Psicología…" />
+          <input className="mt-2 min-h-11 w-full rounded-xl border border-line bg-paper px-3 text-ink" value={title} maxLength={180} onChange={(event) => setTitle(event.target.value)} placeholder="Ej.: Licenciatura en Psicología…" />
         </label>
         <label className="text-sm font-semibold text-ink sm:col-span-2">
           Institución emisora (opcional)

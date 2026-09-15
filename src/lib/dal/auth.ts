@@ -74,3 +74,17 @@ export async function hasRole(roleCodes: readonly string[]) {
   const user = await getCurrentUser();
   return Boolean(user && user.roles.some((role) => roleCodes.includes(role)));
 }
+
+/** Authorize each administrative entry point, including actions using service-role clients. */
+export async function requireAdmin(nextPath = "/admin") {
+  const user = await requireCurrentUser(nextPath);
+  if (!user.roles.some((role) => role === "ADMIN" || role === "SUPERADMIN")) {
+    redirect("/dashboard");
+  }
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("has_current_admin_session");
+  if (error || data !== true) {
+    redirect(`/dashboard/seguridad?next=${encodeURIComponent(safeInternalPath(nextPath))}` as Route);
+  }
+  return user;
+}

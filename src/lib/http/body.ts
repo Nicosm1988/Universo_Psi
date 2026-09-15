@@ -7,16 +7,16 @@ export class RequestBodyTooLargeError extends Error {
   }
 }
 
-export async function readJsonBody(
+export async function readTextBody(
   request: NextRequest,
   maximumBytes: number,
-): Promise<unknown> {
+): Promise<string> {
   const declaredLength = Number(request.headers.get("content-length"));
   if (Number.isFinite(declaredLength) && declaredLength > maximumBytes) {
     throw new RequestBodyTooLargeError();
   }
 
-  if (!request.body) return JSON.parse("") as unknown;
+  if (!request.body) return "";
   const reader = request.body.getReader();
   const chunks: Uint8Array[] = [];
   let received = 0;
@@ -39,5 +39,9 @@ export async function readJsonBody(
     offset += chunk.byteLength;
   }
 
-  return JSON.parse(new TextDecoder().decode(body)) as unknown;
+  return new TextDecoder().decode(body);
+}
+
+export async function readJsonBody(request: NextRequest, maximumBytes: number): Promise<unknown> {
+  return JSON.parse(await readTextBody(request, maximumBytes)) as unknown;
 }

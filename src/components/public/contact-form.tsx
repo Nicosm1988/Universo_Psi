@@ -64,7 +64,9 @@ export function ContactForm({
 
       if (!response.ok) {
         setErrorMessage(
-          response.status === 422
+          response.status === 429
+            ? "Alcanzaste el límite de consultas. Esperá antes de volver a intentar."
+            : response.status === 422
             ? "Revisá los datos y completá el teléfono si preferís una respuesta por teléfono o WhatsApp."
             : "No pudimos enviar la consulta. Intentá nuevamente en unos minutos.",
         );
@@ -121,6 +123,7 @@ export function ContactForm({
           <input
             required
             name="name"
+            maxLength={120}
             autoComplete="name"
             className="mt-2 min-h-12 w-full rounded-xl border border-line-strong bg-paper px-4 font-normal text-ink placeholder:text-muted/65 focus-visible:border-senda focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/20"
             placeholder="Ej.: Alex…"
@@ -131,6 +134,7 @@ export function ContactForm({
           <input
             required
             name="email"
+            maxLength={320}
             type="email"
             autoComplete="email"
             inputMode="email"
@@ -171,6 +175,7 @@ export function ContactForm({
         Teléfono <span className="font-normal text-muted">{contactPreference === "PHONE" || contactPreference === "WHATSAPP" ? "(obligatorio para esta preferencia)" : "(opcional)"}</span>
         <input
           name="phone"
+          maxLength={40}
           type="tel"
           required={contactPreference === "PHONE" || contactPreference === "WHATSAPP"}
           autoComplete="tel"
@@ -183,12 +188,15 @@ export function ContactForm({
         <textarea
           required
           name="message"
-          minLength={20}
+          minLength={10}
+          maxLength={4000}
+          aria-describedby="contact-privacy-hint"
           rows={5}
           className="mt-2 w-full resize-y rounded-xl border border-line-strong bg-paper px-4 py-3 font-normal leading-6 text-ink placeholder:text-muted/65 focus-visible:border-senda focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/20"
           placeholder="Por ejemplo: quisiera consultar modalidad y horarios para una primera entrevista."
         />
       </label>
+      <p id="contact-privacy-hint" className="text-sm text-muted">Usá este mensaje para consultar disponibilidad, modalidad u horarios. No incluyas diagnósticos, historia clínica ni información sensible.</p>
       <div className="absolute left-[-9999px] top-auto size-px overflow-hidden" aria-hidden="true">
         <label>
           Sitio web

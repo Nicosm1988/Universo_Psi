@@ -338,6 +338,13 @@ from public.roles r
 where r.code = 'ADMIN'
 on conflict do nothing;
 
+insert into auth.sessions(id, user_id, aal) values (
+  'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa99',
+  'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa02', 'aal2'
+);
+select set_config('request.jwt.claims', '{"sub":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa02","role":"authenticated","aal":"aal2","session_id":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa99"}', true);
+
+
 set local role authenticated;
 
 do $$

@@ -1,10 +1,11 @@
 "use client";
 
-import { BookOpen, LayoutDashboard, MessageSquareText, Settings, UserRound } from "lucide-react";
+import { BookOpen, LayoutDashboard, MessageSquareText, Settings, ShieldCheck, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const navigation = [
+  { href: "/dashboard/seguridad", label: "Seguridad", icon: ShieldCheck, section: "seguridad" },
   { href: "/dashboard", label: "Inicio", icon: LayoutDashboard, section: "" },
   { href: "/profesionales/sumarse", label: "Mi perfil", icon: UserRound, section: "perfil" },
   { href: "/dashboard?seccion=consultas", label: "Consultas", icon: MessageSquareText, section: "consultas" },
@@ -15,7 +16,7 @@ const navigation = [
 export function DashboardNavigation() {
   const pathname = usePathname();
   const search = useSearchParams();
-  const section = pathname.startsWith("/dashboard/suscripcion") ? "suscripcion" : ["consultas", "suscripcion"].includes(search.get("seccion") ?? "") ? search.get("seccion") : "";
+  const section = pathname === "/dashboard/seguridad" ? "seguridad" : pathname.startsWith("/dashboard/suscripcion") ? "suscripcion" : ["consultas", "suscripcion"].includes(search.get("seccion") ?? "") ? search.get("seccion") : "";
   return <nav className="mt-6" aria-label="Dashboard">
     <ul className="space-y-1">
       {navigation.map(({ href, label, icon: Icon, section: itemSection }) => {

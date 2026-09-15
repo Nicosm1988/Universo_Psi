@@ -25,6 +25,7 @@ const footerGroups = [
     links: [
       ["Cómo verificamos", "/para-profesionales#verificacion"],
       ["Privacidad", "/privacidad"],
+      ["Soporte", "mailto:hola@universosenda.com"],
       ["Términos", "/terminos"],
     ],
   },

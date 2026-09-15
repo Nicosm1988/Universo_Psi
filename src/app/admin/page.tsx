@@ -1,7 +1,6 @@
 import { ExternalLink, FileCheck2, ShieldCheck, UserRoundSearch } from "lucide-react";
 import type { Metadata, Route } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import {
   resolveCredentialAction,
@@ -11,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { requireCurrentUser } from "@/lib/dal/auth";
+import { requireAdmin } from "@/lib/dal/auth";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -63,34 +62,26 @@ export default async function AdminPage({
   searchParams: Promise<{ notice?: string; error?: string }>;
 }) {
   const feedback = await searchParams;
-  const user = await requireCurrentUser("/admin");
-  if (!user.roles.some((role) => role === "ADMIN" || role === "SUPERADMIN")) {
-    redirect("/dashboard");
-  }
+  await requireAdmin("/admin");
 
   const supabase = await createClient();
-  const [{ data: credentials }, { data: profileRows, error: profilesError }, { count: pendingReviews }, { count: pendingArticles }] =
+  const [{ data: credentials, error: credentialsError }, { data: profileRows, error: profilesError }, { count: pendingReviews }, { count: pendingArticles }] =
     await Promise.all([
       supabase.rpc("admin_pending_credentials", { p_limit: 50 }),
       supabase.rpc("admin_pending_professional_profiles", { p_limit: 50 }),
       supabase.from("reviews").select("id", { count: "exact", head: true }).eq("status", "PENDING"),
       supabase.from("articles").select("id", { count: "exact", head: true }).eq("status", "PENDING"),
     ]);
-  if (profilesError) {
+  if (profilesError || credentialsError) {
     throw new Error("No se pudieron cargar los perfiles pendientes.", {
       cause: profilesError,
     });
   }
   const profiles = (profileRows ?? []) as PendingProfile[];
 
-  const credentialsWithLinks = await Promise.all(
-    ((credentials ?? []) as PendingCredential[]).map(async (credential) => {
-      const { data } = await supabase.storage
-        .from("professional-credentials")
-        .createSignedUrl(credential.object_path, 300);
-      return { ...credential, signedUrl: data?.signedUrl ?? null };
-    }),
-  );
+  const credentialsWithLinks = ((credentials ?? []) as PendingCredential[]).map((credential) => ({
+    ...credential, signedUrl: `/api/admin/credentials/${credential.credential_id}`,
+  }));
 
   return (
     <main id="contenido" className="min-h-screen bg-mist py-10 sm:py-14">
@@ -148,8 +139,8 @@ export default async function AdminPage({
                       <p className="mt-1 text-xs text-muted">Recibida {formatDate(credential.submitted_at)}</p>
                       {credential.issuing_entity ? <p className="mt-3 text-sm text-ink">Emisor: {credential.issuing_entity}</p> : null}
                       {credential.signedUrl ? (
-                        <a className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-senda underline-offset-4 hover:underline" href={credential.signedUrl} target="_blank" rel="noreferrer">
-                          Abrir documento <ExternalLink className="size-4" aria-hidden="true" />
+                        <a className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-senda underline-offset-4 hover:underline" href={credential.signedUrl} target="_blank" rel="noreferrer">
+                          Descargar documento <ExternalLink className="size-4" aria-hidden="true" />
                         </a>
                       ) : <p className="mt-3 text-sm text-red-700">No se pudo generar el acceso temporal.</p>}
                     </div>

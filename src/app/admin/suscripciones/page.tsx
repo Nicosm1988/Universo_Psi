@@ -1,6 +1,5 @@
-import type { Metadata, Route } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import {
   expirePastDueSubscriptionsAction,
@@ -9,7 +8,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { requireCurrentUser } from "@/lib/dal/auth";
+import { requireAdmin } from "@/lib/dal/auth";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -77,10 +76,7 @@ export default async function AdminSubscriptionsPage({
   searchParams: Promise<{ notice?: string; error?: string }>;
 }) {
   const feedback = await searchParams;
-  const user = await requireCurrentUser("/admin/suscripciones");
-  if (!user.roles.some((role) => role === "ADMIN" || role === "SUPERADMIN")) {
-    redirect("/dashboard" as Route);
-  }
+  await requireAdmin("/admin/suscripciones");
 
   const supabase = await createClient();
   const { data, error } = await supabase

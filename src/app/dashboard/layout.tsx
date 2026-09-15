@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense, type ReactNode } from "react";
 import { DashboardNavigation } from "@/components/dashboard/navigation";
@@ -27,6 +28,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
               </div>
               <p className="mt-2 truncate font-semibold text-ink">{user.displayName ?? user.email ?? "Profesional"}</p>
               <Suspense><DashboardNavigation /></Suspense>
+              {user.roles.some((role) => role === "ADMIN" || role === "SUPERADMIN") ? <Link href="/admin" className="mt-3 flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold text-senda hover:bg-mist">Administrar perfiles</Link> : null}
               <form action={signOutAction} className="mt-6 border-t border-line pt-5">
                 <button className="min-h-11 w-full rounded-xl px-3 text-left text-sm font-semibold text-muted hover:bg-mist hover:text-ink" type="submit">
                   Cerrar sesión

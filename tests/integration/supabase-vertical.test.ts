@@ -1,3 +1,4 @@
+import { totp } from "../helpers/totp";
 import { createHash } from "node:crypto";
 
 import {
@@ -299,6 +300,12 @@ describeIntegration(
           signIn(ADMIN_EMAIL, adminUser.id),
           signIn(OUTSIDER_EMAIL, outsiderUser.id),
         ]);
+        expect((await admin.rpc("has_current_admin_session")).data).toBe(false);
+        const factor = await admin.auth.mfa.enroll({ factorType: "totp" });
+        if (factor.error) throw factor.error;
+        const verified = await admin.auth.mfa.challengeAndVerify({ factorId: factor.data.id, code: totp(factor.data.totp.secret) });
+        assertNoError(verified, "Verificar MFA del administrador local");
+        expect((await admin.rpc("has_current_admin_session")).data).toBe(true);
         const anonymous = makeClient(testEnv.publishableKey);
 
         const [

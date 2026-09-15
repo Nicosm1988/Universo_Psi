@@ -49,6 +49,9 @@ export default async function ProfessionalOnboardingPage({
       supabase.rpc("my_professional_profile").maybeSingle(),
     ]);
 
+  if ([typesResult, needsResult, servicesResult, modalitiesResult, languagesResult, plansResult, credentialTypesResult, credentialsResult, profileResult].some((result) => result.error)) {
+    throw new Error("No pudimos cargar tu perfil y sus opciones. Volvé a intentar; tus datos guardados siguen intactos.");
+  }
   const profile = profileResult.data as MyProfessionalProfile | null;
   let relations = {
     professionalTypeId: undefined as string | undefined,
@@ -73,6 +76,9 @@ export default async function ProfessionalOnboardingPage({
         .in("status", ["PENDING_PAYMENT", "TRIALING", "ACTIVE"])
         .maybeSingle(),
     ]);
+    if ([typeLinks, needLinks, serviceLinks, modalityLinks, languageLinks, subscription].some((result) => result.error)) {
+      throw new Error("No pudimos recuperar las opciones de tu perfil. Volvé a intentar antes de editar.");
+    }
     const planRelation = subscription.data?.plans as
       | { code?: string }
       | { code?: string }[]

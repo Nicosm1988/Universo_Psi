@@ -1,3 +1,4 @@
+import { totp } from "../../helpers/totp";
 import { expect, test, type Page } from "@playwright/test";
 
 import {
@@ -207,10 +208,22 @@ test.describe("vertical autenticado profesional y administración", () => {
   }) => {
     await login(page, AUTH_E2E.adminEmail, "/admin");
 
+    await expect(page).toHaveURL(/\/dashboard\/seguridad\?next=/);
+    await page.getByRole("button", { name: "Configurar aplicación autenticadora" }).click();
+    await page.locator("summary").filter({ hasText: "Ingresar la clave manualmente" }).click();
+    const secret = await page.locator("details code").innerText();
+    await page.getByRole("textbox", { name: "Código de seis números" }).fill(totp(secret));
+    await page.getByRole("button", { name: "Verificar y continuar" }).click();
     await expect(page).toHaveURL(/\/admin$/);
     await expect(
       page.getByRole("heading", { level: 1, name: "Panel de revisión" }),
     ).toBeVisible();
+
+    const downloadPath = await page.getByRole("link", { name: "Descargar documento" }).first().getAttribute("href");
+    const documentResponse = await page.request.get(downloadPath!);
+    expect(documentResponse.status()).toBe(200);
+    expect(documentResponse.headers()["content-disposition"]).toContain("attachment;");
+    expect(documentResponse.headers()["cache-control"]).toContain("no-store");
 
     const credentialSection = page.locator("section").filter({
       has: page.getByRole("heading", { level: 2, name: "Credenciales" }),

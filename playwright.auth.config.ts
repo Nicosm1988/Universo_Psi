@@ -43,7 +43,7 @@ export default defineConfig({
   webServer: {
     command: `npm run dev -- --hostname 127.0.0.1 --port ${port}`,
     url: parsedAppUrl.origin,
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env.CI && process.env.PLAYWRIGHT_AUTH_REUSE_SERVER === "true",
     timeout: 120_000,
     env: {
       ...process.env,

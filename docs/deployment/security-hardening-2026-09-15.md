@@ -27,6 +27,7 @@ Base publicada: `b4f8e65ad182eeb43ba0bb78a56fa7ea25f5d10e`. Trabajo aislado en `
 - Workflow de publicación SQL aprobado con fixture administrativo AAL2.
 - Build de producción Node24/Turbopack aprobado en Docker aislado. El primer intento dentro del sandbox no completó; se detuvo sólo ese proceso antes de correr Docker.
 - Navegador autenticado: se detectó y corrigió la normalización del QR SVG entregado por Auth. Un reintento posterior chocó con el límite de login local; se usó un salt exclusivo de la corrida QA sin alterar límites productivos. Resultado final: 11 E2E autenticados aprobados, incluidos MFA y descarga adjunta; 2 pruebas de inyección de fallos omitidas por requerir interceptor externo. Alta/confirmación usa Mailpit local, no correo externo.
+- Regresión pública final: 56 E2E aprobados en escritorio y móvil sobre build de producción local.
 - Navegador productivo: 16 destinos anónimos revisados, sin enviar datos ni cargos. Evidencia local `output/security-review/public-routes.txt`.
 
 ## Pendientes que no deben darse por resueltos

@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   try { body = await readJsonBody(request, 12 * 1024); }
   catch (error) { return respond({ message: "No pudimos leer la solicitud." }, error instanceof RequestBodyTooLargeError ? 413 : 400); }
   const parsed = legalRequestSchema.safeParse(body);
-  if (!parsed.success) return respond({ message: "Revisá el correo y escribí entre 10 y 2000 caracteres." }, 422);
+  if (!parsed.success) return respond({ message: "Revisá el correo, el tipo de pedido y el límite de 2000 caracteres." }, 422);
   try {
     const admin = createAdminClient();
     const limit = await consumeRateLimit(admin, { scope: "legal.network", keyHash: requestFingerprint(request.headers), limit: 10, windowSeconds: 600 });

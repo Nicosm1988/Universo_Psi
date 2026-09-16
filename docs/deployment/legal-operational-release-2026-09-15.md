@@ -2,7 +2,7 @@
 
 ## Alcance
 
-- Formulario público `/solicitudes`: baja, arrepentimiento, acceso, corrección, eliminación y reclamos, sin exigir cuenta. Devuelve constancia sólo tras confirmar persistencia; reintentos idénticos conservan la referencia.
+- Formulario público `/solicitudes`: baja, arrepentimiento, acceso, corrección, eliminación y reclamos, sin exigir cuenta ni justificar el motivo de la baja. Devuelve constancia sólo tras confirmar persistencia; reintentos idénticos conservan la referencia.
 - Datos en tablas `private` con RLS, sin grants a visitantes/usuarios. RPC de escritura sólo backend y rate limit por red; RPC administrativas requieren ADMIN/SUPERADMIN, AAL2 y sesión vigente. La gestión deja un evento inmutable para el cliente.
 - `/admin/solicitudes`: bandeja de hasta 200 pedidos, pendientes primero y más antiguos antes. Estado y notas no ejecutan cambios en Mercado Pago, no eliminan cuentas ni envían correos. Requiere atención humana.
 - Analítica opcional desactivada en cliente, endpoint y componentes Vercel; se eliminan del navegador los identificadores anteriores. No se borraron registros históricos productivos ni logs de infraestructura.
@@ -24,4 +24,4 @@ Los borradores definitivos de términos/privacidad y el acuerdo de invitación p
 
 Aplicar sólo `20260916002307_legal_requests_and_analytics_minimization.sql` y, después, `20260916003917_legal_admin_private_functions.sql`, con transacción e historia de migración. La segunda conserva los controles y mueve las implementaciones privilegiadas al esquema privado; los wrappers públicos son SECURITY INVOKER. No ejecutar db push sobre migraciones históricas no aplicadas. La migración es aditiva; una reversión del frontend conserva pedidos y auditoría privados. Si se revierte el sitio, los pedidos ya recibidos siguen necesitando atención.
 
-Validación local: lint, typecheck, 374 pruebas unitarias; prueba SQL sintética de permisos, MFA, idempotencia, auditoría y revocación con rollback. Build Node24. 60 pruebas públicas aprobadas en escritorio y móvil; incluyen recuperación de error, constancia y ausencia de seguimiento. La primera corrida detectó y permitió corregir el desplazamiento del buscador en móvil y un selector de prueba ambiguo. Integración real local aprobada: dos POST al backend devolvieron la misma constancia y una única fila persistida. No se usó un mock en esa prueba.
+Validación local: lint, typecheck, 375 pruebas unitarias; prueba SQL sintética de permisos, MFA, idempotencia, auditoría y revocación con rollback. Build Node24. 60 pruebas públicas aprobadas en escritorio y móvil; incluyen recuperación de error, constancia y ausencia de seguimiento. La primera corrida detectó y permitió corregir el desplazamiento del buscador en móvil y un selector de prueba ambiguo. Integración real local aprobada: dos POST al backend devolvieron la misma constancia y una única fila persistida. No se usó un mock en esa prueba.

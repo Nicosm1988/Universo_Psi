@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { safeInternalPath } from "@/lib/http/origin";
 import { createClient } from "@/lib/supabase/client";
 
-export function SecuritySettings({ factors, verified, next }: { factors: { id: string; name: string }[]; verified: boolean; next: string }) {
+export function SecuritySettings({ factors, verified, next, canAdmin }: { canAdmin: boolean; factors: { id: string; name: string }[]; verified: boolean; next: string }) {
   const [factorId, setFactorId] = useState(factors[0]?.id ?? "");
   const [enrollment, setEnrollment] = useState<{ qr: string; secret: string }>();
   const [code, setCode] = useState("");
@@ -64,7 +64,7 @@ export function SecuritySettings({ factors, verified, next }: { factors: { id: s
     });
   }
   return <div className="mt-6 space-y-6">
-    {verified ? <p role="status" className="text-sm font-semibold text-ink">Esta sesión ya tiene la segunda verificación.</p> : <>
+    {!canAdmin ? null : verified ? <p role="status" className="text-sm font-semibold text-ink">Esta sesión ya tiene la segunda verificación.</p> : <>
       {!factorId ? <Button disabled={pending} onClick={enroll}>Configurar aplicación autenticadora</Button> : null}
       {enrollment ? <div className="space-y-3">
         <p className="text-sm text-muted">Escaneá este QR con tu aplicación autenticadora. Guardá la clave en un lugar seguro; permite recuperar el acceso si cambiás de teléfono.</p>

@@ -104,6 +104,7 @@ export default async function AdminPage({
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <Link className={buttonStyles({ variant: "secondary" })} href={"/admin/solicitudes" as Route}>Solicitudes</Link>
             <Link className={buttonStyles({ variant: "secondary" })} href={"/admin/suscripciones" as Route}>Suscripciones</Link>
             <Link className={buttonStyles({ variant: "secondary" })} href="/dashboard">Volver al dashboard</Link>
           </div>

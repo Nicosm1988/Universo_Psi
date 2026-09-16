@@ -17,15 +17,15 @@ export default function TermsPage() {
     <section className="bg-paper py-12 sm:py-16">
       <Container className="max-w-3xl">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-senda">
-          Versión agosto de 2026 · Información operativa corregida el 15 de septiembre
+          Versión agosto de 2026
         </p>
         <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">
           Términos y condiciones
         </h1>
         <p className="mt-5 rounded-2xl border border-senda/25 bg-senda/5 px-5 py-4 text-sm leading-6 text-ink">
           <strong>Borrador sujeto a revisión legal.</strong> Este texto describe el funcionamiento actual de
-          Universo Psi. La identificación legal completa de la persona responsable está pendiente de publicación.
-          Contacto para consultas y reclamos: hola@universosenda.com.
+          Universo Psi. Antes de habilitar contrataciones pagas deberá completarse la identificación legal de la
+          persona responsable de la plataforma y revisar estas condiciones con asesoramiento profesional.
         </p>
 
         <div className="mt-9 space-y-9 text-[0.9375rem] leading-7 text-muted">
@@ -104,19 +104,15 @@ export default function TermsPage() {
           <section className={sectionClassName}>
             <h2 className={headingClassName}>6. Planes y pagos</h2>
             <p>
-              Los precios y prestaciones disponibles se informan en la página de planes y antes de confirmar
-              la contratación. Mercado Pago procesa los cobros habilitados, incluida la renovación mensual cuando
-              así se informa en el checkout. Seleccionar un plan no equivale a autorizar un débito ni a acreditar un pago.
+              Los planes profesionales se encuentran actualmente en estado de borrador y no tienen precios
+              aprobados. Elegir un plan puede registrar una solicitud como pendiente de pago, pero no activa una
+              suscripción, no genera deuda y no produce ningún cobro.
             </p>
             <p>
-              Podés registrar una solicitud de baja o arrepentimiento sin iniciar sesión desde los enlaces visibles
-              en la plataforma. Guardá la constancia de recepción. La cancelación del débito también puede gestionarse
-              desde tu cuenta de Mercado Pago; cerrar una cuenta en Universo Psi no acredita por sí solo esa cancelación.
-              El equipo debe confirmar la gestión correspondiente. No se limita ningún derecho legal de reintegro.
-            </p>
-            <p className="text-sm">
-              Esta aclaración corrige la información anterior que indicaba que no había precios ni cobros habilitados.
-              No altera retroactivamente las condiciones de una contratación ni autoriza nuevos cargos.
+              Antes de habilitar pagos, Universo Psi deberá informar de manera clara el precio final, moneda,
+              impuestos, prestaciones, renovación, cancelación y proveedor de pago aplicables, y solicitar la
+              aceptación correspondiente. No ingreses datos de tarjeta mientras la plataforma informe que la
+              integración no está configurada.
             </p>
           </section>
 
@@ -258,7 +254,7 @@ export default function TermsPage() {
             </p>
             <p>
               Las consultas, reportes y solicitudes legales pueden enviarse a <a className="font-semibold underline underline-offset-4" href="mailto:hola@universosenda.com">hola@universosenda.com</a>. La versión definitiva deberá incluir un canal electrónico estable
-              y la identificación legal completa de su responsable.
+              y la identificación legal completa de su responsable antes de habilitar servicios pagos.
             </p>
           </section>
         </div>

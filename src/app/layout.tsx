@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import type { ReactNode } from "react";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PointerIllumination } from "@/components/effects/pointer-illumination";
 import "./globals.css";
 
@@ -24,6 +22,8 @@ const themeInitializationScript = `
   var storageKey = "universo-psi-theme:v1";
   var theme = "light";
   try {
+    window.localStorage.removeItem("universo-psi-anonymous-id");
+    window.sessionStorage.removeItem("universo-psi-session-id");
     var savedTheme = window.localStorage.getItem(storageKey);
     if (savedTheme === "light" || savedTheme === "dark") {
       theme = savedTheme;
@@ -99,8 +99,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         </a>
         <PointerIllumination />
         {children}
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

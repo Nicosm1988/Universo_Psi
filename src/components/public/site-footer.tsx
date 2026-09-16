@@ -25,7 +25,9 @@ const footerGroups = [
     links: [
       ["Cómo verificamos", "/para-profesionales#verificacion"],
       ["Privacidad", "/privacidad"],
-      ["Soporte", "mailto:hola@universosenda.com"],
+      ["Soporte y derechos", "/solicitudes"],
+      ["Botón de baja de servicio", "/solicitudes?tipo=CANCELLATION"],
+      ["Botón de arrepentimiento", "/solicitudes?tipo=WITHDRAWAL"],
       ["Términos", "/terminos"],
     ],
   },
@@ -35,6 +37,10 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-white/10 bg-ink py-10 text-white sm:py-12">
       <Container>
+        <nav aria-label="Baja y arrepentimiento" className="mb-8 flex flex-wrap gap-3">
+          <Link href="/solicitudes?tipo=CANCELLATION" className="inline-flex min-h-11 items-center rounded-xl border border-white/40 px-4 text-sm font-semibold">Botón de baja de servicio</Link>
+          <Link href="/solicitudes?tipo=WITHDRAWAL" className="inline-flex min-h-11 items-center rounded-xl border border-white/40 px-4 text-sm font-semibold">Botón de arrepentimiento</Link>
+        </nav>
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div className="max-w-sm">
             <Logo inverse />

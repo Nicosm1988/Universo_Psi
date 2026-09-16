@@ -60,6 +60,7 @@ jobs:
           npm run test:db:workflow
           docker exec -i supabase_db_Universo_Psi psql -v ON_ERROR_STOP=1 -U postgres -d postgres < supabase/tests/database/security_admin_mfa.sql
           docker exec -i supabase_db_Universo_Psi psql -v ON_ERROR_STOP=1 -U postgres -d postgres < supabase/tests/database/security_storage_quota.sql
+          docker exec -i supabase_db_Universo_Psi psql -v ON_ERROR_STOP=1 -U postgres -d postgres < supabase/tests/database/legal_requests.sql
           SUPABASE_TEST_URL="${API_URL}" \
           SUPABASE_TEST_PUBLISHABLE_KEY="${PUBLISHABLE_KEY}" \
           SUPABASE_TEST_SECRET_KEY="${SECRET_KEY}" \

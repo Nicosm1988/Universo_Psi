@@ -26,7 +26,7 @@ export default async function PlansPage() {
         title="Una suscripción clara, sin promesas de contactos garantizados."
         description={payment.configured ? "Elegí tu plan. La suscripción se activa cuando confirmamos el pago con Mercado Pago." : "Elegí tu plan y prepará tu perfil. El cobro en línea todavía no está habilitado."}
         breadcrumbs={[{ label: "Inicio", href: "/" }, { label: "Para profesionales", href: "/para-profesionales" }, { label: "Planes" }]}
-        aside={<p className="rounded-[1.25rem] border border-line bg-paper p-5 text-sm leading-6 text-muted"><strong className="block text-ink">Suscripción mensual</strong>Cuando el cobro esté habilitado, la autorización del débito se realiza en Mercado Pago. La selección del plan no genera un cargo.</p>}
+        aside={<p className="rounded-[1.25rem] border border-line bg-paper p-5 text-sm leading-6 text-muted"><strong className="block text-ink">Suscripción mensual</strong>La autorización del débito mensual se realiza en Mercado Pago cuando el checkout está disponible. Seleccionar un plan no equivale a autorizar el cobro.</p>}
       />
 
       <section className="bg-canvas py-14 sm:py-18 lg:py-20">
@@ -69,7 +69,7 @@ export default async function PlansPage() {
                 ["¿El plan garantiza consultas?", "No. La demanda depende de cada especialidad, momento y encaje. La plataforma mejora la posibilidad de ser encontrado y ofrece información para comprender el rendimiento."],
                 ["¿Puedo publicar mi perfil sin verificación?", "Podés prepararlo y enviarlo a revisión. Sólo se publica cuando cumple los requisitos definidos para tu tipo profesional."],
                 ["¿Cómo se identifica un perfil destacado?", "Con una etiqueta visible en la tarjeta y el perfil. La verificación, las opiniones y el encaje permanecen como señales independientes."],
-                ["¿Puedo cancelar la suscripción?", "La cancelación del débito se gestiona en tu cuenta de Mercado Pago. Este sitio muestra el estado una vez confirmado por el proveedor."],
+                ["¿Puedo cancelar la suscripción?", "Podés solicitar la baja desde el botón de baja de servicio o gestionarla en tu cuenta de Mercado Pago. Guardá la constancia y verificá la confirmación: cerrar la página no cancela una suscripción."],
               ].map(([question, answer]) => (
                 <details key={question} className="group py-5">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-5 font-semibold text-ink focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/25"><span>{question}</span><span aria-hidden="true" className="text-xl font-normal text-senda-dark group-open:rotate-45">+</span></summary>

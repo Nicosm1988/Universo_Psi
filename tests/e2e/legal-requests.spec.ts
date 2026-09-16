@@ -3,7 +3,6 @@ test("solicitud pública, error recuperable y constancia sin cuenta", async ({ p
   await page.goto("/solicitudes?tipo=CANCELLATION");
   await expect(page.getByLabel("Qué necesitás")).toHaveValue("CANCELLATION");
   await page.getByLabel("Correo de contacto").fill("legal-test@example.com");
-  await page.getByLabel("Detalle del pedido").fill("Solicito la baja de mi servicio de prueba.");
   await page.route("**/api/solicitudes", (route) => route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ message: "No se registró la solicitud." }) }));
   await page.getByRole("button", { name: "Registrar solicitud" }).click();
   await expect(page.locator("form").getByRole("alert")).toContainText("No se registró");

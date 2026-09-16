@@ -27,8 +27,8 @@ export function LegalRequestForm({ initialKind = "COMPLAINT" }: { initialKind?: 
   return <form onSubmit={submit} className="space-y-5">
     <label className="block font-semibold">Qué necesitás<select name="kind" defaultValue={initialKind} className={field}>{Object.entries(legalRequestKinds).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
     <label className="block font-semibold">Correo de contacto<input name="email" type="email" autoComplete="email" required maxLength={254} className={field} /></label>
-    <label className="block font-semibold">Detalle del pedido<textarea name="message" required minLength={10} maxLength={2000} rows={5} className={field} aria-describedby="request-help" /></label>
-    <p id="request-help" className="text-sm text-muted">Indicá el servicio o la operación, si corresponde. No envíes contraseñas, códigos, datos de tarjeta ni información clínica. Usaremos estos datos para tramitar tu pedido; podemos verificar tu identidad antes de ejecutar cambios.</p>
+    <label className="block font-semibold">Detalle del pedido (opcional)<textarea name="message" maxLength={2000} rows={5} className={field} aria-describedby="request-help" /></label>
+    <p id="request-help" className="text-sm text-muted">Podés indicar el servicio o la operación, si corresponde. No necesitás explicar el motivo de la baja. No envíes contraseñas, códigos, datos de tarjeta ni información clínica. Usaremos estos datos para tramitar tu pedido; podemos verificar tu identidad antes de ejecutar cambios.</p>
     {error ? <p role="alert" className="text-red-700">{error}</p> : null}
     <button disabled={busy} className="min-h-11 rounded-full bg-senda px-6 py-3 font-semibold text-white disabled:opacity-60">{busy ? "Registrando…" : "Registrar solicitud"}</button>
   </form>;

@@ -11,6 +11,7 @@ export const legalRequestKinds = {
 export const legalRequestSchema = z.object({
   kind: z.enum(["CANCELLATION", "WITHDRAWAL", "ACCESS", "CORRECTION", "DELETION", "COMPLAINT"]),
   email: z.string().trim().email().max(254).transform((value) => value.toLowerCase()),
-  message: z.string().trim().min(10).max(2000),
+  message: z.string().trim().max(2000).default("").transform((value) =>
+    value.length === 0 ? "Sin detalle adicional." : value.length < 10 ? `Detalle informado: ${value}` : value),
   requestId: z.uuid(),
 });

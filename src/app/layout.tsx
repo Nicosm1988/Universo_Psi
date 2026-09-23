@@ -40,7 +40,7 @@ const themeInitializationScript = `
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi-eight.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://universopsi.com"),
   title: {
     default: "Universo Psi · Encontrá un profesional de salud mental",
     template: "%s · Universo Psi",

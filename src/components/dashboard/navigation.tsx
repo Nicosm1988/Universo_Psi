@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, LayoutDashboard, MessageSquareText, Settings, ShieldCheck, UserRound } from "lucide-react";
+import { LayoutDashboard, MessageSquareText, Settings, ShieldCheck, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -9,7 +9,6 @@ const navigation = [
   { href: "/dashboard", label: "Inicio", icon: LayoutDashboard, section: "" },
   { href: "/profesionales/sumarse", label: "Mi perfil", icon: UserRound, section: "perfil" },
   { href: "/dashboard?seccion=consultas", label: "Consultas", icon: MessageSquareText, section: "consultas" },
-  { href: "/recursos", label: "Contenido", icon: BookOpen, section: "contenido" },
   { href: "/dashboard?seccion=suscripcion", label: "Suscripción", icon: Settings, section: "suscripcion" },
 ] as const;
 

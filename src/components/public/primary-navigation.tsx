@@ -7,8 +7,7 @@ import { useRef } from "react";
 const navigation = [
   { href: "/profesionales", label: "Buscar profesional" },
   { href: "/para-profesionales", label: "Soy profesional" },
-  { href: "/recursos", label: "Recursos" },
-  { href: "/convenios", label: "Convenios" },
+  { href: "/preguntas-frecuentes", label: "Ayuda" },
 ] as const;
 
 export function PrimaryNavigation() {

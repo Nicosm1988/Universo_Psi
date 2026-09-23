@@ -97,33 +97,12 @@ describe("public professional repository", () => {
 });
 
 describe("public SEO collections", () => {
-  it("exposes unique slugs for every indexable collection", async () => {
-    const [professionals, resources, agreements] = await Promise.all([
-      publicRepository.listProfessionalSlugs(),
-      publicRepository.listResourceSlugs(),
-      publicRepository.listAgreementSlugs(),
-    ]);
+  it("exposes unique slugs for the professional directory", async () => {
+    const professionals = await publicRepository.listProfessionalSlugs();
+    const slugs = professionals.map(({ slug }) => slug);
 
-    for (const collection of [professionals, resources, agreements]) {
-      const slugs = collection.map(({ slug }) => slug);
-      expect(slugs.length).toBeGreaterThan(0);
-      expect(new Set(slugs).size).toBe(slugs.length);
-      expect(slugs.every((slug) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))).toBe(
-        true,
-      );
-    }
-  });
-
-  it("lists resources newest first and resolves public details", async () => {
-    const resources = await publicRepository.listResources();
-    const publishedAt = resources.map(({ publishedAt }) => publishedAt);
-
-    expect(publishedAt).toEqual([...publishedAt].sort().reverse());
-    await expect(
-      publicRepository.getResource(resources[0]?.slug ?? ""),
-    ).resolves.toEqual(resources[0]);
-    await expect(
-      publicRepository.getAgreement("comunidad-universitaria-del-rio"),
-    ).resolves.toMatchObject({ institution: "Universidad del Río" });
+    expect(slugs.length).toBeGreaterThan(0);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    expect(slugs.every((slug) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))).toBe(true);
   });
 });

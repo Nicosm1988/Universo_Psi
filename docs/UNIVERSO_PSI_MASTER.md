@@ -84,7 +84,7 @@ La autorización nunca depende de `user_metadata`. La fuente autoritativa es `us
 
 ## Rutas canónicas y estado
 
-- **Implementado — públicas:** `/`, `/profesionales`, `/profesionales/[slug]`, `/para-profesionales`, `/planes`, `/convenios`, `/convenios/[slug]`, `/recursos`, `/recursos/[slug]`, `/preguntas-frecuentes`, `/contacto`, `/solicitudes`, `/terminos` y `/privacidad`.
+- **Implementado — públicas:** `/`, `/profesionales`, `/profesionales/[slug]`, `/para-profesionales`, `/planes`, `/preguntas-frecuentes`, `/contacto`, `/solicitudes`, `/terminos` y `/privacidad`.
 - **Compatibilidad:** `/matching` redirige permanentemente a `/profesionales`; no aparece en navegación ni sitemap y no representa una funcionalidad activa.
 - **Implementado — cuenta y alta:** `/ingresar`, `/registro`, `/recuperar-acceso`, `/actualizar-contrasena`, `/aceptar-terminos`, `/profesionales/sumarse` y `/auth/callback`.
 - **Implementado — privado:** `/dashboard` concentra perfil, últimas consultas, métricas y suscripción mediante secciones; `/admin` concentra revisión de credenciales y decisión de publicación.

@@ -48,12 +48,13 @@ export function CookieConsent() {
   }, [openPanel]);
 
   // `showModal` aporta el atrapado de foco, el cierre con Escape y la
-  // inertización del fondo sin reimplementarlos a mano.
+  // inertización del fondo sin reimplementarlos a mano. El diálogo se monta sólo
+  // mientras está abierto: un `<dialog>` cerrado igual deja sus etiquetas en el
+  // DOM y colisiona con búsquedas por texto en el resto de la página.
   useEffect(() => {
+    if (!panelOpen) return;
     const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (panelOpen && !dialog.open) dialog.showModal();
-    if (!panelOpen && dialog.open) dialog.close();
+    if (dialog && !dialog.open) dialog.showModal();
   }, [panelOpen]);
 
   function decide(next: Record<OptionalCookieCategory, boolean>) {
@@ -109,71 +110,73 @@ export function CookieConsent() {
         </div>
       ) : null}
 
-      <dialog
-        ref={dialogRef}
-        aria-labelledby="cookie-preferences-title"
-        onClose={dismissPanel}
-        onCancel={dismissPanel}
-        className="m-auto w-[min(40rem,calc(100vw-2rem))] rounded-3xl border border-line bg-paper p-0 text-ink backdrop:bg-ink/55 open:animate-none"
-      >
-        <div className="max-h-[min(85vh,44rem)] overflow-y-auto px-5 py-6 sm:px-7 sm:py-7">
-          <h2 id="cookie-preferences-title" className="text-xl font-semibold tracking-[-0.02em] text-ink">
-            Configurar cookies
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-muted">
-            Elegí qué cookies habilitar. Sólo las técnicas están activadas de forma obligatoria; el resto
-            permanece desactivado hasta que lo indiques.
-          </p>
+      {panelOpen ? (
+        <dialog
+          ref={dialogRef}
+          aria-labelledby="cookie-preferences-title"
+          onClose={dismissPanel}
+          onCancel={dismissPanel}
+          className="m-auto w-[min(40rem,calc(100vw-2rem))] rounded-3xl border border-line bg-paper p-0 text-ink backdrop:bg-ink/55 open:animate-none"
+        >
+          <div className="max-h-[min(85vh,44rem)] overflow-y-auto px-5 py-6 sm:px-7 sm:py-7">
+            <h2 id="cookie-preferences-title" className="text-xl font-semibold tracking-[-0.02em] text-ink">
+              Configurar cookies
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-muted">
+              Elegí qué cookies habilitar. Sólo las técnicas están activadas de forma obligatoria; el resto
+              permanece desactivado hasta que lo indiques.
+            </p>
 
-          <ul className="mt-6 space-y-3">
-            {COOKIE_CATEGORIES.map((category) => {
-              const required = category.id === "necessary";
-              const checked = required || selection[category.id as OptionalCookieCategory];
-              return (
-                <li key={category.id} className="rounded-2xl border border-line bg-canvas p-4">
-                  <label className="flex min-h-11 cursor-pointer items-start gap-3">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-5 shrink-0 accent-senda focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/35 disabled:opacity-60"
-                      checked={checked}
-                      disabled={required}
-                      onChange={(event) =>
-                        setSelection((current) => ({
-                          ...current,
-                          [category.id as OptionalCookieCategory]: event.target.checked,
-                        }))
-                      }
-                    />
-                    <span>
-                      <span className="block text-sm font-semibold text-ink">
-                        {category.label}
-                        {required ? (
-                          <span className="ml-2 align-middle text-xs font-semibold text-muted">
-                            (siempre activas)
-                          </span>
-                        ) : null}
+            <ul className="mt-6 space-y-3">
+              {COOKIE_CATEGORIES.map((category) => {
+                const required = category.id === "necessary";
+                const checked = required || selection[category.id as OptionalCookieCategory];
+                return (
+                  <li key={category.id} className="rounded-2xl border border-line bg-canvas p-4">
+                    <label className="flex min-h-11 cursor-pointer items-start gap-3">
+                      <input
+                        type="checkbox"
+                        className="mt-1 size-5 shrink-0 accent-senda focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-senda/35 disabled:opacity-60"
+                        checked={checked}
+                        disabled={required}
+                        onChange={(event) =>
+                          setSelection((current) => ({
+                            ...current,
+                            [category.id as OptionalCookieCategory]: event.target.checked,
+                          }))
+                        }
+                      />
+                      <span>
+                        <span className="block text-sm font-semibold text-ink">
+                          {category.label}
+                          {required ? (
+                            <span className="ml-2 align-middle text-xs font-semibold text-muted">
+                              (siempre activas)
+                            </span>
+                          ) : null}
+                        </span>
+                        <span className="mt-1 block text-sm leading-6 text-muted">{category.description}</span>
                       </span>
-                      <span className="mt-1 block text-sm leading-6 text-muted">{category.description}</span>
-                    </span>
-                  </label>
-                </li>
-              );
-            })}
-          </ul>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <Button onClick={() => decide(selection)}>Guardar preferencias</Button>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button variant="quiet" onClick={() => decide(allSelected)}>
-                Aceptar todas
-              </Button>
-              <Button variant="quiet" onClick={() => decide(emptyCookieSelection())}>
-                Rechazar
-              </Button>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <Button onClick={() => decide(selection)}>Guardar preferencias</Button>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button variant="quiet" onClick={() => decide(allSelected)}>
+                  Aceptar todas
+                </Button>
+                <Button variant="quiet" onClick={() => decide(emptyCookieSelection())}>
+                  Rechazar
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </dialog>
+        </dialog>
+      ) : null}
     </>
   );
 }

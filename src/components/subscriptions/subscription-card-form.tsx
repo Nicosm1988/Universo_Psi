@@ -6,7 +6,8 @@ import Link from "next/link";
 
 import styles from "./subscription-card-form.module.css";
 
-import { buttonStyles } from "@/components/ui/button";
+import { buttonStyles, Button } from "@/components/ui/button";
+import { openCookiePreferences, useCookieConsent } from "@/lib/consent/use-cookie-consent";
 
 type CardFormInstance = {
   getCardFormData(): { token?: string; cardholderEmail?: string };
@@ -34,6 +35,10 @@ export function SubscriptionCardForm({ subscriptionId, publicKey, amount, curren
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const consent = useRef<HTMLInputElement>(null);
+  // El SDK de Mercado Pago es una cookie de funcionalidades externas: no se
+  // carga hasta que esa categoría esté habilitada en el banner.
+  const cookieConsent = useCookieConsent();
+  const externalAllowed = cookieConsent?.external === true;
   const submitting = useRef(false);
   const price = new Intl.NumberFormat("es-AR", { style: "currency", currency }).format(amount);
 
@@ -123,10 +128,20 @@ export function SubscriptionCardForm({ subscriptionId, publicKey, amount, curren
   }, [sdkReady, publicKey, amount, subscriptionId, documentStatus]);
 
   return <>
-    {documentStatus === "ready" ? <Script src="https://sdk.mercadopago.com/js/v2" nonce={nonce} strategy="afterInteractive"
+    {documentStatus === "ready" && externalAllowed ? <Script src="https://sdk.mercadopago.com/js/v2" nonce={nonce} strategy="afterInteractive"
       onReady={() => setSdkReady(true)} onError={() => setMessage("No pudimos conectar con Mercado Pago. Recargá la página para intentar nuevamente.")} /> : null}
+    {cookieConsent !== undefined && !externalAllowed ? (
+      <div role="alert" className="mt-7 rounded-2xl border border-clay/25 bg-clay-soft px-5 py-4">
+        <p className="text-sm font-semibold text-ink">Falta habilitar las cookies de funcionalidades externas</p>
+        <p className="mt-2 text-sm leading-6 text-muted">
+          El formulario de tarjeta lo provee Mercado Pago. Para cargarlo necesitamos que habilites la categoría
+          «Cookies de funcionalidades externas» en tus preferencias de cookies.
+        </p>
+        <Button className="mt-4" variant="secondary" onClick={openCookiePreferences}>Configurar cookies</Button>
+      </div>
+    ) : null}
     <form id="subscription-card-form" className="mt-7 space-y-5" aria-busy={pending} onSubmit={(event) => event.preventDefault()}>
-      <fieldset disabled={pending || submitted} className="space-y-5 disabled:opacity-70">
+      <fieldset disabled={pending || submitted || !externalAllowed} className="space-y-5 disabled:opacity-70">
         <legend className="sr-only">Tarjeta y datos del pagador</legend>
         <div><label htmlFor="subscription-card-email" className="mb-2 block text-sm font-semibold">Correo del pagador</label>
           <input id="subscription-card-email" type="email" autoComplete="email" required className={fieldClass} aria-describedby="payer-email-help" />

@@ -4,6 +4,8 @@ import {
   type User,
 } from "@supabase/supabase-js";
 
+import { TERMS_VERSION } from "../../../../src/lib/legal";
+
 export const AUTH_E2E = {
   professionalEmail: "e2e.auth.professional@universo-psi.test",
   adminEmail: "e2e.auth.admin@universo-psi.test",
@@ -13,7 +15,7 @@ export const AUTH_E2E = {
   professionalFullName: "Nadia Navegador E2E",
   credentialTitle: "Certificación ficticia de navegador",
   licenseCredentialTitle: "Matrícula ficticia de navegador",
-  legalVersion: "2026-08",
+  legalVersion: TERMS_VERSION,
 } as const;
 
 const TEST_EMAILS = new Set<string>([

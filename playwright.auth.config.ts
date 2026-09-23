@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
+import { cookieConsentStorageState } from "./tests/e2e/helpers/cookie-consent";
 import {
   assertLoopbackHttpUrl,
   readLocalAuthE2EEnvironment,
@@ -33,6 +34,7 @@ export default defineConfig({
   expect: { timeout: 15_000 },
   use: {
     baseURL: parsedAppUrl.origin,
+    storageState: cookieConsentStorageState(parsedAppUrl.origin),
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure",

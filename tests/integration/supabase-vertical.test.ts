@@ -7,6 +7,7 @@ import {
   type User,
 } from "@supabase/supabase-js";
 import { describe, expect, it } from "vitest";
+import { TERMS_VERSION } from "../../src/lib/legal";
 
 const TEST_SUITE = "supabase_vertical";
 const PROFESSIONAL_EMAIL = "integration.professional@universo-psi.test";
@@ -21,7 +22,7 @@ const PASSWORD = "UniversoPsi-Integration-2026!";
 const PROFILE_SLUG = "integration-supabase-professional";
 const CREDENTIAL_FILE_NAME = "integration-credential.pdf";
 const CREDENTIAL_FILE_NAME_LICENSE = "integration-credential-license.pdf";
-const LEGAL_VERSION = "2026-08";
+const LEGAL_VERSION = TERMS_VERSION;
 
 const testEnv = {
   url: process.env.SUPABASE_TEST_URL?.trim() ?? "",

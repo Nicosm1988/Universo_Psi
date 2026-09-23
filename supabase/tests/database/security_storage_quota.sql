@@ -2,7 +2,7 @@
 begin;
 insert into auth.users(id,aud,role,email,raw_app_meta_data,raw_user_meta_data,created_at,updated_at)
 values ('cafecafe-0000-4000-8000-000000000011','authenticated','authenticated','quota-security@example.invalid','{}','{}',now(),now());
-select public.accept_terms_from_signup_backend('cafecafe-0000-4000-8000-000000000011','2026-08');
+select public.accept_terms_from_signup_backend('cafecafe-0000-4000-8000-000000000011','2026-09');
 insert into storage.objects(bucket_id,name) select 'professional-credentials','cafecafe-0000-4000-8000-000000000011/'||n||'.pdf' from generate_series(1,19) n;
 select set_config('request.jwt.claims','{"sub":"cafecafe-0000-4000-8000-000000000011","role":"authenticated"}',true);
 set local role authenticated;

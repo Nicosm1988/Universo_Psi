@@ -11,6 +11,8 @@ import {
 import { passwordUpdateSchema, signInSchema, signUpSchema } from "./auth";
 import { leadSchema } from "./lead";
 import { onboardingSchema } from "./onboarding";
+import { supportRequestSchema } from "./support";
+import { SUPPORT_CONSENT_VERSION } from "@/lib/legal";
 import { selectPlanSchema } from "./subscription";
 
 const professionalProfileId = "11111111-1111-4111-8111-111111111101";
@@ -292,5 +294,38 @@ describe("professional onboarding and moderation validation", () => {
         planCode: "ENTERPRISE",
       }).success,
     ).toBe(false);
+  });
+});
+
+describe("support request validation", () => {
+  const validRequest = {
+    topic: "REPORTE",
+    name: "  Julia Díaz ",
+    email: "  JULIA@EXAMPLE.COM ",
+    message: "  Encontré un perfil que usa la matrícula de otra persona.  ",
+    consent: true,
+    consentVersion: SUPPORT_CONSENT_VERSION,
+    landingPath: "/contacto",
+  } as const;
+
+  it("normalizes a valid message", () => {
+    expect(supportRequestSchema.parse(validRequest)).toMatchObject({
+      topic: "REPORTE",
+      name: "Julia Díaz",
+      email: "julia@example.com",
+      message: "Encontré un perfil que usa la matrícula de otra persona.",
+    });
+  });
+
+  it.each([
+    ["an unknown topic", { topic: "CUALQUIERA" }],
+    // Bajas y derechos de datos viven en /solicitudes: este canal no los acepta.
+    ["a rights request that belongs in /solicitudes", { topic: "BAJA" }],
+    ["a short message", { message: "Muy breve" }],
+    ["missing consent", { consent: false }],
+    ["a protocol-relative landing path", { landingPath: "//evil.example/path" }],
+    ["a changed consent version", { consentVersion: "2025-01" }],
+  ])("rejects %s", (_case, overrides) => {
+    expect(supportRequestSchema.safeParse({ ...validRequest, ...overrides }).success).toBe(false);
   });
 });

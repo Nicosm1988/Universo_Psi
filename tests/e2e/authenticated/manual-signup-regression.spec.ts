@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { expect, test } from "@playwright/test";
 
 import { assertLoopbackHttpUrl, readLocalAuthE2EEnvironment } from "./helpers/local-supabase-fixture";
+import { TERMS_VERSION } from "../../../src/lib/legal";
 
 const cases = [
   { name: "alta manual válida", mode: "valid", initialPassword: "" },
@@ -109,7 +110,7 @@ for (const scenario of cases) {
       expect(account!.user_metadata).toMatchObject({ display_name: fullName, requested_account_type: "PERSON" });
       const profile = await backend.from("user_profiles").select("terms_version").eq("id", account!.id).single();
       expect(profile.error).toBeNull();
-      expect(profile.data?.terms_version).toBe("2026-08");
+      expect(profile.data?.terms_version).toBe(TERMS_VERSION);
       const professional = await backend.from("professional_profiles").select("id").eq("user_id", account!.id);
       expect(professional.error).toBeNull();
       expect(professional.data).toEqual([]);

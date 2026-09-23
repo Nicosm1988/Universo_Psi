@@ -77,7 +77,7 @@ values('e9130000-0000-4000-8000-000000000003','e9130000-0000-4000-8000-000000000
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub','e9130000-0000-4000-8000-000000000001',true);
-select public.accept_current_terms('2026-08');
+select public.accept_current_terms('2026-09');
 update public.professional_profiles set headline='prueba',bio='prueba' where id='e9130000-0000-4000-8000-000000000003';
 update public.professional_profiles set headline='',bio='' where id='e9130000-0000-4000-8000-000000000003';
 select pg_temp.assert_true(public.select_professional_plan('e9130000-0000-4000-8000-000000000003','DRAFT_PRESENTATION_QA') is not null,'Empty draft can select payment plan');

@@ -143,7 +143,7 @@ values (
 
 select public.accept_terms_from_signup_backend(
   'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa02',
-  '2026-08'
+  '2026-09'
 );
 
 insert into public.professional_profiles (

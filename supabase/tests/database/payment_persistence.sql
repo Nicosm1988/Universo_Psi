@@ -86,7 +86,7 @@ select pg_temp.assert_true(not public.begin_subscription_checkout(id,'personal',
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub','f1000000-0000-4000-8000-000000000001',true);
-select public.accept_current_terms('2026-08');
+select public.accept_current_terms('2026-09');
 select pg_temp.assert_true(public.select_professional_plan('f2000000-0000-4000-8000-000000000001','PROFESSIONAL_MONTHLY')='f3000000-0000-4000-8000-000000000001','same plan reuses immutable reserved checkout');
 select pg_temp.expect_error($q$select public.select_professional_plan('f2000000-0000-4000-8000-000000000001','PROFESSIONAL_6M')$q$,'22023');
 reset role;

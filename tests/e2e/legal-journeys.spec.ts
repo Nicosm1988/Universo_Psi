@@ -154,3 +154,13 @@ test("los términos publican la cláusula 10 que la privacidad referencia", asyn
     page.getByRole("link", { name: "Cláusula 10 de los Términos y Condiciones" }),
   ).toHaveAttribute("href", "/terminos#seguridad-informatica");
 });
+
+test("ambos documentos legales identifican al titular", async ({ page }) => {
+  for (const path of ["/terminos", "/privacidad"]) {
+    await page.goto(path);
+    const main = page.locator("main");
+    await expect(main).toContainText("Nicolás San Marco");
+    await expect(main).toContainText("20-33556056-7");
+    await expect(main).toContainText("Av. Coronel Díaz 1465");
+  }
+});

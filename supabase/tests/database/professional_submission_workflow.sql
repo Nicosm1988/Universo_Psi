@@ -2,6 +2,13 @@
 
 begin;
 
+-- La versión legal vigente se lee de la base en lugar de fijarse acá: cada
+-- revisión del paquete rompía estas pruebas. Se captura antes de cambiar de rol,
+-- porque `authenticated` no alcanza el esquema private.
+select version as terms_version
+from private.legal_document_versions
+where document_type = 'TERMS' and is_current \gset
+
 -- Emulate an auth user that existed before the profile trigger. The fixture is
 -- transaction-scoped and uses no password, identity, or deliverable address.
 insert into auth.users (
@@ -143,7 +150,7 @@ values (
 
 select public.accept_terms_from_signup_backend(
   'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaa02',
-  '2026-09'
+  :'terms_version'
 );
 
 insert into public.professional_profiles (

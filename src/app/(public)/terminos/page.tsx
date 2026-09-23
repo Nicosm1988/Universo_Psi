@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
-import { LEGAL_CONTACT_EMAIL, TERMS_VERSION_LABEL } from "@/lib/legal";
+import { LEGAL_CONTACT_EMAIL, LEGAL_ENTITY, TERMS_VERSION_LABEL } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Términos y condiciones",
@@ -29,8 +29,9 @@ export default function TermsPage() {
           <section className={sectionClassName}>
             <p>
               El presente documento (en adelante, los “Términos y Condiciones”) regula el acceso a, la navegación
-              en, y el uso del sitio web universopsi.com.ar (en adelante, el “Sitio Web”), de titularidad de
-              Universo Psi.
+              en, y el uso del sitio web universopsi.com.ar (en adelante, el “Sitio Web”), de titularidad de{" "}
+              {LEGAL_ENTITY.name}, CUIT {LEGAL_ENTITY.taxId}, con domicilio en {LEGAL_ENTITY.address} (en
+              adelante, “Universo Psi”).
             </p>
             <p>
               Las presentes disposiciones son aplicables a toda persona humana o jurídica que acceda al Sitio Web,
@@ -744,6 +745,10 @@ export default function TermsPage() {
               administración de Universo Psi a través de los siguientes canales oficiales habilitados:
             </p>
             <ul className={listClassName}>
+              <li>
+                Titular: {LEGAL_ENTITY.name}, CUIT {LEGAL_ENTITY.taxId}.
+              </li>
+              <li>Domicilio: {LEGAL_ENTITY.address}.</li>
               <li>
                 Correo electrónico:{" "}
                 <a

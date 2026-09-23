@@ -1,6 +1,14 @@
 \set ON_ERROR_STOP on
 -- Isolated local/test project only. No card token, provider request or real identity.
 begin;
+
+-- La versión legal vigente se lee de la base en lugar de fijarse acá: cada
+-- revisión del paquete rompía estas pruebas. Se captura antes de cambiar de rol,
+-- porque `authenticated` no alcanza el esquema private.
+select version as terms_version
+from private.legal_document_versions
+where document_type = 'TERMS' and is_current \gset
+
 create function pg_temp.assert_true(ok boolean,message text) returns void language plpgsql as $$
 begin if ok is distinct from true then raise exception 'FAIL: %',message; end if; end $$;
 create function pg_temp.expect_error(query text,expected text) returns void language plpgsql as $$
@@ -96,7 +104,7 @@ select public.begin_subscription_checkout(id,'personal',plan_snapshot) from publ
 select public.attach_subscription_checkout(id,'personal','hosted-lease-old',null,plan_snapshot) from public.subscriptions where id='e9140000-0000-4000-8000-000000000023';
 select public.apply_subscription_webhook_event('hosted-lease-old','hosted-lease-cancelled','subscription_preapproval','CANCELED',null,null,null,'{}',statement_timestamp(),'personal','e9140000-0000-4000-8000-000000000023',1,'ARS');
 set local role authenticated;
-select public.accept_current_terms('2026-09');
+select public.accept_current_terms(:'terms_version');
 select pg_temp.assert_true(public.select_professional_plan('e9140000-0000-4000-8000-000000000013','CARD_LEASE_QA')<>'e9140000-0000-4000-8000-000000000023'::uuid,'cancelled hosted checkout gets a new local subscription');
 select pg_temp.assert_true((select count(*)=1 from public.subscriptions where professional_profile_id='e9140000-0000-4000-8000-000000000013' and status='PENDING_PAYMENT'),'exactly one current pending replacement');
 select pg_temp.assert_true((select status='CANCELED' and provider_subscription_id='hosted-lease-old' and (plan_snapshot->>'price_amount')::numeric=1 from public.subscriptions where id='e9140000-0000-4000-8000-000000000023'),'cancelled historical row and snapshot retained');

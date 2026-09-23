@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import type { ReactNode } from "react";
+import { CookieConsent } from "@/components/consent/cookie-consent";
 import { PointerIllumination } from "@/components/effects/pointer-illumination";
 import "./globals.css";
 
@@ -99,6 +100,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         </a>
         <PointerIllumination />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

@@ -106,6 +106,7 @@ export default async function AdminPage({
             <ThemeToggle />
             <Link className={buttonStyles({ variant: "secondary" })} href={"/admin/solicitudes" as Route}>Solicitudes</Link>
             <Link className={buttonStyles({ variant: "secondary" })} href={"/admin/suscripciones" as Route}>Suscripciones</Link>
+            <Link className={buttonStyles({ variant: "secondary" })} href={"/admin/contacto" as Route}>Contacto</Link>
             <Link className={buttonStyles({ variant: "secondary" })} href="/dashboard">Volver al dashboard</Link>
           </div>
         </div>

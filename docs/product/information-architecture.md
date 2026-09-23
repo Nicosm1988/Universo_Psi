@@ -14,7 +14,11 @@ Este documento separa la superficie existente del contrato objetivo. `Implementa
 | `/profesionales/sumarse` | **Implementado** | Onboarding autenticado; noindex. |
 | `/convenios`, `/convenios/[slug]` | **Implementado demo** | Propuesta y convenios ficticios rotulados desde fixtures; index. Acceso institucional real pendiente. |
 | `/recursos`, `/recursos/[slug]` | **Implementado demo** | Recursos ficticios rotulados desde fixtures; index. Publicación desde DB pendiente. |
-| `/terminos`, `/privacidad` | **Implementado** | Borradores legales públicos versionados; index. |
+| `/privacidad` | **Implementado** | Política de privacidad final de asesoría legal (versión 2026-09); index. |
+| `/terminos` | **Implementado** | Términos y condiciones de uso finales de asesoría legal (versión 2026-09); index. |
+| `/solicitudes` | **Implementado** | Baja, arrepentimiento, acceso, corrección, eliminación y reclamos sin cuenta; entrega constancia. `noindex`, enlazada desde el pie. |
+| `/preguntas-frecuentes` | **Implementado** | Preguntas frecuentes de asesoría legal, por audiencia, con `FAQPage` en JSON-LD; index. |
+| `/contacto` | **Implementado** | Canal general: reportes, seguridad, soporte y consultas comerciales. Persiste en `private.support_requests` y se atiende en `/admin/contacto`. Los derechos de datos y las bajas siguen en `/solicitudes`; index. |
 | `/ingresar`, `/registro`, `/recuperar-acceso`, `/actualizar-contrasena`, `/aceptar-terminos`, `/auth/callback` | **Implementado** | Acceso, recuperación y aceptación vigente; pantallas noindex y callback bajo `/auth/` bloqueado en robots. |
 | `/profesionales/{necesidad|tipo|ubicacion}/[slug]` | **Pendiente** | Landings curadas; sólo deben indexarse con oferta y contenido propios. |
 
@@ -40,6 +44,8 @@ Todas son privadas; cada loader/action reautoriza. Un profesional suspendido con
 | Ruta | Estado | Permiso mínimo/módulo |
 | --- | --- | --- |
 | `/admin` | **Implementado** | `ADMIN|SUPERADMIN`; cola de credenciales con URL firmada de 5 minutos, decisión aprobar/rechazar, revisión de perfil y decisión publicar/rechazar/suspender. Muestra contadores de artículos/reseñas, pero no los modera. |
+| `/admin/solicitudes` | **Implementado** | `ADMIN|SUPERADMIN` con MFA; bandeja de hasta 200 pedidos de baja, arrepentimiento y datos, con evento inmutable por gestión. |
+| `/admin/contacto` | **Implementado** | `ADMIN|SUPERADMIN` con MFA; bandeja de mensajes del canal general con estados y nota interna. |
 | `/admin/{profesionales|verificaciones}` | **Pendiente** | Separar el vertical existente en subrutas. |
 | `/admin/{taxonomias|planes|suscripciones|leads|convenios|destacados}` | **Pendiente** | Consolas `ADMIN`. |
 | `/admin/{articulos|opiniones}` | **Pendiente** | Moderación `EDITOR` con alcance o `ADMIN`. |

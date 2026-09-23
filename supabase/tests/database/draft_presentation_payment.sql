@@ -1,6 +1,14 @@
 \set ON_ERROR_STOP on
 -- Isolated test DB only. No provider calls; all configuration and users roll back.
 begin;
+
+-- La versión legal vigente se lee de la base en lugar de fijarse acá: cada
+-- revisión del paquete rompía estas pruebas. Se captura antes de cambiar de rol,
+-- porque `authenticated` no alcanza el esquema private.
+select version as terms_version
+from private.legal_document_versions
+where document_type = 'TERMS' and is_current \gset
+
 create function pg_temp.assert_true(ok boolean, message text) returns void
 language plpgsql as $$ begin
  if ok is distinct from true then raise exception 'FAIL: %',message; end if;
@@ -77,7 +85,7 @@ values('e9130000-0000-4000-8000-000000000003','e9130000-0000-4000-8000-000000000
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub','e9130000-0000-4000-8000-000000000001',true);
-select public.accept_current_terms('2026-09');
+select public.accept_current_terms(:'terms_version');
 update public.professional_profiles set headline='prueba',bio='prueba' where id='e9130000-0000-4000-8000-000000000003';
 update public.professional_profiles set headline='',bio='' where id='e9130000-0000-4000-8000-000000000003';
 select pg_temp.assert_true(public.select_professional_plan('e9130000-0000-4000-8000-000000000003','DRAFT_PRESENTATION_QA') is not null,'Empty draft can select payment plan');

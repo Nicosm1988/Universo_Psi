@@ -109,3 +109,28 @@ El árbol local estaba 9 commits detrás de producción al empezar. Se respaldó
 `respaldo/arbol-local-2026-09-23`, que conserva el trabajo de PayPal sin mergear
 —sandbox, aislamiento live y sus dos migraciones—, pendiente de su propio
 release con sandbox probado.
+
+## Revisión 2026-09.1 — identificación del titular (23/09/2026)
+
+El titular informó sus datos: **Nicolás San Marco**, CUIT **20-33556056-7**,
+domicilio **Av. Coronel Díaz 1465, CABA**. El dígito verificador del CUIT es
+consistente con el algoritmo estándar; no se verificó la inscripción ante AFIP.
+
+Se publican en el encabezado de términos y privacidad, en sus canales de contacto
+y como responsable de la base de datos. Viven en la constante `LEGAL_ENTITY` de
+`src/lib/legal.ts`, no repetidos en cada página.
+
+**Por qué una revisión nueva y no una edición de 2026-09.** Identificar a la parte
+contratante no es una corrección de estilo: cambia con quién se contrata. Entre el
+despliegue de 2026-09 y esta revisión pudo haber aceptaciones, y no deben quedar
+apuntando a un texto distinto del que se aceptó. La migración
+`20260923220000` publica `2026-09.1` para TERMS y PRIVACY y conserva las filas
+anteriores. Quien ya aceptó 2026-09 vuelve a aceptar una vez.
+
+Las pruebas SQL dejaron de fijar la versión: ahora la leen de
+`private.legal_document_versions` con `\gset` antes de cambiar de rol, porque
+`authenticated` no alcanza el esquema `private`. Cada revisión del paquete las
+rompía; con esto dejan de depender del número.
+
+Queda pendiente confirmar si ese domicilio es el que corresponde publicar como
+comercial.

@@ -12,6 +12,18 @@ efectivamente se publicó.
 | Banner y panel de cookies | `fuentes/cookies-banner.docx` | [`CookieConsent`](../../src/components/consent/cookie-consent.tsx) |
 | Términos y condiciones de uso | `fuentes/terminos-y-condiciones-2026-09-22.docx` | [`/terminos`](../../src/app/(public)/terminos/page.tsx) |
 
+## Titular y responsable
+
+El sitio es de titularidad de **Nicolás San Marco**, CUIT **20-33556056-7**, con
+domicilio en **Av. Coronel Díaz 1465, Ciudad Autónoma de Buenos Aires**, quien
+además reviste el carácter de responsable de la base de datos a los efectos de la
+Ley N° 25.326.
+
+Los documentos entregados por asesoría legal decían «de titularidad de
+UniversoPsi», que es una marca y no identifica a la persona obligada. El dato se
+publica en el encabezado de ambos documentos y en sus canales de contacto, y vive
+en una sola constante: `LEGAL_ENTITY` de [`src/lib/legal.ts`](../../src/lib/legal.ts).
+
 ## Versionado y aceptaciones
 
 `private.accept_current_terms` exige que TERMS y PRIVACY compartan la versión
@@ -55,8 +67,6 @@ A partir de ahí, cada persona con sesión iniciada pasa una vez por
 
 ## Pendientes
 
-- Completar la identificación legal del responsable (nombre o razón social, CUIT
-  y domicilio), que ninguno de los documentos entregados incluye.
 - Implementar el vencimiento del día 5, que ahora aparece en la cláusula 9 de los
   términos además de la FAQ: ver [`payment-day-five.md`](payment-day-five.md).
 - Habilitar un canal de divulgación de vulnerabilidades: la cláusula 3.n de los

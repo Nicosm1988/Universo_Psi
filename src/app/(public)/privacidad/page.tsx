@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
 import { CookiePreferencesButton } from "@/components/consent/cookie-preferences-button";
-import { LEGAL_CONTACT_EMAIL, PRIVACY_VERSION_LABEL } from "@/lib/legal";
+import { LEGAL_CONTACT_EMAIL, LEGAL_ENTITY, PRIVACY_VERSION_LABEL } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Política de privacidad",
@@ -32,6 +32,11 @@ export default function PrivacyPage() {
               La presente Política de Privacidad (en adelante, la “Política”) regula el modo en que Universo Psi
               recopila, almacena, procesa, utiliza y protege los datos personales facilitados por los Sujetos
               Alcanzados en el sitio web universopsi.com.ar (en adelante, el “Sitio Web”).
+            </p>
+            <p>
+              El Sitio Web es de titularidad de {LEGAL_ENTITY.name}, CUIT {LEGAL_ENTITY.taxId}, con domicilio en{" "}
+              {LEGAL_ENTITY.address}, quien reviste el carácter de responsable de la base de datos a los efectos
+              de la Ley N° 25.326.
             </p>
             <p>
               Cualquier Sujeto Alcanzado podrá consultar este documento en todo momento. De surgir dudas,
@@ -130,8 +135,8 @@ export default function PrivacyPage() {
             </p>
             <p>
               La totalidad de los Datos Personales recolectados legítimamente por el Sitio Web serán objeto de
-              tratamiento automatizado e incorporados a la base de datos de la cual Universo Psi es titular y
-              único responsable (en adelante, la “Base de Datos”), la cual se encuentra protegida bajo medidas de
+              tratamiento automatizado e incorporados a la base de datos de la cual {LEGAL_ENTITY.name} es titular
+              y único responsable (en adelante, la “Base de Datos”), la cual se encuentra protegida bajo medidas de
               seguridad técnicas y organizativas adecuadas para evitar su alteración, pérdida o acceso no
               autorizado.
             </p>
@@ -391,6 +396,10 @@ export default function PrivacyPage() {
               oficiales habilitados:
             </p>
             <ul className={listClassName}>
+              <li>
+                Responsable de la base de datos: {LEGAL_ENTITY.name}, CUIT {LEGAL_ENTITY.taxId}.
+              </li>
+              <li>Domicilio: {LEGAL_ENTITY.address}.</li>
               <li>
                 Correo electrónico:{" "}
                 <a

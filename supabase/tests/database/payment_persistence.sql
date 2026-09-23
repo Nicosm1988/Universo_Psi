@@ -1,6 +1,14 @@
 \set ON_ERROR_STOP on
 -- Run only on an isolated Supabase test project. Every fixture is rolled back.
 begin;
+
+-- La versión legal vigente se lee de la base en lugar de fijarse acá: cada
+-- revisión del paquete rompía estas pruebas. Se captura antes de cambiar de rol,
+-- porque `authenticated` no alcanza el esquema private.
+select version as terms_version
+from private.legal_document_versions
+where document_type = 'TERMS' and is_current \gset
+
 create function pg_temp.assert_true(p_ok boolean, p_message text) returns void
 language plpgsql as $$ begin
   if p_ok is distinct from true then raise exception 'FAIL: %', p_message; end if;
@@ -86,7 +94,7 @@ select pg_temp.assert_true(not public.begin_subscription_checkout(id,'personal',
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub','f1000000-0000-4000-8000-000000000001',true);
-select public.accept_current_terms('2026-09');
+select public.accept_current_terms(:'terms_version');
 select pg_temp.assert_true(public.select_professional_plan('f2000000-0000-4000-8000-000000000001','PROFESSIONAL_MONTHLY')='f3000000-0000-4000-8000-000000000001','same plan reuses immutable reserved checkout');
 select pg_temp.expect_error($q$select public.select_professional_plan('f2000000-0000-4000-8000-000000000001','PROFESSIONAL_6M')$q$,'22023');
 reset role;

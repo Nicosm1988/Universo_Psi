@@ -71,3 +71,41 @@ publica `2026-09` y el código todavía envía `2026-08`, la aceptación falla c
 6. **Canal de divulgación de vulnerabilidades**: la cláusula 3.n exige comunicar
    fallos por “el canal de seguridad establecido por UniversoPsi”. Hoy esa
    remisión apunta a `/contacto`; conviene publicar un canal específico.
+
+## Cierre del despliegue
+
+Desplegado el 23/09/2026. PR #16 integrada por squash; commit `5a66765` en `main`.
+Deployment `universo-3yt2hj78f` READY en Production, asociado a
+https://universo-psi-eight.vercel.app.
+
+Migración `20260922234500` aplicada en el proyecto productivo `gwizdgboqwpzyiaqcxbb`
+**antes** del despliegue del código, y sólo esa: las tres migraciones de taxonomía
+del 30/08 siguen pendientes por decisión previa. El orden importa y no es
+simétrico. Con la base en `2026-09` y el código viejo, las escrituras
+autenticadas que dependen de `has_current_legal_acceptance()` fallan durante la
+ventana; al revés, cada profesional habría quedado atrapado en
+`/aceptar-terminos` con `Legal document bundle is not current`, sin salida.
+
+CI `35922874408`: `quality` y `supabase-integration` aprobados, más las dos
+comprobaciones de Vercel. Dos correcciones surgieron de esa corrida y no de la
+verificación local:
+
+- Las pruebas SQL pedían el paquete `2026-08` fijo. Las de TypeScript ahora leen
+  `TERMS_VERSION`; las SQL no pueden, así que quedan atadas a la constante por
+  convención.
+- El `<dialog>` del panel de cookies se montaba siempre. Un diálogo cerrado
+  conserva sus etiquetas en el DOM, y «información» dentro de la descripción de
+  las cookies de personalización rompía `getByLabel('Formación')` del vertical
+  autenticado. Ahora se monta sólo mientras está abierto.
+
+Smoke productivo con navegador: las seis rutas devuelven 200; `/terminos`
+publica «Versión septiembre de 2026» sin el cartel de borrador y su cláusula 10
+responde al ancla que la privacidad enlaza; el banner ofrece las tres acciones y
+«Rechazar» guarda `analytics:false`, oculta el banner y no deja diálogos en el
+DOM; el sitemap incluye las rutas nuevas. No se generaron pedidos reales ni
+cargos.
+
+El árbol local estaba 9 commits detrás de producción al empezar. Se respaldó en
+`respaldo/arbol-local-2026-09-23`, que conserva el trabajo de PayPal sin mergear
+—sandbox, aislamiento live y sus dos migraciones—, pendiente de su propio
+release con sandbox probado.

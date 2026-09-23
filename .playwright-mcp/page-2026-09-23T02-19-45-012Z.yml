@@ -1,0 +1,176 @@
+- generic [active] [ref=f1e1]:
+  - link "Saltar al contenido" [ref=f1e2] [cursor=pointer]:
+    - /url: "#contenido"
+  - generic [ref=f1e3]:
+    - banner [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - link "Universo Psi, inicio" [ref=f1e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f1e16]: Universo Psi
+        - generic [ref=f1e17]:
+          - button "Activar modo oscuro" [ref=f1e18]
+          - navigation "Navegación principal" [ref=f1e22]:
+            - link "Buscar profesional" [ref=f1e23] [cursor=pointer]:
+              - /url: /profesionales
+            - link "Soy profesional" [ref=f1e24] [cursor=pointer]:
+              - /url: /para-profesionales
+            - link "Recursos" [ref=f1e25] [cursor=pointer]:
+              - /url: /recursos
+            - link "Convenios" [ref=f1e26] [cursor=pointer]:
+              - /url: /convenios
+          - link "Ingresar" [ref=f1e28] [cursor=pointer]:
+            - /url: /ingresar
+    - generic [ref=f1e29]: "Versión piloto: los contenidos identificados como demo son ficticios y no representan personas reales."
+    - main [ref=f1e30]:
+      - generic [ref=f1e32]:
+        - generic [ref=f1e33]:
+          - paragraph [ref=f1e34]: Contacto
+          - heading "Escribinos y te respondemos" [level=1] [ref=f1e35]
+          - paragraph [ref=f1e36]:
+            - text: Este es el canal oficial que la
+            - link "política de privacidad" [ref=f1e37] [cursor=pointer]:
+              - /url: /privacidad
+            - text: indica para ejercer tus derechos de acceso, rectificación, actualización y supresión de datos, para pedir la baja de tu cuenta o de tu plan, y para reportar un perfil o un contenido.
+        - generic [ref=f1e38]:
+          - generic [ref=f1e40]:
+            - generic [ref=f1e41]:
+              - text: Motivo
+              - combobox "Motivo" [ref=f1e42]:
+                - option "Elegí una opción" [disabled] [selected]
+                - option "Derechos sobre mis datos (acceso, rectificación o supresión)"
+                - option "Baja de mi cuenta o de mi plan de suscripción"
+                - option "Reportar un perfil falso o un contenido ofensivo"
+                - option "Ayuda con el uso de la plataforma"
+                - option "Consulta comercial o institucional"
+                - option "Otro motivo"
+            - generic [ref=f1e43]:
+              - generic [ref=f1e44]:
+                - text: Nombre y apellido
+                - textbox "Nombre y apellido" [ref=f1e45]:
+                  - /placeholder: "Ej.: Alex…"
+              - generic [ref=f1e46]:
+                - text: Email
+                - textbox "Email" [ref=f1e47]:
+                  - /placeholder: "Ej.: nombre@email.com…"
+            - generic [ref=f1e48]:
+              - text: Mensaje
+              - textbox "Mensaje" [ref=f1e49]:
+                - /placeholder: Contanos qué necesitás. No incluyas diagnósticos, historias clínicas ni datos de salud.
+            - generic [ref=f1e51]:
+              - text: Sitio web
+              - textbox [ref=f1e52]
+            - generic [ref=f1e53] [cursor=pointer]:
+              - checkbox "Acepto que Universo Psi use estos datos para registrar y responder este mensaje, conforme a la política de privacidad. No se usarán para realizar diagnósticos ni se publicarán." [ref=f1e54]
+              - generic [ref=f1e55]: Acepto que Universo Psi use estos datos para registrar y responder este mensaje, conforme a la política de privacidad. No se usarán para realizar diagnósticos ni se publicarán.
+            - generic [ref=f1e56]:
+              - button "Enviar mensaje" [ref=f1e57]
+              - paragraph [ref=f1e58]: Sin costo. Te respondemos por correo electrónico.
+          - complementary [ref=f1e59]:
+            - generic [ref=f1e60]:
+              - strong [ref=f1e61]: Universo Psi no atiende urgencias.
+              - text: Ante un riesgo inmediato para tu salud o la de otra persona, comunicate con los servicios de emergencia de tu localidad.
+            - generic [ref=f1e62]:
+              - heading "Otro canal" [level=2] [ref=f1e63]
+              - paragraph [ref=f1e64]:
+                - text: También podés escribirnos a
+                - link "hola@universosenda.com" [ref=f1e65] [cursor=pointer]:
+                  - /url: mailto:hola@universosenda.com
+                - text: .
+            - generic [ref=f1e66]:
+              - heading "No incluyas datos sensibles" [level=2] [ref=f1e67]
+              - paragraph [ref=f1e68]: No cargues historias clínicas, diagnósticos, medicación ni información de salud, propia o de terceros. La plataforma tiene prohibido tratar esos datos y los elimina cuando los detecta.
+            - generic [ref=f1e69]:
+              - heading "¿Buscás a un profesional?" [level=2] [ref=f1e70]
+              - paragraph [ref=f1e71]:
+                - text: Para consultar por un tratamiento, escribile directamente desde su perfil en el
+                - link "catálogo de profesionales" [ref=f1e72] [cursor=pointer]:
+                  - /url: /profesionales
+                - text: . Este formulario llega al equipo de la plataforma, no a un profesional.
+            - generic [ref=f1e73]:
+              - heading "Antes de escribir" [level=2] [ref=f1e74]
+              - paragraph [ref=f1e75]:
+                - text: Muchas dudas sobre registro, planes, pagos y verificación están respondidas en las
+                - link "preguntas frecuentes" [ref=f1e76] [cursor=pointer]:
+                  - /url: /preguntas-frecuentes
+                - text: .
+            - generic [ref=f1e77]:
+              - heading "Órgano de control" [level=2] [ref=f1e78]
+              - paragraph [ref=f1e79]:
+                - text: "Si considerás que tus datos personales no fueron tratados correctamente, podés reclamar ante la Agencia de Acceso a la Información Pública (AAIP):"
+                - link "www.argentina.gob.ar/aaip" [ref=f1e80] [cursor=pointer]:
+                  - /url: https://www.argentina.gob.ar/aaip
+                - text: .
+    - contentinfo [ref=f1e81]:
+      - generic [ref=f1e82]:
+        - generic [ref=f1e83]:
+          - generic [ref=f1e84]:
+            - link "Universo Psi, inicio" [ref=f1e85] [cursor=pointer]:
+              - /url: /
+              - generic [ref=f1e95]: Universo Psi
+            - paragraph [ref=f1e96]: Una red para encontrar acompañamiento profesional con más claridad, criterio y confianza.
+            - paragraph [ref=f1e97]: Universo Psi no realiza diagnósticos clínicos ni reemplaza atención de salud.
+          - generic [ref=f1e98]:
+            - generic [ref=f1e99]:
+              - heading "Encontrar" [level=2] [ref=f1e100]
+              - list [ref=f1e101]:
+                - listitem [ref=f1e102]:
+                  - link "Buscar profesionales" [ref=f1e103] [cursor=pointer]:
+                    - /url: /profesionales
+                - listitem [ref=f1e104]:
+                  - link "Recursos" [ref=f1e105] [cursor=pointer]:
+                    - /url: /recursos
+                - listitem [ref=f1e106]:
+                  - link "Convenios" [ref=f1e107] [cursor=pointer]:
+                    - /url: /convenios
+            - generic [ref=f1e108]:
+              - heading "Para profesionales" [level=2] [ref=f1e109]
+              - list [ref=f1e110]:
+                - listitem [ref=f1e111]:
+                  - link "Conocer la propuesta" [ref=f1e112] [cursor=pointer]:
+                    - /url: /para-profesionales
+                - listitem [ref=f1e113]:
+                  - link "Planes" [ref=f1e114] [cursor=pointer]:
+                    - /url: /planes
+                - listitem [ref=f1e115]:
+                  - link "Crear perfil" [ref=f1e116] [cursor=pointer]:
+                    - /url: /registro?next=/profesionales/sumarse
+                - listitem [ref=f1e117]:
+                  - link "Ingresar" [ref=f1e118] [cursor=pointer]:
+                    - /url: /ingresar
+            - generic [ref=f1e119]:
+              - heading "Universo Psi" [level=2] [ref=f1e120]
+              - list [ref=f1e121]:
+                - listitem [ref=f1e122]:
+                  - link "Cómo verificamos" [ref=f1e123] [cursor=pointer]:
+                    - /url: /para-profesionales#verificacion
+                - listitem [ref=f1e124]:
+                  - link "Preguntas frecuentes" [ref=f1e125] [cursor=pointer]:
+                    - /url: /preguntas-frecuentes
+                - listitem [ref=f1e126]:
+                  - link "Contacto" [ref=f1e127] [cursor=pointer]:
+                    - /url: /contacto
+                - listitem [ref=f1e128]:
+                  - link "Privacidad" [ref=f1e129] [cursor=pointer]:
+                    - /url: /privacidad
+                - listitem [ref=f1e130]:
+                  - link "Términos" [ref=f1e131] [cursor=pointer]:
+                    - /url: /terminos
+        - generic [ref=f1e132]:
+          - paragraph [ref=f1e133]: © 2026 Universo Psi. Hecho en Argentina.
+          - generic [ref=f1e134]:
+            - paragraph [ref=f1e135]: Decisiones profesionales, acompañadas por personas.
+            - button "Preferencias de cookies" [ref=f1e136]
+  - region "Consentimiento de cookies" [ref=f1e137]:
+    - generic [ref=f1e138]:
+      - generic [ref=f1e139]:
+        - heading "Su privacidad es nuestra prioridad" [level=2] [ref=f1e140]
+        - paragraph [ref=f1e141]:
+          - text: En Universo Psi utilizamos cookies propias y de terceros para garantizar el correcto funcionamiento del sitio web, analizar el tráfico, personalizar su experiencia y recordar sus preferencias profesionales. Conforme a nuestra
+          - link "Política de privacidad" [ref=f1e142] [cursor=pointer]:
+            - /url: /privacidad
+          - text: ", usted puede aceptar todas las cookies, configurar sus preferencias o rechazar su uso."
+      - generic [ref=f1e143]:
+        - button "Aceptar todas" [ref=f1e144]
+        - button "Configurar" [ref=f1e145]
+        - button "Rechazar" [ref=f1e146]
+  - alert [ref=f1e147]

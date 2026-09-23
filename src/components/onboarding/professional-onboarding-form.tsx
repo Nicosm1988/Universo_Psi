@@ -141,6 +141,8 @@ export function ProfessionalOnboardingForm({
     code: "PROFESSIONAL_MONTHLY" | "PROFESSIONAL_6M" | "PROFESSIONAL_12M" | "PROFESSIONAL_ANNUAL_UPFRONT";
     name: string;
     description: string | null;
+    price_amount: number | string | null;
+    currency: string;
   }[];
   existing: ExistingProfile | null;
   credentialTypes: { id: string; name: string }[];
@@ -168,11 +170,20 @@ export function ProfessionalOnboardingForm({
   // el guardado normal de borrador. Ajustado durante el render con useState
   // (no useRef ni un efecto) siguiendo el patrón de React para "storing
   // information from previous renders", el único que el compilador acepta.
-  const [previousStatus, setPreviousStatus] = useState(state.status);
-  if (previousStatus !== state.status) {
-    setPreviousStatus(state.status);
+  const [previousState, setPreviousState] = useState(state);
+  if (previousState !== state) {
+    setPreviousState(state);
     if (state.status === "saved" && step === 2) {
       setStep(3);
+    }
+    if (state.status === "error" && state.errors) {
+      const fieldsByStep = [
+        ["firstName", "lastName", "professionalTypeId", "yearsExperience", "availabilityStatus"],
+        ["needIds", "serviceIds", "modalityIds", "languageIds"],
+        ["headline", "bio", "approach", "experienceSummary", "educationSummary", "linkedinUrl", "websiteUrl"],
+      ];
+      const invalidStep = fieldsByStep.findIndex((fields) => fields.some((field) => state.errors?.[field]?.length));
+      if (invalidStep >= 0) setStep(invalidStep);
     }
   }
 
@@ -279,6 +290,7 @@ export function ProfessionalOnboardingForm({
 
       <section className="mt-8 space-y-8" hidden={step !== 1}>
         <p className="text-sm font-semibold text-senda">Paso 2 de 5</p>
+        <p className="text-sm text-muted">Estas selecciones son opcionales para guardar el borrador y continuar al pago.</p>
         <ChoiceList legend="¿En qué necesidades acompañás?" name="needIds" options={needs} selected={existing?.needIds ?? []} />
         <ErrorText name="needIds" state={state} />
         <ChoiceList legend="¿Qué servicios ofrecés?" name="serviceIds" options={services} selected={existing?.serviceIds ?? []} />
@@ -292,6 +304,7 @@ export function ProfessionalOnboardingForm({
       <section className="mt-8" hidden={step !== 2}>
         <p className="text-sm font-semibold text-senda">Paso 3 de 5</p>
         <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-ink">Contá cómo acompañás</h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted">Estos datos son opcionales por ahora. Podés completarlos después y continuar al pago. Si un enlace todavía no es una dirección válida, lo dejamos sin completar.</p>
         <div className="mt-6 space-y-5">
           <label className="block text-sm font-semibold text-ink">
             Titular del perfil
@@ -333,7 +346,7 @@ export function ProfessionalOnboardingForm({
         <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-ink">Documentación privada</h2>
         <div className="mt-6 rounded-3xl border border-line bg-mist p-6">
           <ShieldCheck className="size-7 text-senda" aria-hidden="true" />
-          <p className="mt-4 font-semibold text-ink">Sólo el equipo de verificación puede verla.</p>
+          <p className="mt-4 font-semibold text-ink">Podés adjuntarla después. Sólo el equipo de verificación puede verla.</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">Aceptamos PDF, JPG o PNG de hasta 10 MB. Los documentos nunca se publican.</p>
           <div className="mt-5">
             <CredentialUploader
@@ -347,7 +360,7 @@ export function ProfessionalOnboardingForm({
 
       <section className="mt-8" hidden={step !== 4}>
         <p className="text-sm font-semibold text-senda">Paso 5 de 5</p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-ink">Listo para revisión</h2>
+        <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-ink">Tu perfil y tu suscripción</h2>
         <div className="mt-6 rounded-3xl border border-line bg-paper p-6">
           <Check className="size-7 text-senda" aria-hidden="true" />
           <p className="mt-4 font-semibold text-ink">Al enviar, el perfil todavía no queda público.</p>
@@ -356,7 +369,7 @@ export function ProfessionalOnboardingForm({
         <fieldset className="mt-6">
           <legend className="text-lg font-semibold text-ink">Plan elegido</legend>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            La selección queda pendiente y no genera ningún cobro. Los valores se informarán antes de contratar.
+            Podés continuar al pago sin completar la presentación ni adjuntar documentación. Vas a confirmar la suscripción y el importe en Mercado Pago. Pagar no publica tu perfil automáticamente.
           </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
             {plans.map((plan) => (
@@ -365,6 +378,7 @@ export function ProfessionalOnboardingForm({
                   <input className="mt-1" type="radio" name="planCode" value={plan.code} defaultChecked={plan.code === initialPlan} />
                   <span>
                     <span className="block text-sm font-semibold text-ink">{plan.name}</span>
+                    <span className="mt-1 block text-sm text-ink">{new Intl.NumberFormat("es-AR", { style: "currency", currency: plan.currency }).format(Number(plan.price_amount))} por mes</span>
                     {plan.description ? <span className="mt-1 block text-xs leading-relaxed text-muted">{plan.description}</span> : null}
                   </span>
                 </span>
@@ -373,7 +387,10 @@ export function ProfessionalOnboardingForm({
           </div>
           <ErrorText name="planCode" state={state} />
         </fieldset>
-        <Button className="mt-6 w-full sm:w-auto" size="lg" type="submit" name="intent" value="submit">
+        <Button className="mt-6 w-full sm:w-auto" size="lg" type="submit" name="intent" value="checkout" disabled={step !== 4}>
+          Continuar al pago
+        </Button>
+        <Button className="mt-3 w-full sm:ml-3 sm:w-auto" variant="quiet" size="lg" type="submit" name="intent" value="submit" disabled={step !== 4}>
           Enviar a revisión
         </Button>
       </section>

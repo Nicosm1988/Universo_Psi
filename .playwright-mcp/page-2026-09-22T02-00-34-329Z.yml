@@ -1,0 +1,8 @@
+- generic [active] [ref=f4e1]:
+  - heading "block" [level=2] [ref=f4e4]
+  - generic [ref=f4e5]:
+    - heading "Web Page Blocked!" [level=3] [ref=f4e6]
+    - generic [ref=f4e7]:
+      - paragraph [ref=f4e8]: The page cannot be displayed. Please contact the administrator for additional information.
+      - paragraph [ref=f4e9]: "URL: portaltramites.inpi.gob.ar/marcasconsultas/busquedaClient IP: 201.216.219.60Attack ID: 20000051Message ID: 000128224220"
+      - paragraph

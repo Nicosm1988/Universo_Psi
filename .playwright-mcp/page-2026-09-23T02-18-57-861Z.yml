@@ -1,0 +1,455 @@
+- generic [active] [ref=e1]:
+  - link "Saltar al contenido" [ref=e2] [cursor=pointer]:
+    - /url: "#contenido"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Universo Psi, inicio" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e16]: Universo Psi
+        - generic [ref=e17]:
+          - button "Activar modo oscuro" [ref=e18]
+          - group [ref=e22]:
+            - generic "Menú" [ref=e23] [cursor=pointer]
+    - generic [ref=e24]: "Versión piloto: los contenidos identificados como demo son ficticios y no representan personas reales."
+    - main [ref=e25]:
+      - generic [ref=e27]:
+        - navigation "Migas de pan" [ref=e28]:
+          - list [ref=e29]:
+            - listitem [ref=e30]:
+              - link "Inicio" [ref=e31] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e32]:
+              - generic [ref=e33]: /
+              - generic [ref=e34]: Profesionales
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - paragraph [ref=e37]: Salud mental
+            - heading "Encontrá a tu profesional." [level=1] [ref=e38]
+          - paragraph [ref=e39]: Explorá perfiles sin registrarte.
+      - generic [ref=e42]:
+        - complementary "Filtros de profesionales" [ref=e43]:
+          - group [ref=e44]:
+            - generic "Filtros y orden Elegir" [ref=e45] [cursor=pointer]:
+              - generic [ref=e46]: Filtros y orden
+              - generic [ref=e47]: Elegir
+            - option "Tipo de profesional" [selected]
+            - option "Psicólogo/a"
+            - option "Psicopedagogo/a"
+            - option "Psiquiatra"
+            - option "Musicoterapeuta"
+            - option "Terapista ocupacional"
+            - option "Fonoaudiólogo/a"
+            - option "Terapeuta familiar sistémico/a"
+            - option "Arteterapeuta"
+            - option "Acompañante terapéutico en adicciones"
+            - option "Especialista en educación especial"
+            - option "Trabajador/a social"
+            - option "Psicomotricista"
+            - option "Relevancia" [selected]
+            - option "Mejor coincidencia"
+            - option "Recomendados"
+            - option "Disponibilidad"
+            - option "Destacados"
+        - generic [ref=e48]:
+          - status [ref=e51]: 10 profesionales coinciden
+          - generic [ref=e52]:
+            - article [ref=e53]:
+              - generic [ref=e54]: IM
+              - generic [ref=e56]:
+                - generic [ref=e57]:
+                  - generic [ref=e58]: Primer resultado.
+                  - generic [ref=e59]:
+                    - heading [level=2] [ref=e60]:
+                      - link "Inés Moreno" [ref=e61] [cursor=pointer]:
+                        - /url: /profesionales/ines-moreno?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111103
+                    - paragraph [ref=e62]: Psicopedagoga
+                  - generic [ref=e63]:
+                    - generic [ref=e64]: ✓ Verificado
+                    - generic [ref=e65]: Perfil destacado
+                    - generic [ref=e66]: Perfil demo
+                - paragraph [ref=e67]: Estrategias claras para acompañar a cada chico o chica en su forma de aprender.
+                - list "Necesidades que acompaña" [ref=e68]:
+                  - listitem [ref=e69]: Dificultades de aprendizaje
+                  - listitem [ref=e70]: Conflictos familiares
+                - generic [ref=e71]:
+                  - generic [ref=e72]:
+                    - term [ref=e73]: Modalidad
+                    - definition [ref=e74]: Online
+                  - generic [ref=e75]:
+                    - term [ref=e76]: Ubicación
+                    - definition [ref=e77]: Rosario
+              - generic [ref=e78]:
+                - generic [ref=e79]:
+                  - paragraph [ref=e80]: "Próximo espacio: viernes"
+                  - paragraph [ref=e81]: ★ 5,0 · 34 opiniones
+                - generic [ref=e82]:
+                  - link "Contactar" [ref=e83] [cursor=pointer]:
+                    - /url: /profesionales/ines-moreno?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111103#contactar
+                  - link "Ver perfil" [ref=e84] [cursor=pointer]:
+                    - /url: /profesionales/ines-moreno?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111103
+            - article [ref=e85]:
+              - generic [ref=e86]: VA
+              - generic [ref=e88]:
+                - generic [ref=e89]:
+                  - generic [ref=e90]:
+                    - heading [level=2] [ref=e91]:
+                      - link "Valentina Acosta" [ref=e92] [cursor=pointer]:
+                        - /url: /profesionales/valentina-acosta?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111101
+                    - paragraph [ref=e93]: Psicóloga
+                  - generic [ref=e94]:
+                    - generic [ref=e95]: ✓ Verificado
+                    - generic [ref=e96]: Perfil destacado
+                    - generic [ref=e97]: Perfil demo
+                - paragraph [ref=e98]: Un espacio para poner en palabras lo que pesa y encontrar de a poco más claridad.
+                - list "Necesidades que acompaña" [ref=e99]:
+                  - listitem [ref=e100]: Ansiedad
+                  - listitem [ref=e101]: Estado de ánimo y depresión
+                  - listitem [ref=e102]: Transiciones vitales
+                - generic [ref=e103]:
+                  - generic [ref=e104]:
+                    - term [ref=e105]: Modalidad
+                    - definition [ref=e106]: Online · Presencial
+                  - generic [ref=e107]:
+                    - term [ref=e108]: Ubicación
+                    - definition [ref=e109]: Ciudad de Buenos Aires
+              - generic [ref=e110]:
+                - generic [ref=e111]:
+                  - paragraph [ref=e112]: "Próximo espacio: jueves"
+                  - paragraph [ref=e113]: ★ 4,9 · 28 opiniones
+                - generic [ref=e114]:
+                  - link "Contactar" [ref=e115] [cursor=pointer]:
+                    - /url: /profesionales/valentina-acosta?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111101#contactar
+                  - link "Ver perfil" [ref=e116] [cursor=pointer]:
+                    - /url: /profesionales/valentina-acosta?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111101
+            - article [ref=e117]:
+              - generic [ref=e118]: MO
+              - generic [ref=e120]:
+                - generic [ref=e121]:
+                  - generic [ref=e122]:
+                    - heading [level=2] [ref=e123]:
+                      - link "Mariana Ortiz" [ref=e124] [cursor=pointer]:
+                        - /url: /profesionales/mariana-ortiz?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111105
+                    - paragraph [ref=e125]: Psicóloga
+                  - generic [ref=e126]:
+                    - generic [ref=e127]: Sin verificación acreditada
+                    - generic [ref=e128]: Perfil demo
+                - paragraph [ref=e129]: Un espacio para escuchar qué pide el malestar antes de convertirlo en un diagnóstico.
+                - list "Necesidades que acompaña" [ref=e130]:
+                  - listitem [ref=e131]: Ansiedad
+                  - listitem [ref=e132]: Estrés y agotamiento
+                  - listitem [ref=e133]: Autoestima
+                - generic [ref=e134]:
+                  - generic [ref=e135]:
+                    - term [ref=e136]: Modalidad
+                    - definition [ref=e137]: Online · Presencial
+                  - generic [ref=e138]:
+                    - term [ref=e139]: Ubicación
+                    - definition [ref=e140]: Córdoba
+              - generic [ref=e141]:
+                - generic [ref=e142]:
+                  - paragraph [ref=e143]: Consulta por nuevos espacios
+                  - paragraph [ref=e144]: ★ 4,8 · 22 opiniones
+                - generic [ref=e145]:
+                  - link "Contactar" [ref=e146] [cursor=pointer]:
+                    - /url: /profesionales/mariana-ortiz?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111105#contactar
+                  - link "Ver perfil" [ref=e147] [cursor=pointer]:
+                    - /url: /profesionales/mariana-ortiz?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111105
+            - article [ref=e148]:
+              - generic [ref=e149]: TF
+              - generic [ref=e151]:
+                - generic [ref=e152]:
+                  - generic [ref=e153]:
+                    - heading [level=2] [ref=e154]:
+                      - link "Tomás Ferrer" [ref=e155] [cursor=pointer]:
+                        - /url: /profesionales/tomas-ferrer?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111104
+                    - paragraph [ref=e156]: Psicólogo · Neuropsicólogo
+                  - generic [ref=e157]:
+                    - generic [ref=e158]: ✓ Verificado
+                    - generic [ref=e159]: Perfil demo
+                - paragraph [ref=e160]: Evaluación neuropsicológica clara para entender qué está pasando y qué sigue.
+                - list "Necesidades que acompaña" [ref=e161]:
+                  - listitem [ref=e162]: Trauma
+                  - listitem [ref=e163]: Dificultades de aprendizaje
+                - generic [ref=e164]:
+                  - generic [ref=e165]:
+                    - term [ref=e166]: Modalidad
+                    - definition [ref=e167]: Online
+                  - generic [ref=e168]:
+                    - term [ref=e169]: Ubicación
+                    - definition [ref=e170]: Mendoza
+              - generic [ref=e171]:
+                - generic [ref=e172]:
+                  - paragraph [ref=e173]: "Próximo espacio: miércoles"
+                  - paragraph [ref=e174]: ★ 4,9 · 16 opiniones
+                - generic [ref=e175]:
+                  - link "Contactar" [ref=e176] [cursor=pointer]:
+                    - /url: /profesionales/tomas-ferrer?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111104#contactar
+                  - link "Ver perfil" [ref=e177] [cursor=pointer]:
+                    - /url: /profesionales/tomas-ferrer?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111104
+            - article [ref=e178]:
+              - generic [ref=e179]: IU
+              - generic [ref=e181]:
+                - generic [ref=e182]:
+                  - generic [ref=e183]:
+                    - heading [level=2] [ref=e184]:
+                      - link "Inés Umbral Demo" [ref=e185] [cursor=pointer]:
+                        - /url: /profesionales/ines-umbral-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111109
+                    - paragraph [ref=e186]: Psicóloga
+                  - generic [ref=e187]:
+                    - generic [ref=e188]: ✓ Verificado
+                    - generic [ref=e189]: Perfil destacado
+                    - generic [ref=e190]: Perfil demo
+                - paragraph [ref=e191]: Psicoterapia para sostener un proceso de duelo o un cambio importante.
+                - list "Necesidades que acompaña" [ref=e192]:
+                  - listitem [ref=e193]: Duelo
+                  - listitem [ref=e194]: Transiciones vitales
+                - generic [ref=e195]:
+                  - generic [ref=e196]:
+                    - term [ref=e197]: Modalidad
+                    - definition [ref=e198]: Online · Presencial
+                  - generic [ref=e199]:
+                    - term [ref=e200]: Ubicación
+                    - definition [ref=e201]: Rosario
+              - generic [ref=e202]:
+                - generic [ref=e203]:
+                  - paragraph [ref=e204]: "Próximo espacio: en 2 semanas"
+                  - paragraph [ref=e205]: ★ 4,9 · 14 opiniones
+                - generic [ref=e206]:
+                  - link "Contactar" [ref=e207] [cursor=pointer]:
+                    - /url: /profesionales/ines-umbral-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111109#contactar
+                  - link "Ver perfil" [ref=e208] [cursor=pointer]:
+                    - /url: /profesionales/ines-umbral-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111109
+            - article [ref=e209]:
+              - generic [ref=e210]: AP
+              - generic [ref=e212]:
+                - generic [ref=e213]:
+                  - generic [ref=e214]:
+                    - heading [level=2] [ref=e215]:
+                      - link "Agustín Paz" [ref=e216] [cursor=pointer]:
+                        - /url: /profesionales/agustin-paz?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111106
+                    - paragraph [ref=e217]: Psicólogo
+                  - generic [ref=e218]:
+                    - generic [ref=e219]: Sin verificación acreditada
+                    - generic [ref=e220]: Perfil demo
+                - paragraph [ref=e221]: Acompañamiento a la pareja o la familia para conversar lo que cuesta nombrar.
+                - list "Necesidades que acompaña" [ref=e222]:
+                  - listitem [ref=e223]: Relación de pareja
+                  - listitem [ref=e224]: Conflictos familiares
+                - generic [ref=e225]:
+                  - generic [ref=e226]:
+                    - term [ref=e227]: Modalidad
+                    - definition [ref=e228]: Online · Presencial
+                  - generic [ref=e229]:
+                    - term [ref=e230]: Ubicación
+                    - definition [ref=e231]: Ciudad de Buenos Aires
+              - generic [ref=e232]:
+                - generic [ref=e233]:
+                  - paragraph [ref=e234]: "Próximo espacio: en 10 días"
+                  - paragraph [ref=e235]: ★ 4,7 · 8 opiniones
+                - generic [ref=e236]:
+                  - link "Contactar" [ref=e237] [cursor=pointer]:
+                    - /url: /profesionales/agustin-paz?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111106#contactar
+                  - link "Ver perfil" [ref=e238] [cursor=pointer]:
+                    - /url: /profesionales/agustin-paz?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111106
+            - article [ref=e239]:
+              - generic [ref=e240]: JM
+              - generic [ref=e242]:
+                - generic [ref=e243]:
+                  - generic [ref=e244]:
+                    - heading [level=2] [ref=e245]:
+                      - link "Julián Mapa Demo" [ref=e246] [cursor=pointer]:
+                        - /url: /profesionales/julian-mapa-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111110
+                    - paragraph [ref=e247]: Psicólogo
+                  - generic [ref=e248]:
+                    - generic [ref=e249]: Sin verificación acreditada
+                    - generic [ref=e250]: Perfil demo
+                - paragraph [ref=e251]: Terapia de pareja para conversar lo que se posterga hace tiempo.
+                - list "Necesidades que acompaña" [ref=e252]:
+                  - listitem [ref=e253]: Relación de pareja
+                  - listitem [ref=e254]: Conflictos familiares
+                - generic [ref=e255]:
+                  - generic [ref=e256]:
+                    - term [ref=e257]: Modalidad
+                    - definition [ref=e258]: Online
+                  - generic [ref=e259]:
+                    - term [ref=e260]: Ubicación
+                    - definition [ref=e261]: Mendoza
+              - generic [ref=e262]:
+                - generic [ref=e263]:
+                  - paragraph [ref=e264]: Consulta por nuevos espacios
+                  - paragraph [ref=e265]: ★ 4,4 · 3 opiniones
+                - generic [ref=e266]:
+                  - link "Contactar" [ref=e267] [cursor=pointer]:
+                    - /url: /profesionales/julian-mapa-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111110#contactar
+                  - link "Ver perfil" [ref=e268] [cursor=pointer]:
+                    - /url: /profesionales/julian-mapa-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111110
+            - article [ref=e269]:
+              - generic [ref=e270]: LV
+              - generic [ref=e272]:
+                - generic [ref=e273]:
+                  - generic [ref=e274]:
+                    - heading [level=2] [ref=e275]:
+                      - link "Lautaro Vía Demo" [ref=e276] [cursor=pointer]:
+                        - /url: /profesionales/lautaro-via-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111112
+                    - paragraph [ref=e277]: Psicólogo
+                  - generic [ref=e278]:
+                    - generic [ref=e279]: Sin verificación acreditada
+                    - generic [ref=e280]: Perfil demo
+                - paragraph [ref=e281]: Terapia individual para sostener pequeños pasos hacia un cambio real.
+                - list "Necesidades que acompaña" [ref=e282]:
+                  - listitem [ref=e283]: Ansiedad
+                  - listitem [ref=e284]: Autoestima
+                - generic [ref=e285]:
+                  - generic [ref=e286]:
+                    - term [ref=e287]: Modalidad
+                    - definition [ref=e288]: Online · Presencial
+                  - generic [ref=e289]:
+                    - term [ref=e290]: Ubicación
+                    - definition [ref=e291]: Córdoba
+              - generic [ref=e292]:
+                - generic [ref=e293]:
+                  - paragraph [ref=e294]: Disponibilidad por lista de espera
+                  - paragraph [ref=e295]: ★ 4,3 · 2 opiniones
+                - generic [ref=e296]:
+                  - link "Contactar" [ref=e297] [cursor=pointer]:
+                    - /url: /profesionales/lautaro-via-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111112#contactar
+                  - link "Ver perfil" [ref=e298] [cursor=pointer]:
+                    - /url: /profesionales/lautaro-via-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111112
+            - article [ref=e299]:
+              - generic [ref=e300]: MP
+              - generic [ref=e302]:
+                - generic [ref=e303]:
+                  - generic [ref=e304]:
+                    - heading [level=2] [ref=e305]:
+                      - link "Maia Prisma Demo" [ref=e306] [cursor=pointer]:
+                        - /url: /profesionales/maia-prisma-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111113
+                    - paragraph [ref=e307]: Psicopedagoga
+                  - generic [ref=e308]:
+                    - generic [ref=e309]: Sin verificación acreditada
+                    - generic [ref=e310]: Perfil demo
+                - paragraph [ref=e311]: Orientación psicopedagógica para explorar dificultades de aprendizaje.
+                - list "Necesidades que acompaña" [ref=e312]:
+                  - listitem [ref=e313]: Dificultades de aprendizaje
+                - generic [ref=e314]:
+                  - generic [ref=e315]:
+                    - term [ref=e316]: Modalidad
+                    - definition [ref=e317]: Online
+                  - generic [ref=e318]:
+                    - term [ref=e319]: Ubicación
+                    - definition [ref=e320]: Rosario
+              - generic [ref=e321]:
+                - generic [ref=e322]:
+                  - paragraph [ref=e323]: Perfil en borrador
+                  - paragraph [ref=e324]: ★ 0,0 · 0 opiniones
+                - generic [ref=e325]:
+                  - link "Contactar" [ref=e326] [cursor=pointer]:
+                    - /url: /profesionales/maia-prisma-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111113#contactar
+                  - link "Ver perfil" [ref=e327] [cursor=pointer]:
+                    - /url: /profesionales/maia-prisma-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111113
+            - article [ref=e328]:
+              - generic [ref=e329]: NA
+              - generic [ref=e331]:
+                - generic [ref=e332]:
+                  - generic [ref=e333]:
+                    - heading [level=2] [ref=e334]:
+                      - link "Nicolás Atlas Demo" [ref=e335] [cursor=pointer]:
+                        - /url: /profesionales/nicolas-atlas-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111114
+                    - paragraph [ref=e336]: Psicólogo
+                  - generic [ref=e337]:
+                    - generic [ref=e338]: Sin verificación acreditada
+                    - generic [ref=e339]: Perfil demo
+                - paragraph [ref=e340]: Psicoterapia individual para trabajar ansiedad y autoestima.
+                - list "Necesidades que acompaña" [ref=e341]:
+                  - listitem [ref=e342]: Ansiedad
+                  - listitem [ref=e343]: Autoestima
+                - generic [ref=e344]:
+                  - generic [ref=e345]:
+                    - term [ref=e346]: Modalidad
+                    - definition [ref=e347]: Online
+                  - generic [ref=e348]:
+                    - term [ref=e349]: Ubicación
+                    - definition [ref=e350]: Mendoza
+              - generic [ref=e351]:
+                - generic [ref=e352]:
+                  - paragraph [ref=e353]: Pendiente de revisión
+                  - paragraph [ref=e354]: ★ 0,0 · 0 opiniones
+                - generic [ref=e355]:
+                  - link "Contactar" [ref=e356] [cursor=pointer]:
+                    - /url: /profesionales/nicolas-atlas-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111114#contactar
+                  - link "Ver perfil" [ref=e357] [cursor=pointer]:
+                    - /url: /profesionales/nicolas-atlas-demo?desde=%2Fprofesionales%23professional-11111111-1111-4111-8111-111111111114
+    - contentinfo [ref=e358]:
+      - generic [ref=e359]:
+        - generic [ref=e360]:
+          - generic [ref=e361]:
+            - link "Universo Psi, inicio" [ref=e362] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e372]: Universo Psi
+            - paragraph [ref=e373]: Una red para encontrar acompañamiento profesional con más claridad, criterio y confianza.
+            - paragraph [ref=e374]: Universo Psi no realiza diagnósticos clínicos ni reemplaza atención de salud.
+          - generic [ref=e375]:
+            - generic [ref=e376]:
+              - heading "Encontrar" [level=2] [ref=e377]
+              - list [ref=e378]:
+                - listitem [ref=e379]:
+                  - link "Buscar profesionales" [ref=e380] [cursor=pointer]:
+                    - /url: /profesionales
+                - listitem [ref=e381]:
+                  - link "Recursos" [ref=e382] [cursor=pointer]:
+                    - /url: /recursos
+                - listitem [ref=e383]:
+                  - link "Convenios" [ref=e384] [cursor=pointer]:
+                    - /url: /convenios
+            - generic [ref=e385]:
+              - heading "Para profesionales" [level=2] [ref=e386]
+              - list [ref=e387]:
+                - listitem [ref=e388]:
+                  - link "Conocer la propuesta" [ref=e389] [cursor=pointer]:
+                    - /url: /para-profesionales
+                - listitem [ref=e390]:
+                  - link "Planes" [ref=e391] [cursor=pointer]:
+                    - /url: /planes
+                - listitem [ref=e392]:
+                  - link "Crear perfil" [ref=e393] [cursor=pointer]:
+                    - /url: /registro?next=/profesionales/sumarse
+                - listitem [ref=e394]:
+                  - link "Ingresar" [ref=e395] [cursor=pointer]:
+                    - /url: /ingresar
+            - generic [ref=e396]:
+              - heading "Universo Psi" [level=2] [ref=e397]
+              - list [ref=e398]:
+                - listitem [ref=e399]:
+                  - link "Cómo verificamos" [ref=e400] [cursor=pointer]:
+                    - /url: /para-profesionales#verificacion
+                - listitem [ref=e401]:
+                  - link "Preguntas frecuentes" [ref=e402] [cursor=pointer]:
+                    - /url: /preguntas-frecuentes
+                - listitem [ref=e403]:
+                  - link "Contacto" [ref=e404] [cursor=pointer]:
+                    - /url: /contacto
+                - listitem [ref=e405]:
+                  - link "Privacidad" [ref=e406] [cursor=pointer]:
+                    - /url: /privacidad
+                - listitem [ref=e407]:
+                  - link "Términos" [ref=e408] [cursor=pointer]:
+                    - /url: /terminos
+        - generic [ref=e409]:
+          - paragraph [ref=e410]: © 2026 Universo Psi. Hecho en Argentina.
+          - generic [ref=e411]:
+            - paragraph [ref=e412]: Decisiones profesionales, acompañadas por personas.
+            - button "Preferencias de cookies" [ref=e413]
+  - region "Consentimiento de cookies" [ref=e414]:
+    - generic [ref=e415]:
+      - generic [ref=e416]:
+        - heading "Su privacidad es nuestra prioridad" [level=2] [ref=e417]
+        - paragraph [ref=e418]:
+          - text: En Universo Psi utilizamos cookies propias y de terceros para garantizar el correcto funcionamiento del sitio web, analizar el tráfico, personalizar su experiencia y recordar sus preferencias profesionales. Conforme a nuestra
+          - link "Política de privacidad" [ref=e419] [cursor=pointer]:
+            - /url: /privacidad
+          - text: ", usted puede aceptar todas las cookies, configurar sus preferencias o rechazar su uso."
+      - generic [ref=e420]:
+        - button "Aceptar todas" [ref=e421]
+        - button "Configurar" [ref=e422]
+        - button "Rechazar" [ref=e423]
+  - alert [ref=e424]

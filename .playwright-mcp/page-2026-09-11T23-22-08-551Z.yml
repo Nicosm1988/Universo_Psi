@@ -1,0 +1,147 @@
+- generic [active] [ref=e1]:
+  - link "Saltar al contenido" [ref=e2] [cursor=pointer]:
+    - /url: "#contenido"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Universo Psi, inicio" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e16]: Universo Psi
+        - generic [ref=e17]:
+          - button "Activar modo oscuro" [ref=e18]
+          - group [ref=e22]:
+            - generic "Menú" [ref=e23] [cursor=pointer]
+    - generic [ref=e24]: "Versión piloto: los contenidos identificados como demo son ficticios y no representan personas reales."
+    - main [ref=e25]:
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]: Acompañamiento profesional
+            - heading "Encontrá tu profesional." [level=1] [ref=e32]
+            - paragraph [ref=e33]: Compará profesionales de salud mental por especialidad, modalidad y opiniones. Elegí un perfil y enviá tu consulta de forma directa.
+          - generic [ref=e34]:
+            - list "Características del servicio" [ref=e35]:
+              - listitem [ref=e36]: Buscar es gratis
+              - listitem [ref=e37]: Perfiles revisados
+              - listitem [ref=e38]: Opiniones visibles
+            - generic [ref=e39]:
+              - link "Ingresar para contactar" [ref=e40] [cursor=pointer]:
+                - /url: /ingresar?next=/profesionales
+              - link "Crear cuenta gratuita" [ref=e41] [cursor=pointer]:
+                - /url: /registro?next=/profesionales
+        - generic [ref=e42]:
+          - paragraph [ref=e43]: Buscar en la red
+          - heading "Empezá tu búsqueda." [level=2] [ref=e44]
+          - search [ref=e45]:
+            - text: ¿Qué necesitás trabajar?
+            - searchbox "¿Qué necesitás trabajar?" [ref=e46]
+            - generic [ref=e47]:
+              - generic [ref=e48]: Tipo de profesional
+              - combobox "Tipo de profesional" [ref=e49]:
+                - option "Tipo de profesional" [selected]
+                - option "Psicólogo/a"
+                - option "Psicopedagogo/a"
+                - option "Psiquiatra"
+                - option "Musicoterapeuta"
+                - option "Terapista ocupacional"
+                - option "Fonoaudiólogo/a"
+                - option "Terapeuta familiar sistémico/a"
+                - option "Arteterapeuta"
+                - option "Acompañante terapéutico en adicciones"
+                - option "Especialista en educación especial"
+                - option "Trabajador/a social"
+                - option "Psicomotricista"
+              - generic [ref=e50]: Modalidad
+              - combobox "Modalidad" [ref=e51]:
+                - option "Online o presencial" [selected]
+                - option "Online"
+                - option "Presencial"
+                - option "A domicilio"
+            - button "Buscar profesionales" [ref=e52]
+          - generic [ref=e53]:
+            - paragraph [ref=e54]: Búsquedas frecuentes
+            - generic [ref=e55]:
+              - link "Ansiedad" [ref=e56] [cursor=pointer]:
+                - /url: /profesionales?need=ansiedad
+              - link "Estado de ánimo" [ref=e57] [cursor=pointer]:
+                - /url: /profesionales?need=animo-y-depresion
+              - link "Pareja" [ref=e58] [cursor=pointer]:
+                - /url: /profesionales?need=relacion-de-pareja
+              - link "Duelo" [ref=e59] [cursor=pointer]:
+                - /url: /profesionales?need=duelo
+          - paragraph [ref=e60]: Entrá a un perfil para conocer su enfoque, leer valoraciones y enviarle tus datos de contacto.
+      - region [ref=e61]:
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e65]:
+              - paragraph [ref=e66]: Qué es Universo Psi
+              - heading "Una red para elegir acompañamiento con más claridad." [level=2] [ref=e67]
+              - paragraph [ref=e68]: Reúne profesionales de salud mental. Comparás enfoques, modalidades y opiniones; elegís un perfil y enviás tu consulta directamente.
+            - generic [ref=e69]:
+              - list [ref=e70]:
+                - listitem [ref=e71]: Perfiles revisados
+                - listitem [ref=e72]: Opiniones visibles
+                - listitem [ref=e73]: Contacto directo
+              - link "Ver todos los profesionales" [ref=e74] [cursor=pointer]:
+                - /url: /profesionales
+          - region "Profesionales y opiniones de Universo Psi" [ref=e75]:
+            - generic [ref=e77]:
+              - paragraph [ref=e78]: Conocé la red
+              - heading "Profesionales y opiniones" [level=3] [ref=e79]
+            - generic [ref=e80]:
+              - paragraph [ref=e81]: El directorio está listo para que compares perfiles y elijas a quién contactar.
+              - link "Buscar profesionales" [ref=e82] [cursor=pointer]:
+                - /url: /profesionales
+    - contentinfo [ref=e83]:
+      - generic [ref=e84]:
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - link "Universo Psi, inicio" [ref=e87] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e97]: Universo Psi
+            - paragraph [ref=e98]: Una red para encontrar acompañamiento profesional con más claridad, criterio y confianza.
+            - paragraph [ref=e99]: Universo Psi no realiza diagnósticos clínicos ni reemplaza atención de salud.
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - heading "Encontrar" [level=2] [ref=e102]
+              - list [ref=e103]:
+                - listitem [ref=e104]:
+                  - link "Buscar profesionales" [ref=e105] [cursor=pointer]:
+                    - /url: /profesionales
+                - listitem [ref=e106]:
+                  - link "Recursos" [ref=e107] [cursor=pointer]:
+                    - /url: /recursos
+                - listitem [ref=e108]:
+                  - link "Convenios" [ref=e109] [cursor=pointer]:
+                    - /url: /convenios
+            - generic [ref=e110]:
+              - heading "Para profesionales" [level=2] [ref=e111]
+              - list [ref=e112]:
+                - listitem [ref=e113]:
+                  - link "Conocer la propuesta" [ref=e114] [cursor=pointer]:
+                    - /url: /para-profesionales
+                - listitem [ref=e115]:
+                  - link "Planes" [ref=e116] [cursor=pointer]:
+                    - /url: /planes
+                - listitem [ref=e117]:
+                  - link "Crear perfil" [ref=e118] [cursor=pointer]:
+                    - /url: /registro?next=/profesionales/sumarse
+                - listitem [ref=e119]:
+                  - link "Ingresar" [ref=e120] [cursor=pointer]:
+                    - /url: /ingresar
+            - generic [ref=e121]:
+              - heading "Universo Psi" [level=2] [ref=e122]
+              - list [ref=e123]:
+                - listitem [ref=e124]:
+                  - link "Cómo verificamos" [ref=e125] [cursor=pointer]:
+                    - /url: /para-profesionales#verificacion
+                - listitem [ref=e126]:
+                  - link "Privacidad" [ref=e127] [cursor=pointer]:
+                    - /url: /privacidad
+                - listitem [ref=e128]:
+                  - link "Términos" [ref=e129] [cursor=pointer]:
+                    - /url: /terminos
+        - generic [ref=e130]:
+          - paragraph [ref=e131]: © 2026 Universo Psi. Hecho en Argentina.
+          - paragraph [ref=e132]: Decisiones profesionales, acompañadas por personas.
+  - alert [ref=e133]

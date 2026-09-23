@@ -97,6 +97,12 @@ El trigger de alta asigna únicamente `USER`. Para romper el círculo inicial si
 
 La función toma un advisory lock, rechaza usuarios demo y falla si ya existe un `SUPERADMIN`; no es un endpoint público ni se reutiliza para altas posteriores.
 
+## Build local requiere Supabase local activo
+
+`npm run build` genera páginas estáticas (por ejemplo `/convenios/[slug]`) consultando Supabase en tiempo de build, no sólo en runtime. Si el stack local de Supabase de este repo (`project_id = "Universo_Psi"`, puerto `54321` según `supabase/config.toml`) no está corriendo, o ese puerto está ocupado por el stack de **otro** proyecto local, el build falla con un error de "tabla no encontrada en el schema cache" — no es un bug de código, es falta de infraestructura local. Verificado el 2026-08-31: en una máquina con contenedores Docker de otro proyecto ocupando el puerto 54321 y sin el CLI de `supabase` instalado, `npm run lint`/`typecheck`/`test` pasaron limpios pero `npm run build` no pudo completarse hasta tener el Supabase local correcto arriba.
+
+Antes de reportar un build roto, confirmar: CLI de `supabase` instalado, `supabase start` corrido desde la raíz del repo, y que el puerto 54321 no esté tomado por otro proyecto.
+
 ## Comandos de calidad
 
 Usar scripts del repositorio, sin adivinar comandos de CLI:
@@ -149,3 +155,7 @@ El smoke integral conserva además:
 - Después: documentar incidente, alcance, recuperación y acción preventiva sin copiar PII a tickets.
 
 Referencia de runtime: [versiones Node.js soportadas por Vercel](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions).
+
+### Checkout integrado publicado — 13/09/2026 UTC
+
+Producción: `dpl_DPruWEU3WnRqXN5hszQeqkgTSqTN`, READY y alias universo-psi-eight confirmado. QA: `dpl_7QSFWnVPeKnhu855Fq9T7qRNaf2P`, READY y alias universo-psi-mp-test confirmado. Variables y precios preservados; no se hicieron cargos reales. La fuente ffa4b33e992fd6eac102a68644f972c5323ba77279e0e09c011aca2a99d6b955 pasó338 tests, lint, typecheck y build; pago TEST integrado aprobado con correo distinto y activación por reintento auténtico del webhook. Remitente Resend productivo sigue bloqueando registros por email externos hasta verificar dominio. Detalle en los reportes de pagos y autenticación.

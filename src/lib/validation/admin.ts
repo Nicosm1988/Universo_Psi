@@ -26,3 +26,9 @@ export const publicationResolutionSchema = z
     (data) => data.status === "PUBLISHED" || Boolean(data.reason),
     { message: "La decisión necesita un motivo.", path: ["reason"] },
   );
+
+export const supportResolutionSchema = z.object({
+  requestId: z.uuid(),
+  status: z.enum(["NEW", "IN_PROGRESS", "RESOLVED", "SPAM"]),
+  notes: z.string().trim().max(4000).optional(),
+});

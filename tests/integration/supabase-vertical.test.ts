@@ -19,6 +19,7 @@ const TEST_EMAILS = new Set([
 const PASSWORD = "UniversoPsi-Integration-2026!";
 const PROFILE_SLUG = "integration-supabase-professional";
 const CREDENTIAL_FILE_NAME = "integration-credential.pdf";
+const CREDENTIAL_FILE_NAME_LICENSE = "integration-credential-license.pdf";
 const LEGAL_VERSION = "2026-08";
 
 const testEnv = {
@@ -219,9 +220,10 @@ async function cleanupTestData(backend: SupabaseClient) {
 
   for (const user of testUsers) {
     const credentialPath = `${user.id}/${CREDENTIAL_FILE_NAME}`;
+    const licensePath = `${user.id}/${CREDENTIAL_FILE_NAME_LICENSE}`;
     const objectDelete = await backend.storage
       .from("professional-credentials")
-      .remove([credentialPath]);
+      .remove([credentialPath, licensePath]);
     assertNoError(objectDelete, "Limpiar objeto de credencial de integración");
 
     const userDelete = await backend.auth.admin.deleteUser(user.id);
@@ -302,19 +304,25 @@ describeIntegration(
         const [
           professionalTypeId,
           credentialTypeId,
+          licenseCredentialTypeId,
           needId,
           serviceId,
           modalityId,
           languageId,
         ] = await Promise.all([
-          activeCatalogId(backend, "professional_types", "psychopedagogy"),
+          activeCatalogId(backend, "professional_types", "psychopedagogue"),
           activeCatalogId(
             backend,
             "credential_types",
             "university_degree",
           ),
-          activeCatalogId(backend, "needs", "job_change"),
-          activeCatalogId(backend, "services", "career_strategy"),
+          activeCatalogId(
+            backend,
+            "credential_types",
+            "professional_license",
+          ),
+          activeCatalogId(backend, "needs", "anxiety"),
+          activeCatalogId(backend, "services", "individual_therapy"),
           activeCatalogId(backend, "modalities", "ONLINE"),
           activeCatalogId(backend, "languages", "es"),
         ]);
@@ -327,9 +335,25 @@ describeIntegration(
           publicProfessionalTypes,
           "Leer tipos profesionales públicos",
         );
+        // D-013 (2026-08-30) opened the public catalog to every active
+        // professional type, not just the original psychology/psychopedagogy
+        // pair — this list grew to the full mental-health taxonomy.
         expect(
           (publicProfessionalTypes.data ?? []).map(({ code }) => code),
-        ).toEqual(["psychology_orientation", "psychopedagogy"]);
+        ).toEqual([
+          "psychologist",
+          "psychopedagogue",
+          "psychiatrist",
+          "music_therapist",
+          "occupational_therapist",
+          "speech_therapist",
+          "family_therapist",
+          "art_therapist",
+          "addiction_counselor",
+          "special_education",
+          "social_worker",
+          "psychomotor_therapist",
+        ]);
 
         const profileResult = await professional
           .from("professional_profiles")
@@ -493,6 +517,41 @@ describeIntegration(
         ).find((row) => row.credential_id === credentialId);
         expect(pendingCredential?.verification_status).toBe("PENDING");
 
+        // psychopedagogue is a regulated type requiring BOTH a university
+        // degree and a professional license (public.verification_rules) —
+        // publish stays blocked until both are approved.
+        const licenseObjectPath = `${professionalUser.id}/${CREDENTIAL_FILE_NAME_LICENSE}`;
+        const licenseDocument = new Blob(
+          ["%PDF-1.4\n% Universo Psi integration fixture (license)\n%%EOF\n"],
+          { type: "application/pdf" },
+        );
+        const licenseUpload = await professional.storage
+          .from("professional-credentials")
+          .upload(licenseObjectPath, licenseDocument, {
+            contentType: "application/pdf",
+            upsert: false,
+          });
+        assertNoError(licenseUpload, "Subir matrícula privada propia");
+
+        const licenseSubmission = await professional.rpc(
+          "submit_professional_credential",
+          {
+            p_credential_type_id: licenseCredentialTypeId,
+            p_expires_on: null,
+            p_issued_on: "2026-01-15",
+            p_issuing_entity: "Colegio ficticio de integración",
+            p_jurisdiction: "CABA",
+            p_object_path: licenseObjectPath,
+            p_profile_id: profile.id,
+            p_registration_number: "INT-0001",
+            p_title: "Matrícula ficticia de Psicopedagogía",
+          },
+        );
+        const licenseCredentialId = requireData(
+          licenseSubmission,
+          "Presentar matrícula profesional",
+        ) as string;
+
         const profileSubmission = await professional.rpc(
           "submit_professional_profile",
           { p_profile_id: profile.id },
@@ -550,6 +609,14 @@ describeIntegration(
           p_valid_until: null,
         });
         assertNoError(resolution, "Aprobar credencial como admin");
+
+        const licenseResolution = await admin.rpc("admin_resolve_credential", {
+          p_credential_id: licenseCredentialId,
+          p_internal_notes: "Validación automática de integración local.",
+          p_status: "APPROVED",
+          p_valid_until: null,
+        });
+        assertNoError(licenseResolution, "Aprobar matrícula como admin");
 
         const publication = await admin.rpc(
           "admin_set_professional_publication",

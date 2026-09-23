@@ -1,0 +1,210 @@
+- generic [ref=f3e266]:
+  - banner [ref=f3e267]:
+    - generic [ref=f3e269]:
+      - img "image" [ref=f3e272] [cursor=pointer]
+      - generic [ref=f3e274]:
+        - generic [ref=f3e276]:
+          - button "" [ref=f3e277] [cursor=pointer]
+          - button "" [ref=f3e278] [cursor=pointer]
+          - button "" [ref=f3e279] [cursor=pointer]
+        - link "Ayuda" [ref=f3e281] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - button "Español (es) " [ref=f3e284] [cursor=pointer]:
+          - generic: Español (es)
+          - generic: 
+        - generic [ref=f3e286]:
+          - button "Iniciar sesión" [ref=f3e287] [cursor=pointer]
+          - button "Registro" [ref=f3e288] [cursor=pointer]
+  - generic [ref=f3e513]:
+    - generic [ref=f3e514]:
+      - generic [ref=f3e517]:
+        - button "" [ref=f3e521] [cursor=pointer]:
+          - generic:
+            - generic: 
+            - generic: 
+        - generic [ref=f3e526]:
+          - generic [ref=f3e527]: "Nombre de la marca:"
+          - group [ref=f3e528]:
+            - generic [ref=f3e530]:
+              - generic [ref=f3e531]:
+                - button "Contiene " [ref=f3e533] [cursor=pointer]:
+                  - generic: Contiene
+                  - generic: 
+                - generic [ref=f3e536]:
+                  - combobox "Introducir el nombre de la marca" [ref=f3e538]: universopsi
+                  - button "" [ref=f3e539] [cursor=pointer]
+              - button "Buscar" [ref=f3e540] [cursor=pointer]
+        - generic [ref=f3e541]:
+          - button " Guardar esta búsqueda" [disabled] [ref=f3e543]:
+            - generic: 
+            - text: Guardar esta búsqueda
+          - button " Compartir por correo" [ref=f3e545] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - text: Compartir por correo
+          - button "image" [ref=f3e548] [cursor=pointer]:
+            - img "image"
+      - generic [ref=f3e552]:
+        - generic [ref=f3e553]:
+          - button " Exportar" [disabled] [ref=f3e556] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Exportar
+          - button " Comparar" [disabled] [ref=f3e558] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Comparar
+          - button " Avisos" [disabled] [ref=f3e563] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Avisos
+          - button " Etiquetas" [disabled] [ref=f3e568] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Etiquetas
+        - img "Loading interface..." [ref=f3e573]
+    - generic [ref=f3e577]:
+      - generic [ref=f3e580]:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - button " Editar":
+                    - generic:
+                      - generic: 
+                      - generic: 
+                      - generic: 
+                    - generic: Editar
+            - button ""
+          - generic:
+            - button "Eliminar filtros"
+            - button "Aplicar" [disabled]
+          - generic:
+            - generic:
+              - img "Loading interface..."
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic: Productos y servicios
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "41 Educación; Formación; Servicios de entretenimiento; Actividades deportivas y culturales (2)"
+                      - generic:
+                        - generic: 41 Educación; Formación; Servicios de entretenimiento; Actividades deportivas y culturales
+                        - generic: (2)
+          - generic:
+            - generic:
+              - img "Loading interface..."
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic: Estado de la marca
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Finalizada (2)"
+                      - generic:
+                        - generic: Finalizada
+                        - generic: (2)
+          - generic:
+            - generic:
+              - img "Loading interface..."
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic:
+              - img "Loading interface..."
+            - generic:
+              - generic:
+                - img "Loading interface..."
+          - generic:
+            - button "Eliminar filtros"
+            - button "Aplicar" [disabled]
+      - generic [ref=f3e583]:
+        - img "Loading interface..." [ref=f3e586]
+        - img "Loading interface..." [ref=f3e590]
+        - img "Loading interface..." [ref=f3e594]
+        - img "Loading interface..." [ref=f3e598]
+        - img "Loading interface..." [ref=f3e602]
+        - img "Loading interface..." [ref=f3e606]
+        - img "Loading interface..." [ref=f3e610]
+        - img "Loading interface..." [ref=f3e614]
+        - img "Loading interface..." [ref=f3e618]
+  - contentinfo [ref=f3e477]:
+    - generic [ref=f3e478]:
+      - navigation [ref=f3e480]:
+        - link "Buscar" [ref=f3e481] [cursor=pointer]:
+          - /url: "#/tmview"
+        - link "Oficinas participantes" [ref=f3e482] [cursor=pointer]:
+          - /url: "#/tmview/participating"
+        - link "Ayuda" [ref=f3e483] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - generic [ref=f3e484] [cursor=pointer]: Comentarios
+      - generic [ref=f3e485]:
+        - link "EUIPN (Red de Propiedad Intelectual de la Unión Europea)" [ref=f3e487] [cursor=pointer]:
+          - /url: https://euipn.org
+          - text: EUIPN (Red de Propiedad Intelectual de la Unión Europea)
+          - generic [ref=f3e488]:
+            - generic [ref=f3e489]: 
+            - generic: 
+        - generic [ref=f3e491]: Avenida de Europa, 4, E-03008 Alicante (España)
+        - generic [ref=f3e493]: "Centro de información: +34 96 513 9100"
+      - navigation [ref=f3e495]:
+        - generic [ref=f3e496]: Copyright 2007-2026 EUIPO
+        - generic [ref=f3e497]:
+          - text: "Este sitio web está gestionado y mantenido por:"
+          - strong [ref=f3e498]: Oficina de Propiedad Intelectual de la Unión Europea
+      - generic [ref=f3e499]:
+        - generic [ref=f3e500]: Las herramientas de búsqueda TMview y DesignView no constituyen registros oficiales y la información contenida en dichas herramientas no tiene ningún efecto legal.
+        - navigation [ref=f3e501]:
+          - link "Véanse los términos y condiciones" [ref=f3e502] [cursor=pointer]:
+            - /url: "#/tmview/disclaimer"
+      - generic [ref=f3e503]:
+        - generic [ref=f3e504]: TMDSVIEW-4.5.1-RC1.1
+        - navigation [ref=f3e505]:
+          - link [ref=f3e506] [cursor=pointer]:
+            - /url: https://www.tmdn.org/network/compatibility
+            - strong [ref=f3e507]: Compatibilidad
+          - link [ref=f3e508] [cursor=pointer]:
+            - /url: "#/tmview/data-protection"
+            - strong [ref=f3e509]: Protección de datos
+          - link [ref=f3e510] [cursor=pointer]:
+            - /url: https://www.euipn.org/en/info/legal-notices
+            - strong [ref=f3e511]: Aviso Legal
+          - link "Acerca de" [ref=f3e512] [cursor=pointer]:
+            - /url: "#/tmview/about"
+  - text: 

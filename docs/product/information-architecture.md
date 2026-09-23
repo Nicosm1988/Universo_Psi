@@ -14,7 +14,10 @@ Este documento separa la superficie existente del contrato objetivo. `Implementa
 | `/profesionales/sumarse` | **Implementado** | Onboarding autenticado; noindex. |
 | `/convenios`, `/convenios/[slug]` | **Implementado demo** | Propuesta y convenios ficticios rotulados desde fixtures; index. Acceso institucional real pendiente. |
 | `/recursos`, `/recursos/[slug]` | **Implementado demo** | Recursos ficticios rotulados desde fixtures; index. Publicación desde DB pendiente. |
-| `/terminos`, `/privacidad` | **Implementado** | Borradores legales públicos versionados; index. |
+| `/privacidad` | **Implementado** | Política de privacidad final de asesoría legal (versión 2026-09); index. |
+| `/terminos` | **Implementado** | Términos y condiciones de uso finales de asesoría legal (versión 2026-09); se versionan junto con privacidad; index. |
+| `/preguntas-frecuentes` | **Implementado** | Preguntas frecuentes de asesoría legal, por audiencia, con `FAQPage` en JSON-LD; index. |
+| `/contacto` | **Implementado** | Canal oficial al que remiten privacidad y FAQ: derechos de datos, baja, reportes y soporte. Persiste en `private.support_requests` y se atiende desde `/admin`; index. |
 | `/ingresar`, `/registro`, `/recuperar-acceso`, `/actualizar-contrasena`, `/aceptar-terminos`, `/auth/callback` | **Implementado** | Acceso, recuperación y aceptación vigente; pantallas noindex y callback bajo `/auth/` bloqueado en robots. |
 | `/profesionales/{necesidad|tipo|ubicacion}/[slug]` | **Pendiente** | Landings curadas; sólo deben indexarse con oferta y contenido propios. |
 
@@ -39,7 +42,7 @@ Todas son privadas; cada loader/action reautoriza. Un profesional suspendido con
 
 | Ruta | Estado | Permiso mínimo/módulo |
 | --- | --- | --- |
-| `/admin` | **Implementado** | `ADMIN|SUPERADMIN`; cola de credenciales con URL firmada de 5 minutos, decisión aprobar/rechazar, revisión de perfil y decisión publicar/rechazar/suspender. Muestra contadores de artículos/reseñas, pero no los modera. |
+| `/admin` | **Implementado** | `ADMIN|SUPERADMIN`; cola de credenciales con URL firmada de 5 minutos, decisión aprobar/rechazar, revisión de perfil y decisión publicar/rechazar/suspender, y bandeja de mensajes de contacto con estados. Muestra contadores de artículos/reseñas, pero no los modera. |
 | `/admin/{profesionales|verificaciones}` | **Pendiente** | Separar el vertical existente en subrutas. |
 | `/admin/{taxonomias|planes|suscripciones|leads|convenios|destacados}` | **Pendiente** | Consolas `ADMIN`. |
 | `/admin/{articulos|opiniones}` | **Pendiente** | Moderación `EDITOR` con alcance o `ADMIN`. |
@@ -65,6 +68,8 @@ Ocultar navegación no es autorización. Cada ruta, consulta y mutación verific
 **Móvil:** búsqueda y contacto permanecen visibles. Los filtros se abren como panel accesible con scroll propio, conservan query params y ofrecen resumen de filtros activos. Los CTA persistentes no deben tapar contenido ni competir entre sí.
 
 **Breadcrumbs:** obligatorios en perfiles, contenidos, landings de taxonomía y convenios publicables.
+
+**Espacio profesional (13/09/2026):** Inicio usa `/dashboard`; Consultas y Suscripción usan `?seccion=consultas` y `?seccion=suscripcion`, con estados vacíos navegables incluso sin perfil. Mi perfil abre `/profesionales/sumarse`, con regreso al espacio. Contenido abre la biblioteca existente `/recursos`; no representa un editor de publicaciones.
 
 ## Taxonomía visible
 

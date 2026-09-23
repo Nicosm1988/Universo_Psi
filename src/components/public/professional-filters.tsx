@@ -165,13 +165,6 @@ export function ProfessionalFiltersForm({ selected, activeCount }: { selected: P
     }
   }
 
-  function applySelection(event: React.ChangeEvent<HTMLFormElement>) {
-    const control = event.target;
-    if (control instanceof HTMLInputElement && control.type === "search") return;
-    if (control instanceof HTMLInputElement || control instanceof HTMLSelectElement) {
-      event.currentTarget.requestSubmit();
-    }
-  }
 
   return (
     <>
@@ -180,7 +173,6 @@ export function ProfessionalFiltersForm({ selected, activeCount }: { selected: P
         method="get"
         aria-label="Filtros de profesionales"
         data-testid="professional-filters-desktop"
-        onChange={applySelection}
         onSubmit={trackFilterSubmit}
         className="hidden max-h-[calc(100dvh-7.5rem)] flex-col overflow-hidden rounded-[1.5rem] border border-line bg-paper xl:flex"
       >
@@ -189,6 +181,7 @@ export function ProfessionalFiltersForm({ selected, activeCount }: { selected: P
           {activeCount > 0 ? <span className="rounded-full bg-senda-soft px-2.5 py-1 text-xs font-bold text-senda-dark">{activeCount} activos</span> : null}
         </div>
         <div data-testid="professional-filters-desktop-scroll" className="flex-1 overscroll-contain px-5 [scrollbar-gutter:stable] xl:overflow-y-auto">
+          <p className="pb-3 text-xs leading-5 text-muted">Elegí tus filtros y presioná Buscar para aplicarlos.</p>
           <FilterFields key={urlStateKey} selected={selected} idPrefix="desktop" />
         </div>
         <FilterActions />
@@ -209,11 +202,11 @@ export function ProfessionalFiltersForm({ selected, activeCount }: { selected: P
           method="get"
           aria-label="Filtros de profesionales"
           data-testid="professional-filters-mobile"
-          onChange={applySelection}
-          onSubmit={trackFilterSubmit}
+            onSubmit={trackFilterSubmit}
         >
           <div data-testid="professional-filters-mobile-scroll" className="max-h-[calc(min(72dvh,40rem)-8.25rem)] overflow-y-auto overscroll-contain px-5 [scrollbar-gutter:stable]">
-            <FilterFields key={urlStateKey} selected={selected} idPrefix="mobile" />
+            <p className="pb-3 text-xs leading-5 text-muted">Elegí tus filtros y presioná Buscar para aplicarlos.</p>
+          <FilterFields key={urlStateKey} selected={selected} idPrefix="mobile" />
           </div>
           <FilterActions />
         </form>

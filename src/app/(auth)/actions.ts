@@ -1,10 +1,14 @@
 "use server";
 
 import type { Route } from "next";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { signInErrorMessage, signUpErrorMessage } from "@/lib/auth/error-messages";
+import { googleAvailability, resolveGoogleAuthorization } from "@/lib/auth/providers";
 import { publicEnv } from "@/lib/env/public";
+import { serverEnv } from "@/lib/env/server";
+import { hashIdentifier, requestFingerprint } from "@/lib/http/request";
 import { safeInternalPath } from "@/lib/http/origin";
 import {
   renderAuthEmailHtml,
@@ -13,6 +17,7 @@ import {
 } from "@/lib/integrations/auth-email-templates";
 import { deliverTransactionalEmail } from "@/lib/integrations/email";
 import { TERMS_VERSION } from "@/lib/legal";
+import { consumeRateLimit } from "@/lib/rate-limit";
 import { createAdminClient, findAdminUserIdByEmail } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -22,6 +27,8 @@ import {
   signUpSchema,
   type AuthFormState,
 } from "@/lib/validation/auth";
+
+const TOO_MANY_ATTEMPTS_MESSAGE = "Demasiados intentos. Esperá unos minutos y probá de nuevo.";
 
 // A single test account (this founder's own inbox) that always behaves like
 // a brand-new signup when submitted through /registro, so it can be reused
@@ -54,6 +61,26 @@ export async function signInAction(
 
   if (!parsed.success) return invalidState(parsed.error);
 
+  const admin = createAdminClient();
+  const headersList = await headers();
+  const [networkLimit, accountLimit] = await Promise.all([
+    consumeRateLimit(admin, {
+      scope: "auth.signin.network",
+      keyHash: requestFingerprint(headersList),
+      limit: 10,
+      windowSeconds: 300,
+    }),
+    consumeRateLimit(admin, {
+      scope: "auth.signin.account",
+      keyHash: hashIdentifier(parsed.data.email),
+      limit: 8,
+      windowSeconds: 900,
+    }),
+  ]);
+  if (!networkLimit.allowed || !accountLimit.allowed) {
+    return { status: "error", message: TOO_MANY_ATTEMPTS_MESSAGE };
+  }
+
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({
     email: parsed.data.email,
@@ -83,24 +110,33 @@ export async function signInAction(
 }
 
 export async function signInWithGoogleAction(formData: FormData) {
-  const next = safeInternalPath(formValue(formData, "next"));
+  const next = safeInternalPath(formValue(formData, "next"),
+    formValue(formData, "accountType") === "PROFESSIONAL" ? "/profesionales/sumarse" : "/dashboard");
+  const errorUrl = new URL("/ingresar", publicEnv.NEXT_PUBLIC_SITE_URL);
+  errorUrl.searchParams.set("next", next);
+  errorUrl.searchParams.set("error", "Google no está disponible en este momento. Podés ingresar o crear tu cuenta con email.");
+  if (await googleAvailability() !== "available") {
+    redirect(`${errorUrl.pathname}${errorUrl.search}` as Route);
+  }
   const callback = new URL("/auth/callback", publicEnv.NEXT_PUBLIC_SITE_URL);
   callback.searchParams.set("next", next);
 
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: { redirectTo: callback.toString() },
-  });
-
-  if (error || !data.url) {
-    console.error("google_signin_failed", { code: error?.code });
-    const errorUrl = new URL("/ingresar", publicEnv.NEXT_PUBLIC_SITE_URL);
-    errorUrl.searchParams.set("error", "No pudimos iniciar sesión con Google. Probá de nuevo.");
+  let destination: string | null = null;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: callback.toString(), skipBrowserRedirect: true },
+    });
+    if (!error && data.url) destination = await resolveGoogleAuthorization(data.url);
+  } catch {
+    // Do not log authorization URLs, PKCE verifiers or provider credentials.
+  }
+  if (!destination) {
+    console.error("google_signin_failed", { reason: "authorization_unavailable" });
     redirect(`${errorUrl.pathname}${errorUrl.search}` as Route);
   }
-
-  redirect(data.url as Route);
+  redirect(destination as Route);
 }
 
 export async function signUpAction(
@@ -119,6 +155,26 @@ export async function signUpAction(
 
   if (!parsed.success) return invalidState(parsed.error);
 
+  const admin = createAdminClient();
+  const headersList = await headers();
+  const [networkLimit, accountLimit] = await Promise.all([
+    consumeRateLimit(admin, {
+      scope: "auth.signup.network",
+      keyHash: requestFingerprint(headersList),
+      limit: 6,
+      windowSeconds: 3600,
+    }),
+    consumeRateLimit(admin, {
+      scope: "auth.signup.account",
+      keyHash: hashIdentifier(parsed.data.email),
+      limit: 3,
+      windowSeconds: 3600,
+    }),
+  ]);
+  if (!networkLimit.allowed || !accountLimit.allowed) {
+    return { status: "error", message: TOO_MANY_ATTEMPTS_MESSAGE };
+  }
+
   const next = safeInternalPath(
     parsed.data.next ?? null,
     parsed.data.accountType === "PROFESSIONAL"
@@ -130,10 +186,13 @@ export async function signUpAction(
 
   const supabase = await createClient();
 
-  if (parsed.data.email.trim().toLowerCase() === TEST_ACCOUNT_RESET_EMAIL) {
+  if (
+    serverEnv.UNIVERSO_PSI_TEST_MODE === "true" &&
+    process.env.VERCEL_ENV !== "production" &&
+    parsed.data.email.trim().toLowerCase() === TEST_ACCOUNT_RESET_EMAIL
+  ) {
     const existingUserId = await findAdminUserIdByEmail(parsed.data.email);
     if (existingUserId) {
-      const admin = createAdminClient();
       const { error: resetError } = await admin.auth.admin.updateUserById(existingUserId, {
         password: parsed.data.password,
         email_confirm: false,
@@ -210,29 +269,40 @@ export async function signUpAction(
     // First time this test email signs up: fall through to a normal signup.
   }
 
-  const { data, error } = await supabase.auth.signUp({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    options: {
-      emailRedirectTo: callback.toString(),
-      data: {
-        display_name: parsed.data.fullName,
-        requested_account_type: parsed.data.accountType,
-        terms_version: TERMS_VERSION,
+  let result: Awaited<ReturnType<typeof supabase.auth.signUp>>;
+  try {
+    result = await supabase.auth.signUp({
+      email: parsed.data.email,
+      password: parsed.data.password,
+      options: {
+        emailRedirectTo: callback.toString(),
+        data: {
+          display_name: parsed.data.fullName,
+          requested_account_type: parsed.data.accountType,
+          terms_version: TERMS_VERSION,
+        },
       },
-    },
-  });
+    });
+  } catch {
+    console.error("signup_failed", { reason: "transport_error" });
+    return {
+      status: "error",
+      message: "No pudimos conectar con el servicio de registro. Tus datos siguen en el formulario; esperá un momento y volvé a intentar.",
+    };
+  }
+  const { data, error } = result;
 
   if (error) {
     console.error("signup_failed", { code: error.code, status: error.status });
     return {
       status: "error",
-      message: signUpErrorMessage(error.code),
+      message: error.status === 0 || error.name === "AuthRetryableFetchError"
+        ? "No pudimos conectar con el servicio de registro. Tus datos siguen en el formulario; esperá un momento y volvé a intentar."
+        : signUpErrorMessage(error.code),
     };
   }
 
   if (data.user) {
-    const admin = createAdminClient();
     const { error: acceptanceError } = await admin.rpc(
       "accept_terms_from_signup_backend",
       {
@@ -300,7 +370,8 @@ export async function acceptCurrentTermsAction(formData: FormData) {
 
 export async function signOutAction() {
   const supabase = await createClient();
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
+  if (error) redirect("/dashboard?error=signout");
   redirect("/");
 }
 

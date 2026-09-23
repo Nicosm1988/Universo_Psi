@@ -2,6 +2,10 @@ import type { MetadataRoute } from "next";
 import { publicRepository } from "@/lib/data/public-repository";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (process.env.SITE_NOINDEX === "true" || process.env.VERCEL_ENV === "preview") {
+    return [];
+  }
+
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi-eight.vercel.app";
   const [professionalSlugs, resourceSlugs, agreementSlugs] = await Promise.all([
     publicRepository.listProfessionalSlugs(),
@@ -16,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/convenios`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/para-profesionales`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/planes`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/preguntas-frecuentes`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}/contacto`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${baseUrl}/privacidad`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${baseUrl}/terminos`, changeFrequency: "yearly", priority: 0.2 },
   ];

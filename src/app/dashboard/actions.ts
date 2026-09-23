@@ -14,7 +14,7 @@ export async function updateLeadStatusAction(formData: FormData) {
     status: formData.get("status"),
   });
   if (!parsed.success) {
-    redirect("/dashboard?error=lead-invalid#leads" as Route);
+    redirect("/dashboard?seccion=consultas&error=lead-invalid#leads" as Route);
   }
 
   await requireCurrentUser("/dashboard");
@@ -25,8 +25,8 @@ export async function updateLeadStatusAction(formData: FormData) {
   });
   if (error) {
     console.error("lead_status_update_failed", { code: error.code });
-    redirect("/dashboard?error=lead-transition#leads" as Route);
+    redirect("/dashboard?seccion=consultas&error=lead-transition#leads" as Route);
   }
   revalidatePath("/dashboard");
-  redirect("/dashboard?notice=lead-updated#leads" as Route);
+  redirect("/dashboard?seccion=consultas&notice=lead-updated#leads" as Route);
 }

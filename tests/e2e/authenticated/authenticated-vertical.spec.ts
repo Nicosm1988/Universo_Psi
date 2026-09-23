@@ -63,10 +63,20 @@ test.describe("vertical autenticado profesional y administración", () => {
     await page.getByLabel("Apellido", { exact: true }).fill(
       AUTH_E2E.professionalLastName,
     );
-    const professionalType = page.getByLabel("Profesional orientador");
+    const professionalType = page.getByLabel("Tipo de profesional");
     await expect(professionalType.locator("option:not([disabled])")).toHaveText([
       "Psicólogo/a",
       "Psicopedagogo/a",
+      "Psiquiatra",
+      "Musicoterapeuta",
+      "Terapista ocupacional",
+      "Fonoaudiólogo/a",
+      "Terapeuta familiar sistémico/a",
+      "Arteterapeuta",
+      "Acompañante terapéutico en adicciones",
+      "Especialista en educación especial",
+      "Trabajador/a social",
+      "Psicomotricista",
     ]);
     await professionalType.selectOption({ label: "Psicopedagogo/a" });
     await page.getByLabel("Años de experiencia").fill("7");
@@ -79,11 +89,11 @@ test.describe("vertical autenticado profesional y administración", () => {
 
     await page
       .getByRole("group", { name: "¿En qué necesidades acompañás?" })
-      .getByLabel(/Quiero cambiar de trabajo/i)
+      .getByLabel(/^Dificultades de aprendizaje/i)
       .check();
     await page
       .getByRole("group", { name: "¿Qué servicios ofrecés?" })
-      .getByLabel(/Estrategia de carrera/i)
+      .getByLabel(/^Terapia individual/i)
       .check();
     await page
       .getByRole("group", { name: "Modalidades" })
@@ -114,14 +124,11 @@ test.describe("vertical autenticado profesional y administración", () => {
     await page
       .getByLabel("Formación")
       .fill("Formación ficticia exclusiva de la prueba automatizada.");
-    await page.getByRole("button", { name: "Guardar borrador" }).click();
+    await page.getByRole("button", { name: "Guardar y continuar" }).click();
 
     await expect(page.getByRole("status")).toContainText(
       "Borrador guardado",
     );
-    await page
-      .getByRole("button", { name: "Continuar a documentos" })
-      .click();
 
     await page
       .getByLabel("Tipo de documento")
@@ -147,9 +154,39 @@ test.describe("vertical autenticado profesional y administración", () => {
     await expect(page.getByText(AUTH_E2E.credentialTitle)).toBeVisible();
     await expect(page.getByText("En revisión", { exact: true })).toBeVisible();
 
+    // psicopedagogo/a is a regulated type requiring BOTH a university degree
+    // and a professional license (public.verification_rules) — publish
+    // stays blocked in the admin test below until both are approved.
+    await page
+      .getByLabel("Tipo de documento")
+      .selectOption({ label: "Matrícula profesional" });
+    await page.getByLabel("Título", { exact: true }).fill(
+      AUTH_E2E.licenseCredentialTitle,
+    );
+    await page
+      .getByLabel("Jurisdicción (si corresponde)")
+      .fill("CABA");
+    await page
+      .getByLabel("Matrícula o registro (si corresponde)")
+      .fill("M.P. 12345");
+    await page.getByLabel("Archivo").setInputFiles({
+      name: "matricula-e2e.pdf",
+      mimeType: "application/pdf",
+      buffer: Buffer.from(
+        "%PDF-1.4\n% Universo Psi authenticated browser fixture (license)\n%%EOF\n",
+      ),
+    });
+    await page.getByRole("button", { name: "Cargar documento" }).click();
+    await expect(
+      page
+        .getByRole("status")
+        .filter({ hasText: "Documento recibido y pendiente de revisión." }),
+    ).toBeVisible();
+    await expect(page.getByText(AUTH_E2E.licenseCredentialTitle)).toBeVisible();
+
     await page.getByRole("button", { name: "Revisar perfil" }).click();
     await expect(
-      page.getByRole("radio", { name: /Impulso/i }),
+      page.getByRole("radio", { name: /Profesional · Mensual/i }),
     ).toBeChecked();
     await page.getByRole("button", { name: "Enviar a revisión" }).click();
     await expect(
@@ -178,14 +215,35 @@ test.describe("vertical autenticado profesional y administración", () => {
     const credentialSection = page.locator("section").filter({
       has: page.getByRole("heading", { level: 2, name: "Credenciales" }),
     });
-    const credentialItem = credentialSection
+    // psicopedagogo/a is a regulated type requiring BOTH the university
+    // degree and the professional license approved before VERIFIED — both
+    // were submitted in the onboarding test above.
+    const degreeCredentialItem = credentialSection
       .locator("li")
-      .filter({ hasText: AUTH_E2E.professionalFullName });
-    await expect(credentialItem).toContainText(AUTH_E2E.credentialTitle);
-    await credentialItem
+      .filter({ hasText: AUTH_E2E.professionalFullName })
+      .filter({ hasText: AUTH_E2E.credentialTitle });
+    await expect(degreeCredentialItem).toContainText(AUTH_E2E.credentialTitle);
+    await degreeCredentialItem
       .getByLabel(/Notas internas \/ motivo si se rechaza/i)
       .fill("Credencial ficticia aprobada por el flujo E2E local.");
-    await credentialItem.getByRole("button", { name: "Aprobar" }).click();
+    await degreeCredentialItem.getByRole("button", { name: "Aprobar" }).click();
+
+    await expect(page).toHaveURL(/\/admin\?notice=credential-resolved$/);
+    await expect(page.getByRole("status")).toContainText(
+      "Decisión registrada y auditada.",
+    );
+
+    const licenseCredentialItem = credentialSection
+      .locator("li")
+      .filter({ hasText: AUTH_E2E.professionalFullName })
+      .filter({ hasText: AUTH_E2E.licenseCredentialTitle });
+    await expect(licenseCredentialItem).toContainText(
+      AUTH_E2E.licenseCredentialTitle,
+    );
+    await licenseCredentialItem
+      .getByLabel(/Notas internas \/ motivo si se rechaza/i)
+      .fill("Matrícula ficticia aprobada por el flujo E2E local.");
+    await licenseCredentialItem.getByRole("button", { name: "Aprobar" }).click();
 
     await expect(page).toHaveURL(/\/admin\?notice=credential-resolved$/);
     await expect(page.getByRole("status")).toContainText(
@@ -226,7 +284,7 @@ test.describe("vertical autenticado profesional y administración", () => {
     ).toBeVisible();
   });
 
-  test("el profesional ve publicación y plan Impulso en su dashboard", async ({
+  test("el profesional ve publicación y plan Profesional · Mensual en su dashboard", async ({
     page,
   }) => {
     await login(page, AUTH_E2E.professionalEmail, "/dashboard");
@@ -239,14 +297,45 @@ test.describe("vertical autenticado profesional y administración", () => {
       }),
     ).toBeVisible();
     await expect(page.getByText("Publicado", { exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Ver perfil público", exact: true })).toHaveAttribute("href", `/profesionales/${fixture.expectedProfileSlug}`);
+    await expect(page.getByRole("link", { name: "Editar mi perfil", exact: true })).toHaveAttribute("href", "/profesionales/sumarse");
+    await expect(page.getByRole("link", { name: "Gestionar suscripción", exact: true })).toHaveAttribute("href", "/dashboard?seccion=suscripcion");
 
     const subscription = page.locator("#suscripcion");
     await expect(
-      subscription.getByRole("heading", { level: 2, name: "Impulso" }),
+      subscription.getByRole("heading", { level: 2, name: "Profesional · Mensual" }),
     ).toBeVisible();
     await expect(subscription).toContainText(
-      "No se activará ningún cobro hasta completar la integración segura.",
+      "Tu elección está guardada. El cobro en línea todavía no está habilitado.",
     );
+    await expect(subscription.getByRole("button", { name: "Continuar con el pago" })).toHaveCount(0);
+    // Un retorno manipulado del navegador nunca constituye evidencia de cobro.
+    await page.goto("/dashboard?subscription=checkout-return&status=approved");
+    await expect(subscription.getByRole("status")).toContainText(
+      "volver a esta página no lo acredita",
+    );
+    await expect.poll(() => fixture.readProfileSummary()).toMatchObject({
+      subscriptionStatus: "PENDING_PAYMENT",
+    });
+
+    // Real local intake → owned inbox → persisted status; no simulated lead API.
+    await page.goto(`/profesionales/${fixture.expectedProfileSlug}#contactar`);
+    await page.getByLabel("Nombre", { exact: true }).fill("Consulta local E2E");
+    await page.getByLabel("Email", { exact: true }).fill("e2e.contact@universo-psi.test");
+    await page.getByLabel("Motivo principal").selectOption({ index: 1 });
+    await page.getByLabel("¿Cómo preferís que te respondan?").selectOption("EMAIL");
+    await page.getByLabel("¿Qué te gustaría conversar?").fill("Necesito orientación para revisar mis alternativas de formación y trabajo.");
+    await page.getByRole("checkbox", { name: /Acepto que Universo Psi/i }).check();
+    const intake = page.waitForResponse(r => r.request().method() === "POST" && new URL(r.url()).pathname === "/api/leads");
+    await page.getByRole("button", { name: /Enviar consulta a/ }).click();
+    expect((await intake).status()).toBe(201);
+    await page.goto("/dashboard?seccion=consultas");
+    await expect(page.getByText("Consulta local E2E", { exact: true })).toBeVisible();
+    await page.getByLabel("Estado de la consulta", { exact: true }).selectOption("VIEWED");
+    await page.getByRole("button", { name: "Guardar", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("Estado de la consulta actualizado");
+    await page.reload();
+    await expect(page.getByText("Vista", { exact: true })).toBeVisible();
 
     await page.getByRole("link", { name: "Mi perfil" }).click();
     await expect(page).toHaveURL(/\/profesionales\/sumarse$/);
@@ -257,7 +346,7 @@ test.describe("vertical autenticado profesional y administración", () => {
     await page
       .getByLabel("Titular del perfil")
       .fill("Psicopedagogía — contenido actualizado por E2E");
-    await page.getByRole("button", { name: "Guardar borrador" }).click();
+    await page.getByRole("button", { name: "Guardar y continuar" }).click();
     await expect(page.getByRole("status")).toContainText("Borrador guardado");
     await expect.poll(() => fixture.readProfileSummary()).toMatchObject({
       publicationStatus: "PENDING_REVIEW",

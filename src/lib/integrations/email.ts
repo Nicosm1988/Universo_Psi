@@ -33,6 +33,10 @@ export async function deliverTransactionalEmail(input: {
     ...(input.html ? { html: input.html } : {}),
   });
 
-  if (error) return { status: "failed", reason: "provider_error" };
+  if (error) {
+    // Provider messages may contain recipient addresses: log only classification.
+    console.error("email_provider_failed", { name: error.name, status: error.statusCode });
+    return { status: "failed", reason: "provider_error" };
+  }
   return { status: "sent", providerId: data?.id ?? null };
 }

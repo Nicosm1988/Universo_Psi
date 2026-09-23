@@ -22,14 +22,15 @@ on conflict (id) do update set name = excluded.name, is_active = true;
 
 insert into public.languages (id, code, name, sort_order)
 values
-  ('28000000-0000-4000-8000-000000000004', 'de', 'Alemán', 40),
-  ('28000000-0000-4000-8000-000000000005', 'sign_language', 'Lengua de señas', 50)
+  ('28000000-0000-4000-8000-000000000004', 'de', 'Alemán', 40)
 on conflict (id) do update set name = excluded.name, is_active = true;
 
-insert into public.modalities (id, code, name, sort_order)
-values
-  ('26000000-0000-4000-8000-000000000004', 'HOME_VISIT', 'A domicilio', 40)
-on conflict (id) do update set name = excluded.name, is_active = true;
+-- The 'sign_language' language row and the 'HOME_VISIT' modality row are
+-- inserted in 20260830050000_widen_language_code_check.sql and
+-- 20260830060000_add_home_visit_modality_code.sql respectively, right after
+-- each one's constraint is widened to accept them — inserting them here
+-- would violate the still-strict check constraints a fresh migration replay
+-- has at this point in the sequence.
 
 insert into public.services (id, code, slug, name, description, sort_order)
 values

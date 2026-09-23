@@ -1,5 +1,7 @@
 "use client";
 
+import { hasCookieConsentFor } from "@/lib/consent/cookies";
+
 export type AnalyticsEventName =
   | "search_started"
   | "filter_applied"
@@ -31,6 +33,9 @@ export function trackAnalytics(
   } = {},
 ) {
   if (typeof window === "undefined") return;
+  // Medición opcional: sin consentimiento de análisis no se emite el evento
+  // ni se crean identificadores de navegador.
+  if (!hasCookieConsentFor("analytics")) return;
 
   let anonymousId: string | undefined;
   let sessionId: string | undefined;

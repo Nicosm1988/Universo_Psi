@@ -1,0 +1,818 @@
+- generic [ref=f5e5]:
+  - banner [ref=f5e6]:
+    - generic [ref=f5e8]:
+      - img "image" [ref=f5e11] [cursor=pointer]
+      - generic [ref=f5e13]:
+        - generic [ref=f5e15]:
+          - button "" [ref=f5e16] [cursor=pointer]
+          - button "" [ref=f5e17] [cursor=pointer]
+          - button "" [ref=f5e18] [cursor=pointer]
+        - link "Ayuda" [ref=f5e20] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - button "Español (es) " [ref=f5e23] [cursor=pointer]:
+          - generic: Español (es)
+          - generic: 
+        - generic [ref=f5e25]:
+          - button "Iniciar sesión" [ref=f5e26] [cursor=pointer]
+          - button "Registro" [ref=f5e27] [cursor=pointer]
+  - generic [ref=f5e253]:
+    - generic [ref=f5e254]:
+      - generic [ref=f5e257]:
+        - button "" [ref=f5e261] [cursor=pointer]:
+          - generic:
+            - generic: 
+            - generic: 
+        - generic [ref=f5e266]:
+          - generic [ref=f5e267]: "Nombre de la marca:"
+          - group [ref=f5e268]:
+            - generic [ref=f5e270]:
+              - generic [ref=f5e271]:
+                - button "Contiene " [ref=f5e273] [cursor=pointer]:
+                  - generic: Contiene
+                  - generic: 
+                - generic [ref=f5e276]:
+                  - combobox "Introducir el nombre de la marca" [ref=f5e278]: universo psi
+                  - button "" [ref=f5e279] [cursor=pointer]
+              - button "Buscar" [ref=f5e280] [cursor=pointer]
+        - generic [ref=f5e281]:
+          - button " Guardar esta búsqueda" [disabled] [ref=f5e283]:
+            - generic: 
+            - text: Guardar esta búsqueda
+          - button " Compartir por correo" [ref=f5e285] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - text: Compartir por correo
+          - button "image" [ref=f5e288] [cursor=pointer]:
+            - img "image"
+      - generic [ref=f5e292]:
+        - generic [ref=f5e293]:
+          - button " Exportar" [ref=f5e296] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Exportar
+          - button " Comparar" [disabled] [ref=f5e298] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Comparar
+          - button " Avisos" [disabled] [ref=f5e303] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Avisos
+          - button " Etiquetas" [disabled] [ref=f5e308] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Etiquetas
+        - generic [ref=f5e312]:
+          - generic [ref=f5e313]:
+            - generic: 
+            - generic: 
+          - generic [ref=f5e314]: 1-16 de 16
+          - generic: 
+        - generic [ref=f5e315]:
+          - button " Vista de estadísticas" [ref=f5e316] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Vista de estadísticas
+          - generic [ref=f5e318]:
+            - button " Vista de lista" [ref=f5e319]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de lista
+            - button " Vista de galería" [ref=f5e320] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de galería
+          - generic [ref=f5e322]:
+            - button " Editar columnas" [ref=f5e323] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Editar columnas
+            - text:                        
+          - button "" [ref=f5e325] [cursor=pointer]
+    - generic [ref=f5e327]:
+      - generic [ref=f5e331]:
+        - generic [ref=f5e332]:
+          - button " Editar" [ref=f5e336] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Editar
+          - button "" [ref=f5e337] [cursor=pointer]
+        - generic [ref=f5e338]:
+          - button "Eliminar filtros" [ref=f5e339] [cursor=pointer]
+          - button "Aplicar" [disabled] [ref=f5e340]
+        - generic [ref=f5e341]:
+          - generic [ref=f5e342]: Oficinas
+          - generic [ref=f5e344]:
+            - generic [ref=f5e347]:
+              - checkbox "Brasil - INPI (10)" [ref=f5e348]
+              - generic [ref=f5e349]:
+                - generic [ref=f5e350]: Brasil - INPI
+                - generic [ref=f5e351]: (10)
+            - generic [ref=f5e354]:
+              - checkbox "España - OEPM (1)" [ref=f5e355]
+              - generic [ref=f5e356]:
+                - generic [ref=f5e357]: España - OEPM
+                - generic [ref=f5e358]: (1)
+            - generic [ref=f5e361]:
+              - checkbox "EUIPO - EUIPO (2)" [ref=f5e362]
+              - generic [ref=f5e363]:
+                - generic [ref=f5e364]: EUIPO - EUIPO
+                - generic [ref=f5e365]: (2)
+            - button "Mostrar los 5 resultados" [ref=f5e366] [cursor=pointer]
+        - generic [ref=f5e367]:
+          - generic [ref=f5e368]: Productos y servicios
+          - generic [ref=f5e370]:
+            - generic [ref=f5e373]:
+              - checkbox "3 Productos cosméticos y preparaciones de tocador no medicinales; Dentífricos no medicinales; Productos de perfumería, aceites esenciales; Preparaciones para blanquear y otras sustancias para lavar la ropa; Preparaciones para limpiar, pulir, desengrasar y raspar (2)" [ref=f5e374]
+              - generic [ref=f5e375]:
+                - generic [ref=f5e376]: 3 Productos cosméticos y preparaciones de tocador no medicinales; Dentífricos no medicinales; Productos de perfumería, aceites esenciales; Preparaciones para blanquear y otras sustancias para lavar la ropa; Preparaciones para limpiar, pulir, desengrasar y raspar
+                - generic [ref=f5e377]: (2)
+            - generic [ref=f5e380]:
+              - checkbox "5 Productos farmacéuticos, preparaciones para uso médico y veterinario; Productos higiénicos y sanitarios para uso médico; Alimentos y sustancias dietéticas para uso médico o veterinario, alimentos para bebés; Suplementos alimenticios para personas o animales; Emplastos, material para apósitos; Material para empastes e improntas dentales; Desinfectantes; Productos para eliminar animales dañinos; Fungicidas, herbicidas (2)" [ref=f5e381]
+              - generic [ref=f5e382]:
+                - generic [ref=f5e383]: 5 Productos farmacéuticos, preparaciones para uso médico y veterinario; Productos higiénicos y sanitarios para uso médico; Alimentos y sustancias dietéticas para uso médico o veterinario, alimentos para bebés; Suplementos alimenticios para personas o animales; Emplastos, material para apósitos; Material para empastes e improntas dentales; Desinfectantes; Productos para eliminar animales dañinos; Fungicidas, herbicidas
+                - generic [ref=f5e384]: (2)
+            - generic [ref=f5e387]:
+              - checkbox "8 Herramientas e instrumentos de mano que funcionan manualmente; Artículos de cuchillería, tenedores y cucharas; Armas blancas; Maquinillas de afeitar (2)" [ref=f5e388]
+              - generic [ref=f5e389]:
+                - generic [ref=f5e390]: 8 Herramientas e instrumentos de mano que funcionan manualmente; Artículos de cuchillería, tenedores y cucharas; Armas blancas; Maquinillas de afeitar
+                - generic [ref=f5e391]: (2)
+            - button "Mostrar los 21 resultados" [ref=f5e392] [cursor=pointer]
+        - generic [ref=f5e393]:
+          - generic [ref=f5e394]: Códigos de Viena
+          - generic [ref=f5e396]:
+            - generic [ref=f5e399]:
+              - checkbox "01.01 ESTRELLAS, COMETAS (1)" [ref=f5e400]
+              - generic [ref=f5e401]:
+                - generic [ref=f5e402]: 01.01 ESTRELLAS, COMETAS
+                - generic [ref=f5e403]: (1)
+            - generic [ref=f5e406]:
+              - checkbox "01.11 CONSTELACIONES, GRUPOS DE ASTROS, CIELO ESTRELLADO, GLOBOS Y MAPAS CELESTES (1)" [ref=f5e407]
+              - generic [ref=f5e408]:
+                - generic [ref=f5e409]: 01.11 CONSTELACIONES, GRUPOS DE ASTROS, CIELO ESTRELLADO, GLOBOS Y MAPAS CELESTES
+                - generic [ref=f5e410]: (1)
+            - generic [ref=f5e413]:
+              - checkbox "01.13 ESFERAS ARMILARES, PLANETARIOS, ORBITAS ASTRONOMICAS, ESQUEMAS DE ATOMOS, ESQUEMAS DE MOLECULAS (3)" [ref=f5e414]
+              - generic [ref=f5e415]:
+                - generic [ref=f5e416]: 01.13 ESFERAS ARMILARES, PLANETARIOS, ORBITAS ASTRONOMICAS, ESQUEMAS DE ATOMOS, ESQUEMAS DE MOLECULAS
+                - generic [ref=f5e417]: (3)
+            - button "Mostrar los 13 resultados" [ref=f5e418] [cursor=pointer]
+        - generic [ref=f5e419]:
+          - generic [ref=f5e420]: Estado de la marca
+          - generic [ref=f5e422]:
+            - generic [ref=f5e425]:
+              - checkbox "Finalizada (6)" [ref=f5e426]
+              - generic [ref=f5e427]:
+                - generic [ref=f5e428]: Finalizada
+                - generic [ref=f5e429]: (6)
+            - generic [ref=f5e432]:
+              - checkbox "Solicitada (3)" [ref=f5e433]
+              - generic [ref=f5e434]:
+                - generic [ref=f5e435]: Solicitada
+                - generic [ref=f5e436]: (3)
+            - generic [ref=f5e439]:
+              - checkbox "Registrada (7)" [ref=f5e440]
+              - generic [ref=f5e441]:
+                - generic [ref=f5e442]: Registrada
+                - generic [ref=f5e443]: (7)
+        - generic [ref=f5e444]:
+          - generic [ref=f5e445]: Tipo de marca
+          - generic [ref=f5e447]:
+            - generic [ref=f5e450]:
+              - checkbox "Combinada (11)" [ref=f5e451]
+              - generic [ref=f5e452]:
+                - generic [ref=f5e453]: Combinada
+                - generic [ref=f5e454]: (11)
+            - generic [ref=f5e457]:
+              - checkbox "Figurativa (1)" [ref=f5e458]
+              - generic [ref=f5e459]:
+                - generic [ref=f5e460]: Figurativa
+                - generic [ref=f5e461]: (1)
+            - generic [ref=f5e464]:
+              - checkbox "Verbal (4)" [ref=f5e465]
+              - generic [ref=f5e466]:
+                - generic [ref=f5e467]: Verbal
+                - generic [ref=f5e468]: (4)
+        - generic [ref=f5e469]:
+          - generic [ref=f5e470]: Nombre del solicitante
+          - generic [ref=f5e476]:
+            - generic [ref=f5e477]:
+              - generic [ref=f5e478]: Seleccionar un filtro
+              - combobox [ref=f5e480]
+            - generic [ref=f5e481] [cursor=pointer]: 
+        - generic [ref=f5e483]:
+          - generic [ref=f5e484]: Fecha de solicitud
+          - generic [ref=f5e486]:
+            - generic [ref=f5e489]:
+              - checkbox "Hoy" [ref=f5e490]
+              - generic [ref=f5e491]: Hoy
+            - generic [ref=f5e495]:
+              - checkbox "De 1 día a 1 semana" [ref=f5e496]
+              - generic [ref=f5e497]: De 1 día a 1 semana
+            - generic [ref=f5e501]:
+              - checkbox "De 1 semana a un mes" [ref=f5e502]
+              - generic [ref=f5e503]: De 1 semana a un mes
+            - button "Mostrar los 7 resultados" [ref=f5e505] [cursor=pointer]
+        - generic [ref=f5e506]:
+          - generic [ref=f5e507]: Fecha de registro
+          - generic [ref=f5e509]:
+            - generic [ref=f5e512]:
+              - checkbox "Hoy" [ref=f5e513]
+              - generic [ref=f5e514]: Hoy
+            - generic [ref=f5e518]:
+              - checkbox "De 1 día a 1 semana" [ref=f5e519]
+              - generic [ref=f5e520]: De 1 día a 1 semana
+            - generic [ref=f5e524]:
+              - checkbox "De 1 semana a un mes" [ref=f5e525]
+              - generic [ref=f5e526]: De 1 semana a un mes
+            - button "Mostrar los 7 resultados" [ref=f5e528] [cursor=pointer]
+        - generic [ref=f5e529]:
+          - generic [ref=f5e530]: Oponible ahora
+          - generic [ref=f5e533]:
+            - checkbox "Oponible ahora" [ref=f5e534]
+            - text: Oponible ahora
+        - generic [ref=f5e535]:
+          - generic [ref=f5e536]: Antigüedad reivindicada
+          - generic [ref=f5e539]:
+            - checkbox "Antigüedad reivindicada" [ref=f5e540]
+            - text: Antigüedad reivindicada
+        - generic [ref=f5e541]:
+          - button "Eliminar filtros" [ref=f5e542] [cursor=pointer]
+          - button "Aplicar" [disabled] [ref=f5e543]
+      - generic [ref=f5e544]:
+        - grid [ref=f5e548]:
+          - row [ref=f5e550]:
+            - columnheader [ref=f5e551]
+            - columnheader [ref=f5e552]:
+              - checkbox [ref=f5e556]
+            - columnheader "Representación gráfica" [ref=f5e558]
+            - columnheader "Nombre de la marca" [ref=f5e562] [cursor=pointer]
+            - columnheader "Fecha de solicitud" [ref=f5e565] [cursor=pointer]
+            - columnheader "Productos y servicios" [ref=f5e568] [cursor=pointer]
+            - columnheader "Situación de la marca" [ref=f5e571] [cursor=pointer]
+            - columnheader "Oficina de marcas" [ref=f5e574] [cursor=pointer]
+            - columnheader "Número de solicitud" [ref=f5e577] [cursor=pointer]
+            - columnheader "Nombre del solicitante" [ref=f5e580] [cursor=pointer]
+          - generic [ref=f5e583]:
+            - rowgroup [ref=f5e584]:
+              - row [ref=f5e585]:
+                - gridcell "" [ref=f5e586] [cursor=pointer]
+                - gridcell [ref=f5e589]:
+                  - checkbox [ref=f5e593]
+                - gridcell [ref=f5e595]:
+                  - link [ref=f5e598] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000927970589"
+                    - img "Universo do Psi Escolar" [ref=f5e599]
+                - gridcell [ref=f5e600]:
+                  - link "Universo do Psi Escolar" [ref=f5e602] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000927970589"
+                - gridcell [ref=f5e604]:
+                  - paragraph [ref=f5e606]: 11/09/2022
+                - gridcell [ref=f5e607]:
+                  - paragraph [ref=f5e609]: "41"
+                - gridcell "Finalizada" [ref=f5e610]
+                - gridcell [ref=f5e612]:
+                  - link "Brasil - INPI" [ref=f5e614] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e615]:
+                      - generic [ref=f5e616]: 
+                      - generic: 
+                - gridcell [ref=f5e617]:
+                  - link "927970589" [ref=f5e619] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000927970589"
+                - gridcell [ref=f5e621]:
+                  - paragraph [ref=f5e623]: ALDYNNE MATIAS FERNANDES DE SOUZA 09515846420
+            - rowgroup [ref=f5e624]:
+              - row [ref=f5e625]:
+                - gridcell "" [ref=f5e626] [cursor=pointer]
+                - gridcell [ref=f5e629]:
+                  - checkbox [ref=f5e633]
+                - gridcell [ref=f5e635]:
+                  - link [ref=f5e638] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000939309424"
+                    - img "universo psique" [ref=f5e639]
+                - gridcell [ref=f5e640]:
+                  - link [ref=f5e642] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000939309424"
+                    - generic [ref=f5e643]:
+                      - mark [ref=f5e644]: universo psi
+                      - text: que
+                - gridcell [ref=f5e645]:
+                  - paragraph [ref=f5e647]: 27/05/2025
+                - gridcell [ref=f5e648]:
+                  - paragraph [ref=f5e650]: "41"
+                - gridcell "Solicitada" [ref=f5e651]
+                - gridcell [ref=f5e653]:
+                  - link "Brasil - INPI" [ref=f5e655] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e656]:
+                      - generic [ref=f5e657]: 
+                      - generic: 
+                - gridcell [ref=f5e658]:
+                  - link "939309424" [ref=f5e660] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000939309424"
+                - gridcell [ref=f5e662]:
+                  - paragraph [ref=f5e664]: PATRICIA AMARAL DIAS LTDA
+            - rowgroup [ref=f5e665]:
+              - row [ref=f5e666]:
+                - gridcell "" [ref=f5e667] [cursor=pointer]
+                - gridcell [ref=f5e670]:
+                  - checkbox [ref=f5e674]
+                - gridcell "-" [ref=f5e676]
+                - gridcell [ref=f5e678]:
+                  - link "UNIVERSO SYNAPSIA" [ref=f5e680] [cursor=pointer]:
+                    - /url: "#/tmview/detail/ES670000000499719"
+                - gridcell [ref=f5e682]:
+                  - paragraph [ref=f5e684]: 05/05/2026
+                - gridcell [ref=f5e685]:
+                  - paragraph [ref=f5e687]: 14, 16, 35
+                - gridcell "Solicitada" [ref=f5e688]
+                - gridcell [ref=f5e690]:
+                  - link "España - OEPM" [ref=f5e692] [cursor=pointer]:
+                    - /url: "http://www.oepm.es "
+                    - text: España - OEPM
+                    - generic [ref=f5e693]:
+                      - generic [ref=f5e694]: 
+                      - generic: 
+                - gridcell [ref=f5e695]:
+                  - link "N0499719" [ref=f5e697] [cursor=pointer]:
+                    - /url: "#/tmview/detail/ES670000000499719"
+                - gridcell [ref=f5e699]:
+                  - paragraph [ref=f5e701]: Carolina Gómez Izquierdo
+            - rowgroup [ref=f5e702]:
+              - row [ref=f5e703]:
+                - gridcell "" [ref=f5e704] [cursor=pointer]
+                - gridcell [ref=f5e707]:
+                  - checkbox [ref=f5e711]
+                - gridcell "-" [ref=f5e713]
+                - gridcell [ref=f5e715]:
+                  - link [ref=f5e717] [cursor=pointer]:
+                    - /url: "#/tmview/detail/PT500000000507677"
+                    - generic [ref=f5e718]:
+                      - mark [ref=f5e719]: UNIVERSO PSI
+                      - text: COLOGIA
+                - gridcell [ref=f5e720]:
+                  - paragraph [ref=f5e722]: 11/12/2012
+                - gridcell [ref=f5e723]:
+                  - paragraph [ref=f5e725]: "44"
+                - gridcell "Registrada" [ref=f5e726]
+                - gridcell [ref=f5e728]:
+                  - link "Portugal - INPIPT" [ref=f5e730] [cursor=pointer]:
+                    - /url: https://inpi.justica.gov.pt/
+                    - text: Portugal - INPIPT
+                    - generic [ref=f5e731]:
+                      - generic [ref=f5e732]: 
+                      - generic: 
+                - gridcell [ref=f5e733]:
+                  - link "050000507677" [ref=f5e735] [cursor=pointer]:
+                    - /url: "#/tmview/detail/PT500000000507677"
+                - gridcell [ref=f5e737]:
+                  - paragraph [ref=f5e739]: CRISTINA ISABEL BAPTISTA DA FONSECA MURTEIRA
+            - rowgroup [ref=f5e740]:
+              - row [ref=f5e741]:
+                - gridcell "" [ref=f5e742] [cursor=pointer]
+                - gridcell [ref=f5e745]:
+                  - checkbox [ref=f5e749]
+                - gridcell "-" [ref=f5e751]
+                - gridcell [ref=f5e753]:
+                  - link [ref=f5e755] [cursor=pointer]:
+                    - /url: "#/tmview/detail/EM500000019261656"
+                    - generic [ref=f5e756]:
+                      - mark [ref=f5e757]: UNIVERSO PSI
+                      - text: CHEDELICO
+                - gridcell [ref=f5e758]:
+                  - paragraph [ref=f5e760]: 15/10/2025
+                - gridcell [ref=f5e761]:
+                  - paragraph [ref=f5e763]: 3, 5, 8, 9, 12, 14, 16, 18, 20, 21, 24, 25, 27, 28, 29, 30, 32, 38, 41
+                - gridcell "Registrada" [ref=f5e764]
+                - gridcell [ref=f5e766]:
+                  - link "EUIPO - EUIPO" [ref=f5e768] [cursor=pointer]:
+                    - /url: "https://euipo.europa.eu/ "
+                    - text: EUIPO - EUIPO
+                    - generic [ref=f5e769]:
+                      - generic [ref=f5e770]: 
+                      - generic: 
+                - gridcell [ref=f5e771]:
+                  - link "019261656" [ref=f5e773] [cursor=pointer]:
+                    - /url: "#/tmview/detail/EM500000019261656"
+                - gridcell [ref=f5e775]:
+                  - paragraph [ref=f5e777]: OFFICINA COMUNICAZIONE S.R.L.
+            - rowgroup [ref=f5e778]:
+              - row [ref=f5e779]:
+                - gridcell "" [ref=f5e780] [cursor=pointer]
+                - gridcell [ref=f5e783]:
+                  - checkbox [ref=f5e787]
+                - gridcell [ref=f5e789]:
+                  - generic [ref=f5e790]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/MX501985012959592"
+                - gridcell [ref=f5e791]:
+                  - link [ref=f5e793] [cursor=pointer]:
+                    - /url: "#/tmview/detail/MX501985012959592"
+                    - generic [ref=f5e794]:
+                      - mark [ref=f5e795]: UNIVERSO PSI
+                      - text: COANALÍTICO
+                - gridcell [ref=f5e796]:
+                  - paragraph [ref=f5e798]: 05/06/2023
+                - gridcell [ref=f5e799]:
+                  - paragraph [ref=f5e801]: "41"
+                - gridcell "Registrada" [ref=f5e802]
+                - gridcell [ref=f5e804]:
+                  - link "México - IMPI" [ref=f5e806] [cursor=pointer]:
+                    - /url: https://www.gob.mx/impi
+                    - text: México - IMPI
+                    - generic [ref=f5e807]:
+                      - generic [ref=f5e808]: 
+                      - generic: 
+                - gridcell [ref=f5e809]:
+                  - link "2959592" [ref=f5e811] [cursor=pointer]:
+                    - /url: "#/tmview/detail/MX501985012959592"
+                - gridcell [ref=f5e813]:
+                  - paragraph [ref=f5e815]: JOCELYN RAYA LEÓN
+            - rowgroup [ref=f5e816]:
+              - row [ref=f5e817]:
+                - gridcell "" [ref=f5e818] [cursor=pointer]
+                - gridcell [ref=f5e821]:
+                  - checkbox [ref=f5e825]
+                - gridcell [ref=f5e827]:
+                  - generic [ref=f5e828]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/MX501985012959593"
+                - gridcell [ref=f5e829]:
+                  - link [ref=f5e831] [cursor=pointer]:
+                    - /url: "#/tmview/detail/MX501985012959593"
+                    - generic [ref=f5e832]:
+                      - mark [ref=f5e833]: UNIVERSO PSI
+                      - text: COANALÍTICO
+                - gridcell [ref=f5e834]:
+                  - paragraph [ref=f5e836]: 05/06/2023
+                - gridcell [ref=f5e837]:
+                  - paragraph [ref=f5e839]: "44"
+                - gridcell "Registrada" [ref=f5e840]
+                - gridcell [ref=f5e842]:
+                  - link "México - IMPI" [ref=f5e844] [cursor=pointer]:
+                    - /url: https://www.gob.mx/impi
+                    - text: México - IMPI
+                    - generic [ref=f5e845]:
+                      - generic [ref=f5e846]: 
+                      - generic: 
+                - gridcell [ref=f5e847]:
+                  - link "2959593" [ref=f5e849] [cursor=pointer]:
+                    - /url: "#/tmview/detail/MX501985012959593"
+                - gridcell [ref=f5e851]:
+                  - paragraph [ref=f5e853]: JOCELYN RAYA LEÓN
+            - rowgroup [ref=f5e854]:
+              - row [ref=f5e855]:
+                - gridcell "" [ref=f5e856] [cursor=pointer]
+                - gridcell [ref=f5e859]:
+                  - checkbox [ref=f5e863]
+                - gridcell [ref=f5e865]:
+                  - generic [ref=f5e866]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/BR500000921139063"
+                - gridcell [ref=f5e867]:
+                  - link [ref=f5e869] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000921139063"
+                    - generic [ref=f5e870]:
+                      - text: EDITORA
+                      - mark [ref=f5e871]: UNIVERSO PSI
+                - gridcell [ref=f5e872]:
+                  - paragraph [ref=f5e874]: 26/10/2020
+                - gridcell [ref=f5e875]:
+                  - paragraph [ref=f5e877]: "41"
+                - gridcell "Registrada" [ref=f5e878]
+                - gridcell [ref=f5e880]:
+                  - link "Brasil - INPI" [ref=f5e882] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e883]:
+                      - generic [ref=f5e884]: 
+                      - generic: 
+                - gridcell [ref=f5e885]:
+                  - link "921139063" [ref=f5e887] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000921139063"
+                - gridcell [ref=f5e889]:
+                  - paragraph [ref=f5e891]: LÉIA APARECIDA FAUSTINO
+            - rowgroup [ref=f5e892]:
+              - row [ref=f5e893]:
+                - gridcell "" [ref=f5e894] [cursor=pointer]
+                - gridcell [ref=f5e897]:
+                  - checkbox [ref=f5e901]
+                - gridcell "-" [ref=f5e903]
+                - gridcell [ref=f5e905]:
+                  - link "UNIVERSO NÚCLEO DE PSICOLOGIA APLICADA" [ref=f5e907] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000827505868"
+                - gridcell [ref=f5e909]:
+                  - paragraph [ref=f5e911]: 14/06/2005
+                - gridcell [ref=f5e912]:
+                  - paragraph [ref=f5e914]: "44"
+                - gridcell "Registrada" [ref=f5e915]
+                - gridcell [ref=f5e917]:
+                  - link "Brasil - INPI" [ref=f5e919] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e920]:
+                      - generic [ref=f5e921]: 
+                      - generic: 
+                - gridcell [ref=f5e922]:
+                  - link "827505868" [ref=f5e924] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000827505868"
+                - gridcell [ref=f5e926]:
+                  - paragraph [ref=f5e928]: ASSOCIACAO SALGADO DE OLIVEIRA DE EDUCACAO E CULTURA
+            - rowgroup [ref=f5e929]:
+              - row [ref=f5e930]:
+                - gridcell "" [ref=f5e931] [cursor=pointer]
+                - gridcell [ref=f5e934]:
+                  - checkbox [ref=f5e938]
+                - gridcell [ref=f5e940]:
+                  - generic [ref=f5e941]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/BR500000930641957"
+                - gridcell [ref=f5e942]:
+                  - link "UniversoPsi" [ref=f5e944] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000930641957"
+                - gridcell [ref=f5e946]:
+                  - paragraph [ref=f5e948]: 01/06/2023
+                - gridcell [ref=f5e949]:
+                  - paragraph [ref=f5e951]: "41"
+                - gridcell "Finalizada" [ref=f5e952]
+                - gridcell [ref=f5e954]:
+                  - link "Brasil - INPI" [ref=f5e956] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e957]:
+                      - generic [ref=f5e958]: 
+                      - generic: 
+                - gridcell [ref=f5e959]:
+                  - link "930641957" [ref=f5e961] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000930641957"
+                - gridcell [ref=f5e963]:
+                  - paragraph [ref=f5e965]: ANA CAROLINA TEIXEIRA PINTO
+            - rowgroup [ref=f5e966]:
+              - row [ref=f5e967]:
+                - gridcell "" [ref=f5e968] [cursor=pointer]
+                - gridcell [ref=f5e971]:
+                  - checkbox [ref=f5e975]
+                - gridcell [ref=f5e977]:
+                  - generic [ref=f5e978]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/BR500000914077422"
+                - gridcell [ref=f5e979]:
+                  - link "UNIVERSOPSIQUE" [ref=f5e981] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000914077422"
+                - gridcell [ref=f5e983]:
+                  - paragraph [ref=f5e985]: 25/01/2018
+                - gridcell [ref=f5e986]:
+                  - paragraph [ref=f5e988]: "41"
+                - gridcell "Finalizada" [ref=f5e989]
+                - gridcell [ref=f5e991]:
+                  - link "Brasil - INPI" [ref=f5e993] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e994]:
+                      - generic [ref=f5e995]: 
+                      - generic: 
+                - gridcell [ref=f5e996]:
+                  - link "914077422" [ref=f5e998] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000914077422"
+                - gridcell [ref=f5e1000]:
+                  - paragraph [ref=f5e1002]: FABRICIO GALDINO SILVA
+            - rowgroup [ref=f5e1003]:
+              - row [ref=f5e1004]:
+                - gridcell "" [ref=f5e1005] [cursor=pointer]
+                - gridcell [ref=f5e1008]:
+                  - checkbox [ref=f5e1012]
+                - gridcell [ref=f5e1014]:
+                  - generic [ref=f5e1015]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/BR500000925119571"
+                - gridcell [ref=f5e1016]:
+                  - link "UNIVERSOS CLÍNICA DE PSICOLOGIA E HIPNOSE" [ref=f5e1018] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000925119571"
+                - gridcell [ref=f5e1020]:
+                  - paragraph [ref=f5e1022]: 03/12/2021
+                - gridcell [ref=f5e1023]:
+                  - paragraph [ref=f5e1025]: "44"
+                - gridcell "Finalizada" [ref=f5e1026]
+                - gridcell [ref=f5e1028]:
+                  - link "Brasil - INPI" [ref=f5e1030] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e1031]:
+                      - generic [ref=f5e1032]: 
+                      - generic: 
+                - gridcell [ref=f5e1033]:
+                  - link "925119571" [ref=f5e1035] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000925119571"
+                - gridcell [ref=f5e1037]:
+                  - paragraph [ref=f5e1039]: SUZANA BLANCO GENUÍNO MENEZES, JOÃO CARDOSO DE OLIVEIRA NETO
+            - rowgroup [ref=f5e1040]:
+              - row [ref=f5e1041]:
+                - gridcell "" [ref=f5e1042] [cursor=pointer]
+                - gridcell [ref=f5e1045]:
+                  - checkbox [ref=f5e1049]
+                - gridcell [ref=f5e1051]:
+                  - generic [ref=f5e1052]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/BR500000939431815"
+                - gridcell [ref=f5e1053]:
+                  - link "Universos Clínica de atendimento psicológico" [ref=f5e1055] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000939431815"
+                - gridcell [ref=f5e1057]:
+                  - paragraph [ref=f5e1059]: 04/06/2025
+                - gridcell [ref=f5e1060]:
+                  - paragraph [ref=f5e1062]: "44"
+                - gridcell "Solicitada" [ref=f5e1063]
+                - gridcell [ref=f5e1065]:
+                  - link "Brasil - INPI" [ref=f5e1067] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e1068]:
+                      - generic [ref=f5e1069]: 
+                      - generic: 
+                - gridcell [ref=f5e1070]:
+                  - link "939431815" [ref=f5e1072] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000939431815"
+                - gridcell [ref=f5e1074]:
+                  - paragraph [ref=f5e1076]: SUZANA BLANCO GENUÍNO MENEZES
+            - rowgroup [ref=f5e1077]:
+              - row [ref=f5e1078]:
+                - gridcell "" [ref=f5e1079] [cursor=pointer]
+                - gridcell [ref=f5e1082]:
+                  - checkbox [ref=f5e1086]
+                - gridcell [ref=f5e1088]:
+                  - generic [ref=f5e1089]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/BR500000935684441"
+                - gridcell [ref=f5e1090]:
+                  - link "Universo Cognitivo CONSULTÓRIO DE PSICOLOGIA & NEUROPSICOLOGIA" [ref=f5e1092] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000935684441"
+                - gridcell [ref=f5e1094]:
+                  - paragraph [ref=f5e1096]: 05/08/2024
+                - gridcell [ref=f5e1097]:
+                  - paragraph [ref=f5e1099]: "44"
+                - gridcell "Finalizada" [ref=f5e1100]
+                - gridcell [ref=f5e1102]:
+                  - link "Brasil - INPI" [ref=f5e1104] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e1105]:
+                      - generic [ref=f5e1106]: 
+                      - generic: 
+                - gridcell [ref=f5e1107]:
+                  - link "935684441" [ref=f5e1109] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000935684441"
+                - gridcell [ref=f5e1111]:
+                  - paragraph [ref=f5e1113]: FÁTIMA APARECIDA RAIMUNDI DANTAS
+            - rowgroup [ref=f5e1114]:
+              - row [ref=f5e1115]:
+                - gridcell "" [ref=f5e1116] [cursor=pointer]
+                - gridcell [ref=f5e1119]:
+                  - checkbox [ref=f5e1123]
+                - gridcell [ref=f5e1125]:
+                  - generic [ref=f5e1126]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/BR500000937025615"
+                - gridcell [ref=f5e1127]:
+                  - link "Universos Clínica de atendimento psicológico" [ref=f5e1129] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000937025615"
+                - gridcell [ref=f5e1131]:
+                  - paragraph [ref=f5e1133]: 14/11/2024
+                - gridcell [ref=f5e1134]:
+                  - paragraph [ref=f5e1136]: "35"
+                - gridcell "Finalizada" [ref=f5e1137]
+                - gridcell [ref=f5e1139]:
+                  - link "Brasil - INPI" [ref=f5e1141] [cursor=pointer]:
+                    - /url: http://www.inpi.gov.br
+                    - text: Brasil - INPI
+                    - generic [ref=f5e1142]:
+                      - generic [ref=f5e1143]: 
+                      - generic: 
+                - gridcell [ref=f5e1144]:
+                  - link "937025615" [ref=f5e1146] [cursor=pointer]:
+                    - /url: "#/tmview/detail/BR500000937025615"
+                - gridcell [ref=f5e1148]:
+                  - paragraph [ref=f5e1150]: SUZANA BLANCO GENUÍNO MENEZES
+            - rowgroup [ref=f5e1151]:
+              - row [ref=f5e1152]:
+                - gridcell "" [ref=f5e1153] [cursor=pointer]
+                - gridcell [ref=f5e1156]:
+                  - checkbox [ref=f5e1160]
+                - gridcell [ref=f5e1162]:
+                  - generic [ref=f5e1163]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/EM500000019261592"
+                - gridcell [ref=f5e1164]:
+                  - link [ref=f5e1166] [cursor=pointer]:
+                    - /url: "#/tmview/detail/EM500000019261592"
+                    - generic [ref=f5e1167]:
+                      - text: SERIE ALPHA
+                      - mark [ref=f5e1168]: UNIVERSO PSI
+                      - text: CHEDELICO
+                - gridcell [ref=f5e1169]:
+                  - paragraph [ref=f5e1171]: 15/10/2025
+                - gridcell [ref=f5e1172]:
+                  - paragraph [ref=f5e1174]: 3, 5, 8, 9, 12, 14, 16, 18, 20, 21, 24, 25, 27, 28, 29, 30, 32, 38, 41
+                - gridcell "Registrada" [ref=f5e1175]
+                - gridcell [ref=f5e1177]:
+                  - link "EUIPO - EUIPO" [ref=f5e1179] [cursor=pointer]:
+                    - /url: "https://euipo.europa.eu/ "
+                    - text: EUIPO - EUIPO
+                    - generic [ref=f5e1180]:
+                      - generic [ref=f5e1181]: 
+                      - generic: 
+                - gridcell [ref=f5e1182]:
+                  - link "019261592" [ref=f5e1184] [cursor=pointer]:
+                    - /url: "#/tmview/detail/EM500000019261592"
+                - gridcell [ref=f5e1186]:
+                  - paragraph [ref=f5e1188]: OFFICINA COMUNICAZIONE S.R.L.
+        - generic [ref=f5e1191]:
+          - generic [ref=f5e1192]:
+            - generic: 
+            - generic: 
+          - generic [ref=f5e1193]: 1-16 de 16
+          - generic: 
+  - contentinfo [ref=f5e217]:
+    - generic [ref=f5e218]:
+      - navigation [ref=f5e220]:
+        - link "Buscar" [ref=f5e221] [cursor=pointer]:
+          - /url: "#/tmview"
+        - link "Oficinas participantes" [ref=f5e222] [cursor=pointer]:
+          - /url: "#/tmview/participating"
+        - link "Ayuda" [ref=f5e223] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - generic [ref=f5e224] [cursor=pointer]: Comentarios
+      - generic [ref=f5e225]:
+        - link "EUIPN (Red de Propiedad Intelectual de la Unión Europea)" [ref=f5e227] [cursor=pointer]:
+          - /url: https://euipn.org
+          - text: EUIPN (Red de Propiedad Intelectual de la Unión Europea)
+          - generic [ref=f5e228]:
+            - generic [ref=f5e229]: 
+            - generic: 
+        - generic [ref=f5e231]: Avenida de Europa, 4, E-03008 Alicante (España)
+        - generic [ref=f5e233]: "Centro de información: +34 96 513 9100"
+      - navigation [ref=f5e235]:
+        - generic [ref=f5e236]: Copyright 2007-2026 EUIPO
+        - generic [ref=f5e237]:
+          - text: "Este sitio web está gestionado y mantenido por:"
+          - strong [ref=f5e238]: Oficina de Propiedad Intelectual de la Unión Europea
+      - generic [ref=f5e239]:
+        - generic [ref=f5e240]: Las herramientas de búsqueda TMview y DesignView no constituyen registros oficiales y la información contenida en dichas herramientas no tiene ningún efecto legal.
+        - navigation [ref=f5e241]:
+          - link "Véanse los términos y condiciones" [ref=f5e242] [cursor=pointer]:
+            - /url: "#/tmview/disclaimer"
+      - generic [ref=f5e243]:
+        - generic [ref=f5e244]: TMDSVIEW-4.5.1-RC1.1
+        - navigation [ref=f5e245]:
+          - link [ref=f5e246] [cursor=pointer]:
+            - /url: https://www.tmdn.org/network/compatibility
+            - strong [ref=f5e247]: Compatibilidad
+          - link [ref=f5e248] [cursor=pointer]:
+            - /url: "#/tmview/data-protection"
+            - strong [ref=f5e249]: Protección de datos
+          - link [ref=f5e250] [cursor=pointer]:
+            - /url: https://www.euipn.org/en/info/legal-notices
+            - strong [ref=f5e251]: Aviso Legal
+          - link "Acerca de" [ref=f5e252] [cursor=pointer]:
+            - /url: "#/tmview/about"
+  - text: 

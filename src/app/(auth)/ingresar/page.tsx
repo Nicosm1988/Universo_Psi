@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { googleAvailability } from "@/lib/auth/providers";
+
 import { SignInForm } from "@/components/auth/sign-in-form";
 
 export const metadata: Metadata = {
@@ -13,7 +15,7 @@ export default async function SignInPage({
 }: {
   searchParams: Promise<{ next?: string; error?: string }>;
 }) {
-  const params = await searchParams;
+  const [params, google] = await Promise.all([searchParams, googleAvailability()]);
 
   return (
     <>
@@ -24,7 +26,7 @@ export default async function SignInPage({
       <p className="mt-4 leading-relaxed text-muted">
         Accedé a tus consultas, tu perfil y los próximos pasos de tu recorrido.
       </p>
-      <SignInForm next={params.next} error={params.error} />
+      <SignInForm googleAvailable={google === "available"} next={params.next} error={params.error} />
     </>
   );
 }

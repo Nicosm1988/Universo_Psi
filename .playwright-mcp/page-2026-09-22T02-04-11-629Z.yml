@@ -1,0 +1,321 @@
+- generic [ref=f5e5]:
+  - banner [ref=f5e6]:
+    - generic [ref=f5e8]:
+      - img "image" [ref=f5e11] [cursor=pointer]
+      - generic [ref=f5e13]:
+        - generic [ref=f5e15]:
+          - button "" [ref=f5e16] [cursor=pointer]
+          - button "" [ref=f5e17] [cursor=pointer]
+          - button "" [ref=f5e18] [cursor=pointer]
+        - link "Ayuda" [ref=f5e20] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - button "Español (es) " [ref=f5e23] [cursor=pointer]:
+          - generic: Español (es)
+          - generic: 
+        - generic [ref=f5e25]:
+          - button "Iniciar sesión" [ref=f5e26] [cursor=pointer]
+          - button "Registro" [ref=f5e27] [cursor=pointer]
+  - generic [ref=f5e1521]:
+    - generic [ref=f5e1522]:
+      - generic [ref=f5e1525]:
+        - generic [ref=f5e1527] [cursor=pointer]:
+          - button "" [ref=f5e1529]:
+            - generic:
+              - generic: 
+              - generic: 
+          - generic [ref=f5e1532]:
+            - generic [ref=f5e1533]: "Oficinas de marcas: AR;"
+            - generic [ref=f5e1535]: "Territorios: AR;"
+        - generic [ref=f5e1537]:
+          - generic [ref=f5e1542]:
+            - generic [ref=f5e1543]: "Nombre de la marca:"
+            - group [ref=f5e1544]:
+              - generic [ref=f5e1546]:
+                - generic [ref=f5e1547]:
+                  - button "Contiene " [ref=f5e1549] [cursor=pointer]:
+                    - generic: Contiene
+                    - generic: 
+                  - generic [ref=f5e4572]:
+                    - combobox "Introducir el nombre de la marca" [ref=f5e4574]: universo psi
+                    - button "" [ref=f5e4575] [cursor=pointer]
+                - button "Buscar" [ref=f5e1556] [cursor=pointer]
+          - generic [ref=f5e1557]:
+            - button " Guardar esta búsqueda" [disabled] [ref=f5e1559]:
+              - generic: 
+              - text: Guardar esta búsqueda
+            - button " Compartir por correo" [ref=f5e1561] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+              - text: Compartir por correo
+            - button "image" [ref=f5e1564] [cursor=pointer]:
+              - img "image"
+      - generic [ref=f5e1568]:
+        - generic [ref=f5e1569]:
+          - button " Exportar" [ref=f5e3275] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Exportar
+          - button " Comparar" [disabled] [ref=f5e3276] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Comparar
+          - button " Avisos" [disabled] [ref=f5e3277] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Avisos
+          - button " Etiquetas" [disabled] [ref=f5e3278] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Etiquetas
+        - img "Loading interface..." [ref=f5e4577]
+        - generic [ref=f5e1593]:
+          - button " Vista de estadísticas" [ref=f5e3282] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Vista de estadísticas
+          - generic [ref=f5e1596]:
+            - button " Vista de lista" [ref=f5e3283]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de lista
+            - button " Vista de galería" [ref=f5e3284] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de galería
+          - generic [ref=f5e1600]:
+            - button " Editar columnas" [ref=f5e3285] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Editar columnas
+            - text:                        
+          - button "" [ref=f5e3286] [cursor=pointer]
+    - generic [ref=f5e1605]:
+      - generic [ref=f5e1608]:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - button " Editar":
+                    - generic:
+                      - generic: 
+                      - generic: 
+                      - generic: 
+                    - generic: Editar
+            - button ""
+          - generic:
+            - button "Eliminar filtros"
+            - button "Aplicar" [disabled]
+          - generic:
+            - generic: Oficinas
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic: Productos y servicios
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic: Códigos de Viena
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic: Estado de la marca
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic: Tipo de marca
+            - generic:
+              - generic:
+                - generic:
+                  - img "Loading interface..."
+                - generic:
+                  - img "Loading interface..."
+          - generic:
+            - generic: Nombre del solicitante
+            - generic:
+              - generic:
+                - img "Loading interface..."
+          - generic:
+            - generic: Fecha de solicitud
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Hoy"
+                      - generic: Hoy
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 día a 1 semana"
+                      - generic: De 1 día a 1 semana
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 semana a un mes"
+                      - generic: De 1 semana a un mes
+                - button "Mostrar los 7 resultados"
+          - generic:
+            - generic: Fecha de registro
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Hoy"
+                      - generic: Hoy
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 día a 1 semana"
+                      - generic: De 1 día a 1 semana
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 semana a un mes"
+                      - generic: De 1 semana a un mes
+                - button "Mostrar los 7 resultados"
+          - generic:
+            - generic: Oponible ahora
+            - generic:
+              - generic:
+                - generic:
+                  - checkbox "Oponible ahora"
+                  - text: Oponible ahora
+          - generic:
+            - generic: Antigüedad reivindicada
+            - generic:
+              - generic:
+                - generic:
+                  - checkbox "Antigüedad reivindicada"
+                  - text: Antigüedad reivindicada
+          - generic:
+            - button "Eliminar filtros"
+            - button "Aplicar" [disabled]
+      - generic [ref=f5e1807]:
+        - generic [ref=f5e4580]:
+          - img "Loading interface..." [ref=f5e4583]
+          - img "Loading interface..." [ref=f5e4587]
+          - img "Loading interface..." [ref=f5e4591]
+          - img "Loading interface..." [ref=f5e4595]
+          - img "Loading interface..." [ref=f5e4599]
+          - img "Loading interface..." [ref=f5e4603]
+          - img "Loading interface..." [ref=f5e4607]
+          - img "Loading interface..." [ref=f5e4611]
+          - img "Loading interface..." [ref=f5e4615]
+          - img "Loading interface..." [ref=f5e4619]
+          - img "Loading interface..." [ref=f5e4623]
+          - img "Loading interface..." [ref=f5e4627]
+          - img "Loading interface..." [ref=f5e4631]
+          - img "Loading interface..." [ref=f5e4635]
+          - img "Loading interface..." [ref=f5e4639]
+          - img "Loading interface..." [ref=f5e4643]
+          - img "Loading interface..." [ref=f5e4647]
+          - img "Loading interface..." [ref=f5e4651]
+          - img "Loading interface..." [ref=f5e4655]
+          - img "Loading interface..." [ref=f5e4659]
+          - img "Loading interface..." [ref=f5e4663]
+          - img "Loading interface..." [ref=f5e4667]
+          - img "Loading interface..." [ref=f5e4671]
+          - img "Loading interface..." [ref=f5e4675]
+          - img "Loading interface..." [ref=f5e4679]
+          - img "Loading interface..." [ref=f5e4683]
+          - img "Loading interface..." [ref=f5e4687]
+          - img "Loading interface..." [ref=f5e4691]
+          - img "Loading interface..." [ref=f5e4695]
+          - img "Loading interface..." [ref=f5e4699]
+          - img "Loading interface..." [ref=f5e4703]
+        - generic [ref=f5e2992]:
+          - generic [ref=f5e2993]:
+            - generic: 
+            - generic: 
+          - generic [ref=f5e2994]: 1-30 de 30
+          - generic: 
+  - contentinfo [ref=f5e217]:
+    - generic [ref=f5e218]:
+      - navigation [ref=f5e220]:
+        - link "Buscar" [ref=f5e221] [cursor=pointer]:
+          - /url: "#/tmview"
+        - link "Oficinas participantes" [ref=f5e222] [cursor=pointer]:
+          - /url: "#/tmview/participating"
+        - link "Ayuda" [ref=f5e223] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - generic [ref=f5e224] [cursor=pointer]: Comentarios
+      - generic [ref=f5e225]:
+        - link "EUIPN (Red de Propiedad Intelectual de la Unión Europea)" [ref=f5e227] [cursor=pointer]:
+          - /url: https://euipn.org
+          - text: EUIPN (Red de Propiedad Intelectual de la Unión Europea)
+          - generic [ref=f5e228]:
+            - generic [ref=f5e229]: 
+            - generic: 
+        - generic [ref=f5e231]: Avenida de Europa, 4, E-03008 Alicante (España)
+        - generic [ref=f5e233]: "Centro de información: +34 96 513 9100"
+      - navigation [ref=f5e235]:
+        - generic [ref=f5e236]: Copyright 2007-2026 EUIPO
+        - generic [ref=f5e237]:
+          - text: "Este sitio web está gestionado y mantenido por:"
+          - strong [ref=f5e238]: Oficina de Propiedad Intelectual de la Unión Europea
+      - generic [ref=f5e239]:
+        - generic [ref=f5e240]: Las herramientas de búsqueda TMview y DesignView no constituyen registros oficiales y la información contenida en dichas herramientas no tiene ningún efecto legal.
+        - navigation [ref=f5e241]:
+          - link "Véanse los términos y condiciones" [ref=f5e242] [cursor=pointer]:
+            - /url: "#/tmview/disclaimer"
+      - generic [ref=f5e243]:
+        - generic [ref=f5e244]: TMDSVIEW-4.5.1-RC1.1
+        - navigation [ref=f5e245]:
+          - link [ref=f5e246] [cursor=pointer]:
+            - /url: https://www.tmdn.org/network/compatibility
+            - strong [ref=f5e247]: Compatibilidad
+          - link [ref=f5e248] [cursor=pointer]:
+            - /url: "#/tmview/data-protection"
+            - strong [ref=f5e249]: Protección de datos
+          - link [ref=f5e250] [cursor=pointer]:
+            - /url: https://www.euipn.org/en/info/legal-notices
+            - strong [ref=f5e251]: Aviso Legal
+          - link "Acerca de" [ref=f5e252] [cursor=pointer]:
+            - /url: "#/tmview/about"
+  - text: 

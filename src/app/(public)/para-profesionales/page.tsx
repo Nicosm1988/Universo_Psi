@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/container";
 
 export const metadata: Metadata = {
   title: "Sumarte como profesional",
-  description: "Creá tu perfil como psicólogo/a o psicopedagogo/a, presentá tus credenciales y recibí consultas con contexto.",
+  description: "Conocé los planes, creá tu perfil de salud mental y presentá tus credenciales para solicitar la publicación.",
   alternates: { canonical: "/para-profesionales" },
 };
 
@@ -31,8 +31,8 @@ export default function ForProfessionalsPage() {
         breadcrumbs={[{ label: "Inicio", href: "/" }, { label: "Para profesionales" }]}
         actions={
           <>
-            <Link href="/registro?next=/profesionales/sumarse" className={buttonStyles({ size: "lg" })}>Crear mi perfil profesional</Link>
-            <Link href="/planes" className={buttonStyles({ variant: "secondary", size: "lg" })}>Conocer los planes</Link>
+            <Link href="/planes" className={buttonStyles({ size: "lg" })}>Conocer los planes</Link>
+            <Link href="/registro?next=/profesionales/sumarse" className={buttonStyles({ variant: "secondary", size: "lg" })}>Crear mi perfil profesional</Link>
           </>
         }
         aside={
@@ -53,10 +53,10 @@ export default function ForProfessionalsPage() {
             />
             <dl className="grid grid-cols-2 gap-3">
               {[
-                ["2", "disciplinas habilitadas: psicología y psicopedagogía"],
-                ["100%", "de los destacados identificados"],
-                ["1", "criterio de verificación por disciplina"],
-                ["0", "diagnósticos automáticos u opacos"],
+                ["Tu perfil", "especialidad, enfoque y modalidades en un solo lugar"],
+                ["Claridad", "perfiles destacados identificados"],
+                ["Revisión", "documentación según profesión y actividad"],
+                ["Control", "gestioná tu perfil y tus consultas desde el panel"],
               ].map(([value, label]) => (
                 <div key={label} className="rounded-[1.25rem] border border-line bg-canvas p-5">
                   <dt className="font-display text-3xl font-semibold tracking-[-0.035em] text-clay">{value}</dt>

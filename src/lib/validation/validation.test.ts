@@ -8,10 +8,12 @@ import {
   analyticsPropertiesAreSafe,
   analyticsSchema,
 } from "./analytics";
-import { signInSchema, signUpSchema } from "./auth";
+import { passwordUpdateSchema, signInSchema, signUpSchema } from "./auth";
 import { leadSchema } from "./lead";
 import { onboardingSchema } from "./onboarding";
 import { selectPlanSchema } from "./subscription";
+import { supportRequestSchema } from "./support";
+import { SUPPORT_CONSENT_VERSION } from "@/lib/legal";
 
 const professionalProfileId = "11111111-1111-4111-8111-111111111101";
 const credentialId = "22222222-2222-4222-8222-222222222202";
@@ -47,6 +49,12 @@ describe("auth validation", () => {
       expect(result.data.fullName).toBe("Ana Pérez");
       expect(result.data.email).toBe("ana@example.com");
     }
+  });
+
+  it.each(["Aa1" + "x".repeat(70), "Aa1" + "é".repeat(35)])("rejects passwords beyond the Auth byte limit", (password) => {
+    const credentials = { password, confirmPassword: password };
+    expect(passwordUpdateSchema.safeParse(credentials).success).toBe(false);
+    expect(signUpSchema.safeParse({ ...credentials, fullName: "Persona de prueba", email: "persona@example.com", accountType: "PERSON", terms: "on" }).success).toBe(false);
   });
 
   it.each([
@@ -217,6 +225,10 @@ describe("professional onboarding and moderation validation", () => {
     intent: "submit",
   } as const;
 
+  it("allows a draft without profession or any categories", () => {
+    expect(onboardingSchema.safeParse({ ...onboarding, professionalTypeId: "", needIds: [], serviceIds: [], modalityIds: [], languageIds: [], headline: "", bio: "", intent: "draft" }).success).toBe(true);
+  });
+
   it("coerces numbers and removes blank optional values", () => {
     const parsed = onboardingSchema.parse(onboarding);
 
@@ -226,14 +238,18 @@ describe("professional onboarding and moderation validation", () => {
     expect(parsed.websiteUrl).toBe("https://example.com");
   });
 
-  it("rejects incomplete taxonomy selections and unsafe URLs", () => {
-    expect(
-      onboardingSchema.safeParse({
-        ...onboarding,
-        needIds: [],
-        websiteUrl: "javascript:alert(1)",
-      }).success,
-    ).toBe(false);
+  it("permite presentación pendiente y descarta enlaces incompletos sin almacenarlos", () => {
+    const parsed = onboardingSchema.parse({ ...onboarding, headline: "", bio: "", linkedinUrl: "prueba", websiteUrl: "javascript:alert(1)", intent: "draft" });
+    expect(parsed.headline).toBe("");
+    expect(parsed.bio).toBe("");
+    expect(parsed.linkedinUrl).toBeUndefined();
+    expect(parsed.websiteUrl).toBeUndefined();
+  });
+
+  it("discards unsafe URLs while allowing incomplete draft categories", () => {
+    const parsed = onboardingSchema.parse({ ...onboarding, needIds: [], websiteUrl: "javascript:alert(1)" });
+    expect(parsed.needIds).toEqual([]);
+    expect(parsed.websiteUrl).toBeUndefined();
   });
 
   it("requires a reason for moderation rejections", () => {
@@ -278,5 +294,36 @@ describe("professional onboarding and moderation validation", () => {
         planCode: "ENTERPRISE",
       }).success,
     ).toBe(false);
+  });
+});
+
+describe("support request validation", () => {
+  const validRequest = {
+    topic: "PRIVACIDAD",
+    name: "  Julia Díaz ",
+    email: "  JULIA@EXAMPLE.COM ",
+    message: "  Quiero acceder a los datos personales que tienen sobre mí.  ",
+    consent: true,
+    consentVersion: SUPPORT_CONSENT_VERSION,
+    landingPath: "/contacto",
+  } as const;
+
+  it("normalizes a valid message", () => {
+    expect(supportRequestSchema.parse(validRequest)).toMatchObject({
+      topic: "PRIVACIDAD",
+      name: "Julia Díaz",
+      email: "julia@example.com",
+      message: "Quiero acceder a los datos personales que tienen sobre mí.",
+    });
+  });
+
+  it.each([
+    ["an unknown topic", { topic: "CUALQUIERA" }],
+    ["a short message", { message: "Muy breve" }],
+    ["missing consent", { consent: false }],
+    ["a protocol-relative landing path", { landingPath: "//evil.example/path" }],
+    ["a changed consent version", { consentVersion: "2025-01" }],
+  ])("rejects %s", (_case, overrides) => {
+    expect(supportRequestSchema.safeParse({ ...validRequest, ...overrides }).success).toBe(false);
   });
 });

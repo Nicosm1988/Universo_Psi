@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import type { ReactNode } from "react";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Measurement } from "@/components/analytics/measurement";
+import { CookieConsent } from "@/components/consent/cookie-consent";
 import { PointerIllumination } from "@/components/effects/pointer-illumination";
 import "./globals.css";
 
@@ -91,7 +91,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       suppressHydrationWarning
     >
       <head>
-        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
+        <script id="universo-psi-document-bootstrap" nonce={nonce} dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
       </head>
       <body>
         <a href="#contenido" className="skip-link">
@@ -99,8 +99,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         </a>
         <PointerIllumination />
         {children}
-        <Analytics />
-        <SpeedInsights />
+        <CookieConsent />
+        <Measurement />
       </body>
     </html>
   );

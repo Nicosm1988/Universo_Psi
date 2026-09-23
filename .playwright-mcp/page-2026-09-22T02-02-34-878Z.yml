@@ -1,0 +1,1184 @@
+- generic [ref=f5e5]:
+  - banner [ref=f5e6]:
+    - generic [ref=f5e8]:
+      - img "image" [ref=f5e11] [cursor=pointer]
+      - generic [ref=f5e13]:
+        - generic [ref=f5e15]:
+          - button "" [ref=f5e16] [cursor=pointer]
+          - button "" [ref=f5e17] [cursor=pointer]
+          - button "" [ref=f5e18] [cursor=pointer]
+        - link "Ayuda" [ref=f5e20] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - button "Español (es) " [ref=f5e23] [cursor=pointer]:
+          - generic: Español (es)
+          - generic: 
+        - generic [ref=f5e25]:
+          - button "Iniciar sesión" [ref=f5e26] [cursor=pointer]
+          - button "Registro" [ref=f5e27] [cursor=pointer]
+  - generic [ref=f5e1521]:
+    - generic [ref=f5e1522]:
+      - generic [ref=f5e1525]:
+        - generic [ref=f5e1527] [cursor=pointer]:
+          - button "" [ref=f5e1529]:
+            - generic:
+              - generic: 
+              - generic: 
+          - generic [ref=f5e1532]:
+            - generic [ref=f5e1533]: "Oficinas de marcas: AR;"
+            - generic [ref=f5e1535]: "Territorios: AR;"
+        - generic [ref=f5e1537]:
+          - generic [ref=f5e1542]:
+            - generic [ref=f5e1543]: "Nombre de la marca:"
+            - group [ref=f5e1544]:
+              - generic [ref=f5e1546]:
+                - generic [ref=f5e1547]:
+                  - button "Contiene " [ref=f5e1549] [cursor=pointer]:
+                    - generic: Contiene
+                    - generic: 
+                  - generic [ref=f5e1552]:
+                    - combobox "Introducir el nombre de la marca" [ref=f5e1554]: universo
+                    - button "" [ref=f5e1555] [cursor=pointer]
+                - button "Buscar" [ref=f5e1556] [cursor=pointer]
+          - generic [ref=f5e1557]:
+            - button " Guardar esta búsqueda" [disabled] [ref=f5e1559]:
+              - generic: 
+              - text: Guardar esta búsqueda
+            - button " Compartir por correo" [ref=f5e1561] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+              - text: Compartir por correo
+            - button "image" [ref=f5e1564] [cursor=pointer]:
+              - img "image"
+      - generic [ref=f5e1568]:
+        - generic [ref=f5e1569]:
+          - button " Exportar" [ref=f5e1572] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Exportar
+          - button " Comparar" [disabled] [ref=f5e1574] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Comparar
+          - button " Avisos" [disabled] [ref=f5e1579] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Avisos
+          - button " Etiquetas" [disabled] [ref=f5e1584] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Etiquetas
+        - generic [ref=f5e1588]:
+          - generic [ref=f5e1589]:
+            - generic: 
+            - generic: 
+          - generic [ref=f5e1590]: 1-30 de 982
+          - generic [ref=f5e1591] [cursor=pointer]: 
+        - generic [ref=f5e1593]:
+          - button " Vista de estadísticas" [ref=f5e1594] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Vista de estadísticas
+          - generic [ref=f5e1596]:
+            - button " Vista de lista" [ref=f5e1597]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de lista
+            - button " Vista de galería" [ref=f5e1598] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de galería
+          - generic [ref=f5e1600]:
+            - button " Editar columnas" [ref=f5e1601] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Editar columnas
+            - text:                        
+          - button "" [ref=f5e1603] [cursor=pointer]
+    - generic [ref=f5e1605]:
+      - generic [ref=f5e1609]:
+        - generic [ref=f5e1610]:
+          - button " Editar" [ref=f5e1614] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Editar
+          - button "" [ref=f5e1615] [cursor=pointer]
+        - generic [ref=f5e1616]:
+          - button "Eliminar filtros" [ref=f5e1617] [cursor=pointer]
+          - button "Aplicar" [disabled] [ref=f5e1618]
+        - generic [ref=f5e1619]:
+          - generic [ref=f5e1620]: Oficinas
+          - generic [ref=f5e1625]:
+            - checkbox "Argentina - INPI (982)" [ref=f5e1626]
+            - generic [ref=f5e1627]:
+              - generic [ref=f5e1628]: Argentina - INPI
+              - generic [ref=f5e1629]: (982)
+        - generic [ref=f5e1630]:
+          - generic [ref=f5e1631]: Productos y servicios
+          - generic [ref=f5e1633]:
+            - generic [ref=f5e1636]:
+              - checkbox "1 Productos químicos para la industria, la ciencia y la fotografía, así como para la agricultura, la horticultura y la silvicultura; Resinas artificiales en bruto, materias plásticas en bruto; Composiciones para la extinción de incendios y la prevención de incendios; Preparaciones para templar y soldar metales; Sustancias para curtir cueros y pieles de animales; Adhesivos (pegamentos) para la industria; Masillas y otras materias de relleno en pasta; Compost, abonos, fertilizantes; Preparaciones biológicas para la industria y la ciencia (5)" [ref=f5e1637]
+              - generic [ref=f5e1638]:
+                - generic [ref=f5e1639]: 1 Productos químicos para la industria, la ciencia y la fotografía, así como para la agricultura, la horticultura y la silvicultura; Resinas artificiales en bruto, materias plásticas en bruto; Composiciones para la extinción de incendios y la prevención de incendios; Preparaciones para templar y soldar metales; Sustancias para curtir cueros y pieles de animales; Adhesivos (pegamentos) para la industria; Masillas y otras materias de relleno en pasta; Compost, abonos, fertilizantes; Preparaciones biológicas para la industria y la ciencia
+                - generic [ref=f5e1640]: (5)
+            - generic [ref=f5e1643]:
+              - checkbox "2 Pinturas, barnices, lacas; Productos contra la herrumbre y el deterioro de la madera; Colorantes, tintes; Tintas de imprenta, tintas de marcado y tintas de grabado; Resinas naturales en bruto; Metales en hojas y en polvo para la pintura, la decoración, la imprenta y trabajos artísticos (16)" [ref=f5e1644]
+              - generic [ref=f5e1645]:
+                - generic [ref=f5e1646]: 2 Pinturas, barnices, lacas; Productos contra la herrumbre y el deterioro de la madera; Colorantes, tintes; Tintas de imprenta, tintas de marcado y tintas de grabado; Resinas naturales en bruto; Metales en hojas y en polvo para la pintura, la decoración, la imprenta y trabajos artísticos
+                - generic [ref=f5e1647]: (16)
+            - generic [ref=f5e1650]:
+              - checkbox "3 Productos cosméticos y preparaciones de tocador no medicinales; Dentífricos no medicinales; Productos de perfumería, aceites esenciales; Preparaciones para blanquear y otras sustancias para lavar la ropa; Preparaciones para limpiar, pulir, desengrasar y raspar (79)" [ref=f5e1651]
+              - generic [ref=f5e1652]:
+                - generic [ref=f5e1653]: 3 Productos cosméticos y preparaciones de tocador no medicinales; Dentífricos no medicinales; Productos de perfumería, aceites esenciales; Preparaciones para blanquear y otras sustancias para lavar la ropa; Preparaciones para limpiar, pulir, desengrasar y raspar
+                - generic [ref=f5e1654]: (79)
+            - button "Mostrar los 38 resultados" [ref=f5e1655] [cursor=pointer]
+        - generic [ref=f5e1656]:
+          - generic [ref=f5e1657]: Códigos de Viena
+          - generic [ref=f5e1659]:
+            - generic [ref=f5e1662]:
+              - checkbox "01.01 ESTRELLAS, COMETAS (5)" [ref=f5e1663]
+              - generic [ref=f5e1664]:
+                - generic [ref=f5e1665]: 01.01 ESTRELLAS, COMETAS
+                - generic [ref=f5e1666]: (5)
+            - generic [ref=f5e1669]:
+              - checkbox "01.03 SOL (5)" [ref=f5e1670]
+              - generic [ref=f5e1671]:
+                - generic [ref=f5e1672]: 01.03 SOL
+                - generic [ref=f5e1673]: (5)
+            - generic [ref=f5e1676]:
+              - checkbox "01.05 TIERRA, GLOBOS TERRESTRES, PLANETAS (17)" [ref=f5e1677]
+              - generic [ref=f5e1678]:
+                - generic [ref=f5e1679]: 01.05 TIERRA, GLOBOS TERRESTRES, PLANETAS
+                - generic [ref=f5e1680]: (17)
+            - button "Mostrar los 40 resultados" [ref=f5e1681] [cursor=pointer]
+        - generic [ref=f5e1682]:
+          - generic [ref=f5e1683]: Estado de la marca
+          - generic [ref=f5e1685]:
+            - generic [ref=f5e1688]:
+              - checkbox "Finalizada (134)" [ref=f5e1689]
+              - generic [ref=f5e1690]:
+                - generic [ref=f5e1691]: Finalizada
+                - generic [ref=f5e1692]: (134)
+            - generic [ref=f5e1695]:
+              - checkbox "Vencida (174)" [ref=f5e1696]
+              - generic [ref=f5e1697]:
+                - generic [ref=f5e1698]: Vencida
+                - generic [ref=f5e1699]: (174)
+            - generic [ref=f5e1702]:
+              - checkbox "Solicitada (66)" [ref=f5e1703]
+              - generic [ref=f5e1704]:
+                - generic [ref=f5e1705]: Solicitada
+                - generic [ref=f5e1706]: (66)
+            - generic [ref=f5e1709]:
+              - checkbox "Registrada (608)" [ref=f5e1710]
+              - generic [ref=f5e1711]:
+                - generic [ref=f5e1712]: Registrada
+                - generic [ref=f5e1713]: (608)
+        - generic [ref=f5e1714]:
+          - generic [ref=f5e1715]: Tipo de marca
+          - generic [ref=f5e1717]:
+            - generic [ref=f5e1720]:
+              - checkbox "Combinada (510)" [ref=f5e1721]
+              - generic [ref=f5e1722]:
+                - generic [ref=f5e1723]: Combinada
+                - generic [ref=f5e1724]: (510)
+            - generic [ref=f5e1727]:
+              - checkbox "Verbal (472)" [ref=f5e1728]
+              - generic [ref=f5e1729]:
+                - generic [ref=f5e1730]: Verbal
+                - generic [ref=f5e1731]: (472)
+        - generic [ref=f5e1732]:
+          - generic [ref=f5e1733]: Nombre del solicitante
+          - generic [ref=f5e1739]:
+            - generic [ref=f5e1740]:
+              - generic [ref=f5e1741]: Seleccionar un filtro
+              - combobox [ref=f5e1743]
+            - generic [ref=f5e1744] [cursor=pointer]: 
+        - generic [ref=f5e1746]:
+          - generic [ref=f5e1747]: Fecha de solicitud
+          - generic [ref=f5e1749]:
+            - generic [ref=f5e1752]:
+              - checkbox "Hoy" [ref=f5e1753]
+              - generic [ref=f5e1754]: Hoy
+            - generic [ref=f5e1758]:
+              - checkbox "De 1 día a 1 semana" [ref=f5e1759]
+              - generic [ref=f5e1760]: De 1 día a 1 semana
+            - generic [ref=f5e1764]:
+              - checkbox "De 1 semana a un mes" [ref=f5e1765]
+              - generic [ref=f5e1766]: De 1 semana a un mes
+            - button "Mostrar los 7 resultados" [ref=f5e1768] [cursor=pointer]
+        - generic [ref=f5e1769]:
+          - generic [ref=f5e1770]: Fecha de registro
+          - generic [ref=f5e1772]:
+            - generic [ref=f5e1775]:
+              - checkbox "Hoy" [ref=f5e1776]
+              - generic [ref=f5e1777]: Hoy
+            - generic [ref=f5e1781]:
+              - checkbox "De 1 día a 1 semana" [ref=f5e1782]
+              - generic [ref=f5e1783]: De 1 día a 1 semana
+            - generic [ref=f5e1787]:
+              - checkbox "De 1 semana a un mes" [ref=f5e1788]
+              - generic [ref=f5e1789]: De 1 semana a un mes
+            - button "Mostrar los 7 resultados" [ref=f5e1791] [cursor=pointer]
+        - generic [ref=f5e1792]:
+          - generic [ref=f5e1793]: Oponible ahora
+          - generic [ref=f5e1796]:
+            - checkbox "Oponible ahora" [ref=f5e1797]
+            - text: Oponible ahora
+        - generic [ref=f5e1798]:
+          - generic [ref=f5e1799]: Antigüedad reivindicada
+          - generic [ref=f5e1802]:
+            - checkbox "Antigüedad reivindicada" [ref=f5e1803]
+            - text: Antigüedad reivindicada
+        - generic [ref=f5e1804]:
+          - button "Eliminar filtros" [ref=f5e1805] [cursor=pointer]
+          - button "Aplicar" [disabled] [ref=f5e1806]
+      - generic [ref=f5e1807]:
+        - grid [ref=f5e1811]:
+          - row [ref=f5e1813]:
+            - columnheader [ref=f5e1814]
+            - columnheader [ref=f5e1815]:
+              - checkbox [ref=f5e1819]
+            - columnheader "Representación gráfica" [ref=f5e1821]
+            - columnheader "Nombre de la marca" [ref=f5e1825] [cursor=pointer]
+            - columnheader "Fecha de solicitud" [ref=f5e1828] [cursor=pointer]
+            - columnheader "Productos y servicios" [ref=f5e1831] [cursor=pointer]
+            - columnheader "Situación de la marca" [ref=f5e1834] [cursor=pointer]
+            - columnheader "Oficina de marcas" [ref=f5e1837] [cursor=pointer]
+            - columnheader "Número de solicitud" [ref=f5e1840] [cursor=pointer]
+            - columnheader "Nombre del solicitante" [ref=f5e1843] [cursor=pointer]
+          - generic [ref=f5e1846]:
+            - rowgroup [ref=f5e1847]:
+              - row [ref=f5e1848]:
+                - gridcell "" [ref=f5e1849] [cursor=pointer]
+                - gridcell [ref=f5e1852]:
+                  - checkbox [ref=f5e1856]
+                - gridcell "-" [ref=f5e1858]
+                - gridcell [ref=f5e1860]:
+                  - link [ref=f5e1862] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003360254"
+                    - mark [ref=f5e1864]: UNIVERSO
+                - gridcell [ref=f5e1865]:
+                  - paragraph [ref=f5e1867]: 10/10/2014
+                - gridcell [ref=f5e1868]:
+                  - paragraph [ref=f5e1870]: "24"
+                - gridcell "Vencida" [ref=f5e1871]
+                - gridcell [ref=f5e1873]:
+                  - link "Argentina - INPI" [ref=f5e1875] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e1876]:
+                      - generic [ref=f5e1877]: 
+                      - generic: 
+                - gridcell [ref=f5e1878]:
+                  - link "3360254" [ref=f5e1880] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003360254"
+                - gridcell [ref=f5e1882]:
+                  - paragraph [ref=f5e1884]: SAHADE Y CIA S.A. 100,00%
+            - rowgroup [ref=f5e1885]:
+              - row [ref=f5e1886]:
+                - gridcell "" [ref=f5e1887] [cursor=pointer]
+                - gridcell [ref=f5e1890]:
+                  - checkbox [ref=f5e1894]
+                - gridcell [ref=f5e1896]:
+                  - link [ref=f5e1899] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004671337"
+                    - img "UNIVERSO" [ref=f5e1900]
+                - gridcell [ref=f5e1901]:
+                  - link [ref=f5e1903] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004671337"
+                    - mark [ref=f5e1905]: UNIVERSO
+                - gridcell [ref=f5e1906]:
+                  - paragraph [ref=f5e1908]: 13/03/2026
+                - gridcell [ref=f5e1909]:
+                  - paragraph [ref=f5e1911]: "21"
+                - gridcell "Registrada" [ref=f5e1912]
+                - gridcell [ref=f5e1914]:
+                  - link "Argentina - INPI" [ref=f5e1916] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e1917]:
+                      - generic [ref=f5e1918]: 
+                      - generic: 
+                - gridcell [ref=f5e1919]:
+                  - link "4671337" [ref=f5e1921] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004671337"
+                - gridcell [ref=f5e1923]:
+                  - paragraph [ref=f5e1925]: SALAZAR GERMANA ANA BELEN 100,00%
+            - rowgroup [ref=f5e1926]:
+              - row [ref=f5e1927]:
+                - gridcell "" [ref=f5e1928] [cursor=pointer]
+                - gridcell [ref=f5e1931]:
+                  - checkbox [ref=f5e1935]
+                - gridcell "-" [ref=f5e1937]
+                - gridcell [ref=f5e1939]:
+                  - link [ref=f5e1941] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003663524"
+                    - mark [ref=f5e1943]: UNIVERSO
+                - gridcell [ref=f5e1944]:
+                  - paragraph [ref=f5e1946]: 24/11/2017
+                - gridcell [ref=f5e1947]:
+                  - paragraph [ref=f5e1949]: "2"
+                - gridcell "Registrada" [ref=f5e1950]
+                - gridcell [ref=f5e1952]:
+                  - link "Argentina - INPI" [ref=f5e1954] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e1955]:
+                      - generic [ref=f5e1956]: 
+                      - generic: 
+                - gridcell [ref=f5e1957]:
+                  - link "3663524" [ref=f5e1959] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003663524"
+                - gridcell [ref=f5e1961]:
+                  - paragraph [ref=f5e1963]: UNIVERSO TINTAS E VERNIZES LTDA. 100,00%
+            - rowgroup [ref=f5e1964]:
+              - row [ref=f5e1965]:
+                - gridcell "" [ref=f5e1966] [cursor=pointer]
+                - gridcell [ref=f5e1969]:
+                  - checkbox [ref=f5e1973]
+                - gridcell "-" [ref=f5e1975]
+                - gridcell [ref=f5e1977]:
+                  - link [ref=f5e1979] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000002030551"
+                    - mark [ref=f5e1981]: UNIVERSO
+                - gridcell [ref=f5e1982]:
+                  - paragraph [ref=f5e1984]: 22/04/1996
+                - gridcell [ref=f5e1985]:
+                  - paragraph [ref=f5e1987]: "41"
+                - gridcell "Finalizada" [ref=f5e1988]
+                - gridcell [ref=f5e1990]:
+                  - link "Argentina - INPI" [ref=f5e1992] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e1993]:
+                      - generic [ref=f5e1994]: 
+                      - generic: 
+                - gridcell [ref=f5e1995]:
+                  - link "2030551" [ref=f5e1997] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000002030551"
+                - gridcell [ref=f5e1999]:
+                  - paragraph [ref=f5e2001]: ARGOS S.A. 100,00%
+            - rowgroup [ref=f5e2002]:
+              - row [ref=f5e2003]:
+                - gridcell "" [ref=f5e2004] [cursor=pointer]
+                - gridcell [ref=f5e2007]:
+                  - checkbox [ref=f5e2011]
+                - gridcell "-" [ref=f5e2013]
+                - gridcell [ref=f5e2015]:
+                  - link [ref=f5e2017] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001322924"
+                    - mark [ref=f5e2019]: UNIVERSO
+                - gridcell [ref=f5e2020]:
+                  - paragraph [ref=f5e2022]: 01/01/1900
+                - gridcell [ref=f5e2023]:
+                  - paragraph [ref=f5e2025]: "16"
+                - gridcell "Vencida" [ref=f5e2026]
+                - gridcell [ref=f5e2028]:
+                  - link "Argentina - INPI" [ref=f5e2030] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2031]:
+                      - generic [ref=f5e2032]: 
+                      - generic: 
+                - gridcell [ref=f5e2033]:
+                  - link "1322924" [ref=f5e2035] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001322924"
+                - gridcell [ref=f5e2037]:
+                  - paragraph [ref=f5e2039]: ARGOS SOCIEDAD ANONIMA, DE ESTA CAPITAL.- %
+            - rowgroup [ref=f5e2040]:
+              - row [ref=f5e2041]:
+                - gridcell "" [ref=f5e2042] [cursor=pointer]
+                - gridcell [ref=f5e2045]:
+                  - checkbox [ref=f5e2049]
+                - gridcell [ref=f5e2051]:
+                  - generic [ref=f5e2052]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000004555869"
+                - gridcell [ref=f5e2053]:
+                  - link [ref=f5e2055] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004555869"
+                    - mark [ref=f5e2057]: UNIVERSO
+                - gridcell [ref=f5e2058]:
+                  - paragraph [ref=f5e2060]: 12/08/2025
+                - gridcell [ref=f5e2061]:
+                  - paragraph [ref=f5e2063]: "2"
+                - gridcell "Solicitada" [ref=f5e2064]
+                - gridcell [ref=f5e2066]:
+                  - link "Argentina - INPI" [ref=f5e2068] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2069]:
+                      - generic [ref=f5e2070]: 
+                      - generic: 
+                - gridcell [ref=f5e2071]:
+                  - link "4555869" [ref=f5e2073] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004555869"
+                - gridcell [ref=f5e2075]:
+                  - paragraph [ref=f5e2077]: DANIEL A. BASGALL S.R.L. 100,00%
+            - rowgroup [ref=f5e2078]:
+              - row [ref=f5e2079]:
+                - gridcell "" [ref=f5e2080] [cursor=pointer]
+                - gridcell [ref=f5e2083]:
+                  - checkbox [ref=f5e2087]
+                - gridcell "-" [ref=f5e2089]
+                - gridcell [ref=f5e2091]:
+                  - link [ref=f5e2093] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001909442"
+                    - mark [ref=f5e2095]: UNIVERSO
+                - gridcell [ref=f5e2096]:
+                  - paragraph [ref=f5e2098]: 16/02/1994
+                - gridcell [ref=f5e2099]:
+                  - paragraph [ref=f5e2101]: "3"
+                - gridcell "Finalizada" [ref=f5e2102]
+                - gridcell [ref=f5e2104]:
+                  - link "Argentina - INPI" [ref=f5e2106] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2107]:
+                      - generic [ref=f5e2108]: 
+                      - generic: 
+                - gridcell [ref=f5e2109]:
+                  - link "1909442" [ref=f5e2111] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001909442"
+                - gridcell [ref=f5e2113]:
+                  - paragraph [ref=f5e2115]: JOH. A. BENCKISER GMBH. 100,00%
+            - rowgroup [ref=f5e2116]:
+              - row [ref=f5e2117]:
+                - gridcell "" [ref=f5e2118] [cursor=pointer]
+                - gridcell [ref=f5e2121]:
+                  - checkbox [ref=f5e2125]
+                - gridcell "-" [ref=f5e2127]
+                - gridcell [ref=f5e2129]:
+                  - link [ref=f5e2131] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001877595"
+                    - mark [ref=f5e2133]: UNIVERSO
+                - gridcell [ref=f5e2134]:
+                  - paragraph [ref=f5e2136]: 30/04/1993
+                - gridcell [ref=f5e2137]:
+                  - paragraph [ref=f5e2139]: "16"
+                - gridcell "Vencida" [ref=f5e2140]
+                - gridcell [ref=f5e2142]:
+                  - link "Argentina - INPI" [ref=f5e2144] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2145]:
+                      - generic [ref=f5e2146]: 
+                      - generic: 
+                - gridcell [ref=f5e2147]:
+                  - link "1877595" [ref=f5e2149] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001877595"
+                - gridcell [ref=f5e2151]:
+                  - paragraph [ref=f5e2153]: ARGOS S.A. %
+            - rowgroup [ref=f5e2154]:
+              - row [ref=f5e2155]:
+                - gridcell "" [ref=f5e2156] [cursor=pointer]
+                - gridcell [ref=f5e2159]:
+                  - checkbox [ref=f5e2163]
+                - gridcell [ref=f5e2165]:
+                  - generic [ref=f5e2166]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000003137031"
+                - gridcell [ref=f5e2167]:
+                  - link [ref=f5e2169] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003137031"
+                    - mark [ref=f5e2171]: UNIVERSO
+                - gridcell [ref=f5e2172]:
+                  - paragraph [ref=f5e2174]: 28/12/2011
+                - gridcell [ref=f5e2175]:
+                  - paragraph [ref=f5e2177]: "35"
+                - gridcell "Registrada" [ref=f5e2178]
+                - gridcell [ref=f5e2180]:
+                  - link "Argentina - INPI" [ref=f5e2182] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2183]:
+                      - generic [ref=f5e2184]: 
+                      - generic: 
+                - gridcell [ref=f5e2185]:
+                  - link "3137031" [ref=f5e2187] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003137031"
+                - gridcell [ref=f5e2189]:
+                  - paragraph [ref=f5e2191]: BASGALL, DANIEL ALBERTO 100,00%
+            - rowgroup [ref=f5e2192]:
+              - row [ref=f5e2193]:
+                - gridcell "" [ref=f5e2194] [cursor=pointer]
+                - gridcell [ref=f5e2197]:
+                  - checkbox [ref=f5e2201]
+                - gridcell [ref=f5e2203]:
+                  - generic [ref=f5e2204]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000004228235"
+                - gridcell [ref=f5e2205]:
+                  - link [ref=f5e2207] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004228235"
+                    - mark [ref=f5e2209]: UNIVERSO
+                - gridcell [ref=f5e2210]:
+                  - paragraph [ref=f5e2212]: 21/03/2023
+                - gridcell [ref=f5e2213]:
+                  - paragraph [ref=f5e2215]: "3"
+                - gridcell "Registrada" [ref=f5e2216]
+                - gridcell [ref=f5e2218]:
+                  - link "Argentina - INPI" [ref=f5e2220] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2221]:
+                      - generic [ref=f5e2222]: 
+                      - generic: 
+                - gridcell [ref=f5e2223]:
+                  - link "4228235" [ref=f5e2225] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004228235"
+                - gridcell [ref=f5e2227]:
+                  - paragraph [ref=f5e2229]: MELLBROS COMPANY S.A. 100,00%
+            - rowgroup [ref=f5e2230]:
+              - row [ref=f5e2231]:
+                - gridcell "" [ref=f5e2232] [cursor=pointer]
+                - gridcell [ref=f5e2235]:
+                  - checkbox [ref=f5e2239]
+                - gridcell "-" [ref=f5e2241]
+                - gridcell [ref=f5e2243]:
+                  - link [ref=f5e2245] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004146983"
+                    - mark [ref=f5e2247]: UNIVERSO
+                - gridcell [ref=f5e2248]:
+                  - paragraph [ref=f5e2250]: 13/07/2022
+                - gridcell [ref=f5e2251]:
+                  - paragraph [ref=f5e2253]: "31"
+                - gridcell "Solicitada" [ref=f5e2254]
+                - gridcell [ref=f5e2256]:
+                  - link "Argentina - INPI" [ref=f5e2258] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2259]:
+                      - generic [ref=f5e2260]: 
+                      - generic: 
+                - gridcell [ref=f5e2261]:
+                  - link "4146983" [ref=f5e2263] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004146983"
+                - gridcell [ref=f5e2265]:
+                  - paragraph [ref=f5e2267]: LUCERO PABLO ALBERTO 100,00%
+            - rowgroup [ref=f5e2268]:
+              - row [ref=f5e2269]:
+                - gridcell "" [ref=f5e2270] [cursor=pointer]
+                - gridcell [ref=f5e2273]:
+                  - checkbox [ref=f5e2277]
+                - gridcell "-" [ref=f5e2279]
+                - gridcell [ref=f5e2281]:
+                  - link [ref=f5e2283] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001773103"
+                    - mark [ref=f5e2285]: UNIVERSO
+                - gridcell [ref=f5e2286]:
+                  - paragraph [ref=f5e2288]: 17/10/1990
+                - gridcell [ref=f5e2289]:
+                  - paragraph [ref=f5e2291]: "16"
+                - gridcell "Vencida" [ref=f5e2292]
+                - gridcell [ref=f5e2294]:
+                  - link "Argentina - INPI" [ref=f5e2296] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2297]:
+                      - generic [ref=f5e2298]: 
+                      - generic: 
+                - gridcell [ref=f5e2299]:
+                  - link "1773103" [ref=f5e2301] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001773103"
+                - gridcell [ref=f5e2303]:
+                  - paragraph [ref=f5e2305]: ARGOS S.A. %
+            - rowgroup [ref=f5e2306]:
+              - row [ref=f5e2307]:
+                - gridcell "" [ref=f5e2308] [cursor=pointer]
+                - gridcell [ref=f5e2311]:
+                  - checkbox [ref=f5e2315]
+                - gridcell [ref=f5e2317]:
+                  - generic [ref=f5e2318]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000004671020"
+                - gridcell [ref=f5e2319]:
+                  - link [ref=f5e2321] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004671020"
+                    - mark [ref=f5e2323]: UNIVERSO
+                - gridcell [ref=f5e2324]:
+                  - paragraph [ref=f5e2326]: 13/03/2026
+                - gridcell [ref=f5e2327]:
+                  - paragraph [ref=f5e2329]: "28"
+                - gridcell "Registrada" [ref=f5e2330]
+                - gridcell [ref=f5e2332]:
+                  - link "Argentina - INPI" [ref=f5e2334] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2335]:
+                      - generic [ref=f5e2336]: 
+                      - generic: 
+                - gridcell [ref=f5e2337]:
+                  - link "4671020" [ref=f5e2339] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004671020"
+                - gridcell [ref=f5e2341]:
+                  - paragraph [ref=f5e2343]: SALAZAR GERMANA ANA BELEN 100,00%
+            - rowgroup [ref=f5e2344]:
+              - row [ref=f5e2345]:
+                - gridcell "" [ref=f5e2346] [cursor=pointer]
+                - gridcell [ref=f5e2349]:
+                  - checkbox [ref=f5e2353]
+                - gridcell "-" [ref=f5e2355]
+                - gridcell [ref=f5e2357]:
+                  - link [ref=f5e2359] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001980167"
+                    - mark [ref=f5e2361]: UNIVERSO
+                - gridcell [ref=f5e2362]:
+                  - paragraph [ref=f5e2364]: 02/06/1995
+                - gridcell [ref=f5e2365]:
+                  - paragraph [ref=f5e2367]: "2"
+                - gridcell "Vencida" [ref=f5e2368]
+                - gridcell [ref=f5e2370]:
+                  - link "Argentina - INPI" [ref=f5e2372] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2373]:
+                      - generic [ref=f5e2374]: 
+                      - generic: 
+                - gridcell [ref=f5e2375]:
+                  - link "1980167" [ref=f5e2377] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001980167"
+                - gridcell [ref=f5e2379]:
+                  - paragraph [ref=f5e2381]: UNIVERSO TINTAS E VERNIZES LTDA. 100,00%
+            - rowgroup [ref=f5e2382]:
+              - row [ref=f5e2383]:
+                - gridcell "" [ref=f5e2384] [cursor=pointer]
+                - gridcell [ref=f5e2387]:
+                  - checkbox [ref=f5e2391]
+                - gridcell "-" [ref=f5e2393]
+                - gridcell [ref=f5e2395]:
+                  - link [ref=f5e2397] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001797170"
+                    - mark [ref=f5e2399]: UNIVERSO
+                - gridcell [ref=f5e2400]:
+                  - paragraph [ref=f5e2402]: 16/04/1991
+                - gridcell [ref=f5e2403]:
+                  - paragraph [ref=f5e2405]: "16"
+                - gridcell "Vencida" [ref=f5e2406]
+                - gridcell [ref=f5e2408]:
+                  - link "Argentina - INPI" [ref=f5e2410] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2411]:
+                      - generic [ref=f5e2412]: 
+                      - generic: 
+                - gridcell [ref=f5e2413]:
+                  - link "1797170" [ref=f5e2415] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001797170"
+                - gridcell [ref=f5e2417]:
+                  - paragraph [ref=f5e2419]: GRUPO EDITORIAL DIANA S.A. 100,00%
+            - rowgroup [ref=f5e2420]:
+              - row [ref=f5e2421]:
+                - gridcell "" [ref=f5e2422] [cursor=pointer]
+                - gridcell [ref=f5e2425]:
+                  - checkbox [ref=f5e2429]
+                - gridcell "-" [ref=f5e2431]
+                - gridcell [ref=f5e2433]:
+                  - link [ref=f5e2435] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001917740"
+                    - mark [ref=f5e2437]: UNIVERSO
+                - gridcell [ref=f5e2438]:
+                  - paragraph [ref=f5e2440]: 27/04/1994
+                - gridcell [ref=f5e2441]:
+                  - paragraph [ref=f5e2443]: "41"
+                - gridcell "Finalizada" [ref=f5e2444]
+                - gridcell [ref=f5e2446]:
+                  - link "Argentina - INPI" [ref=f5e2448] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2449]:
+                      - generic [ref=f5e2450]: 
+                      - generic: 
+                - gridcell [ref=f5e2451]:
+                  - link "1917740" [ref=f5e2453] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001917740"
+                - gridcell [ref=f5e2455]:
+                  - paragraph [ref=f5e2457]: ARGOS S.A. 100,00%
+            - rowgroup [ref=f5e2458]:
+              - row [ref=f5e2459]:
+                - gridcell "" [ref=f5e2460] [cursor=pointer]
+                - gridcell [ref=f5e2463]:
+                  - checkbox [ref=f5e2467]
+                - gridcell "-" [ref=f5e2469]
+                - gridcell [ref=f5e2471]:
+                  - link [ref=f5e2473] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000002163504"
+                    - mark [ref=f5e2475]: UNIVERSO
+                - gridcell [ref=f5e2476]:
+                  - paragraph [ref=f5e2478]: 17/07/1998
+                - gridcell [ref=f5e2479]:
+                  - paragraph [ref=f5e2481]: "41"
+                - gridcell "Vencida" [ref=f5e2482]
+                - gridcell [ref=f5e2484]:
+                  - link "Argentina - INPI" [ref=f5e2486] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2487]:
+                      - generic [ref=f5e2488]: 
+                      - generic: 
+                - gridcell [ref=f5e2489]:
+                  - link "2163504" [ref=f5e2491] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000002163504"
+                - gridcell [ref=f5e2493]:
+                  - paragraph [ref=f5e2495]: ARGOS S.A. 100,00%
+            - rowgroup [ref=f5e2496]:
+              - row [ref=f5e2497]:
+                - gridcell "" [ref=f5e2498] [cursor=pointer]
+                - gridcell [ref=f5e2501]:
+                  - checkbox [ref=f5e2505]
+                - gridcell [ref=f5e2507]:
+                  - generic [ref=f5e2508]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000003883979"
+                - gridcell [ref=f5e2509]:
+                  - link [ref=f5e2511] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003883979"
+                    - mark [ref=f5e2513]: UNIVERSO
+                - gridcell [ref=f5e2514]:
+                  - paragraph [ref=f5e2516]: 26/03/2020
+                - gridcell [ref=f5e2517]:
+                  - paragraph [ref=f5e2519]: "35"
+                - gridcell "Finalizada" [ref=f5e2520]
+                - gridcell [ref=f5e2522]:
+                  - link "Argentina - INPI" [ref=f5e2524] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2525]:
+                      - generic [ref=f5e2526]: 
+                      - generic: 
+                - gridcell [ref=f5e2527]:
+                  - link "3883979" [ref=f5e2529] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003883979"
+                - gridcell [ref=f5e2531]:
+                  - paragraph [ref=f5e2533]: DANIEL A. BASGALL S.R.L. 100,00%
+            - rowgroup [ref=f5e2534]:
+              - row [ref=f5e2535]:
+                - gridcell "" [ref=f5e2536] [cursor=pointer]
+                - gridcell [ref=f5e2539]:
+                  - checkbox [ref=f5e2543]
+                - gridcell "-" [ref=f5e2545]
+                - gridcell [ref=f5e2547]:
+                  - link [ref=f5e2549] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001898276"
+                    - mark [ref=f5e2551]: UNIVERSO
+                - gridcell [ref=f5e2552]:
+                  - paragraph [ref=f5e2554]: 08/11/1993
+                - gridcell [ref=f5e2555]:
+                  - paragraph [ref=f5e2557]: "24"
+                - gridcell "Vencida" [ref=f5e2558]
+                - gridcell [ref=f5e2560]:
+                  - link "Argentina - INPI" [ref=f5e2562] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2563]:
+                      - generic [ref=f5e2564]: 
+                      - generic: 
+                - gridcell [ref=f5e2565]:
+                  - link "1898276" [ref=f5e2567] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001898276"
+                - gridcell [ref=f5e2569]:
+                  - paragraph [ref=f5e2571]: SAHADE Y CIA S.A. 100,00%
+            - rowgroup [ref=f5e2572]:
+              - row [ref=f5e2573]:
+                - gridcell "" [ref=f5e2574] [cursor=pointer]
+                - gridcell [ref=f5e2577]:
+                  - checkbox [ref=f5e2581]
+                - gridcell "-" [ref=f5e2583]
+                - gridcell [ref=f5e2585]:
+                  - link [ref=f5e2587] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000002665256"
+                    - mark [ref=f5e2589]: UNIVERSO
+                - gridcell [ref=f5e2590]:
+                  - paragraph [ref=f5e2592]: 21/04/2006
+                - gridcell [ref=f5e2593]:
+                  - paragraph [ref=f5e2595]: "2"
+                - gridcell "Registrada" [ref=f5e2596]
+                - gridcell [ref=f5e2598]:
+                  - link "Argentina - INPI" [ref=f5e2600] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2601]:
+                      - generic [ref=f5e2602]: 
+                      - generic: 
+                - gridcell [ref=f5e2603]:
+                  - link "2665256" [ref=f5e2605] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000002665256"
+                - gridcell [ref=f5e2607]:
+                  - paragraph [ref=f5e2609]: UNIVERSO TINTAS E VERNIZES LTDA. 100,00%
+            - rowgroup [ref=f5e2610]:
+              - row [ref=f5e2611]:
+                - gridcell "" [ref=f5e2612] [cursor=pointer]
+                - gridcell [ref=f5e2615]:
+                  - checkbox [ref=f5e2619]
+                - gridcell [ref=f5e2621]:
+                  - generic [ref=f5e2622]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000004671328"
+                - gridcell [ref=f5e2623]:
+                  - link [ref=f5e2625] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004671328"
+                    - mark [ref=f5e2627]: UNIVERSO
+                - gridcell [ref=f5e2628]:
+                  - paragraph [ref=f5e2630]: 13/03/2026
+                - gridcell [ref=f5e2631]:
+                  - paragraph [ref=f5e2633]: "34"
+                - gridcell "Registrada" [ref=f5e2634]
+                - gridcell [ref=f5e2636]:
+                  - link "Argentina - INPI" [ref=f5e2638] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2639]:
+                      - generic [ref=f5e2640]: 
+                      - generic: 
+                - gridcell [ref=f5e2641]:
+                  - link "4671328" [ref=f5e2643] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004671328"
+                - gridcell [ref=f5e2645]:
+                  - paragraph [ref=f5e2647]: SALAZAR GERMANA ANA BELEN 100,00%
+            - rowgroup [ref=f5e2648]:
+              - row [ref=f5e2649]:
+                - gridcell "" [ref=f5e2650] [cursor=pointer]
+                - gridcell [ref=f5e2653]:
+                  - checkbox [ref=f5e2657]
+                - gridcell [ref=f5e2659]:
+                  - generic [ref=f5e2660]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000003741211"
+                - gridcell [ref=f5e2661]:
+                  - link [ref=f5e2663] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003741211"
+                    - mark [ref=f5e2665]: UNIVERSO
+                - gridcell [ref=f5e2666]:
+                  - paragraph [ref=f5e2668]: 10/09/2018
+                - gridcell [ref=f5e2669]:
+                  - paragraph [ref=f5e2671]: "2"
+                - gridcell "Finalizada" [ref=f5e2672]
+                - gridcell [ref=f5e2674]:
+                  - link "Argentina - INPI" [ref=f5e2676] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2677]:
+                      - generic [ref=f5e2678]: 
+                      - generic: 
+                - gridcell [ref=f5e2679]:
+                  - link "3741211" [ref=f5e2681] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003741211"
+                - gridcell [ref=f5e2683]:
+                  - paragraph [ref=f5e2685]: DANIEL A. BASGALL S.R.L. 100,00%
+            - rowgroup [ref=f5e2686]:
+              - row [ref=f5e2687]:
+                - gridcell "" [ref=f5e2688] [cursor=pointer]
+                - gridcell [ref=f5e2691]:
+                  - checkbox [ref=f5e2695]
+                - gridcell [ref=f5e2697]:
+                  - generic [ref=f5e2698]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000004230930"
+                - gridcell [ref=f5e2699]:
+                  - link [ref=f5e2701] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004230930"
+                    - mark [ref=f5e2703]: UNIVERSO
+                - gridcell [ref=f5e2704]:
+                  - paragraph [ref=f5e2706]: 23/03/2023
+                - gridcell [ref=f5e2707]:
+                  - paragraph [ref=f5e2709]: "24"
+                - gridcell "Registrada" [ref=f5e2710]
+                - gridcell [ref=f5e2712]:
+                  - link "Argentina - INPI" [ref=f5e2714] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2715]:
+                      - generic [ref=f5e2716]: 
+                      - generic: 
+                - gridcell [ref=f5e2717]:
+                  - link "4230930" [ref=f5e2719] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004230930"
+                - gridcell [ref=f5e2721]:
+                  - paragraph [ref=f5e2723]: OLIVERA GUILLERMO JAVIER 100,00%
+            - rowgroup [ref=f5e2724]:
+              - row [ref=f5e2725]:
+                - gridcell "" [ref=f5e2726] [cursor=pointer]
+                - gridcell [ref=f5e2729]:
+                  - checkbox [ref=f5e2733]
+                - gridcell "-" [ref=f5e2735]
+                - gridcell [ref=f5e2737]:
+                  - link [ref=f5e2739] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001254114"
+                    - mark [ref=f5e2741]: UNIVERSO
+                - gridcell [ref=f5e2742]:
+                  - paragraph [ref=f5e2744]: 01/01/1900
+                - gridcell [ref=f5e2745]:
+                  - paragraph [ref=f5e2747]: "18"
+                - gridcell "Vencida" [ref=f5e2748]
+                - gridcell [ref=f5e2750]:
+                  - link "Argentina - INPI" [ref=f5e2752] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2753]:
+                      - generic [ref=f5e2754]: 
+                      - generic: 
+                - gridcell [ref=f5e2755]:
+                  - link "1254114" [ref=f5e2757] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001254114"
+                - gridcell [ref=f5e2759]:
+                  - paragraph [ref=f5e2761]: ARGOS SOCIEDAD ANONIMA, DE ESTA CAPITAL.- %
+            - rowgroup [ref=f5e2762]:
+              - row [ref=f5e2763]:
+                - gridcell "" [ref=f5e2764] [cursor=pointer]
+                - gridcell [ref=f5e2767]:
+                  - checkbox [ref=f5e2771]
+                - gridcell [ref=f5e2773]:
+                  - generic [ref=f5e2774]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000003883978"
+                - gridcell [ref=f5e2775]:
+                  - link [ref=f5e2777] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003883978"
+                    - mark [ref=f5e2779]: UNIVERSO
+                - gridcell [ref=f5e2780]:
+                  - paragraph [ref=f5e2782]: 26/03/2020
+                - gridcell [ref=f5e2783]:
+                  - paragraph [ref=f5e2785]: "2"
+                - gridcell "Finalizada" [ref=f5e2786]
+                - gridcell [ref=f5e2788]:
+                  - link "Argentina - INPI" [ref=f5e2790] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2791]:
+                      - generic [ref=f5e2792]: 
+                      - generic: 
+                - gridcell [ref=f5e2793]:
+                  - link "3883978" [ref=f5e2795] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003883978"
+                - gridcell [ref=f5e2797]:
+                  - paragraph [ref=f5e2799]: DANIEL A. BASGALL S.R.L. 100,00%
+            - rowgroup [ref=f5e2800]:
+              - row [ref=f5e2801]:
+                - gridcell "" [ref=f5e2802] [cursor=pointer]
+                - gridcell [ref=f5e2805]:
+                  - checkbox [ref=f5e2809]
+                - gridcell "-" [ref=f5e2811]
+                - gridcell [ref=f5e2813]:
+                  - link [ref=f5e2815] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003360247"
+                    - mark [ref=f5e2817]: UNIVERSO
+                - gridcell [ref=f5e2818]:
+                  - paragraph [ref=f5e2820]: 10/10/2014
+                - gridcell [ref=f5e2821]:
+                  - paragraph [ref=f5e2823]: "25"
+                - gridcell "Vencida" [ref=f5e2824]
+                - gridcell [ref=f5e2826]:
+                  - link "Argentina - INPI" [ref=f5e2828] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2829]:
+                      - generic [ref=f5e2830]: 
+                      - generic: 
+                - gridcell [ref=f5e2831]:
+                  - link "3360247" [ref=f5e2833] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003360247"
+                - gridcell [ref=f5e2835]:
+                  - paragraph [ref=f5e2837]: SAHADE Y CIA S.A. 100,00%
+            - rowgroup [ref=f5e2838]:
+              - row [ref=f5e2839]:
+                - gridcell "" [ref=f5e2840] [cursor=pointer]
+                - gridcell [ref=f5e2843]:
+                  - checkbox [ref=f5e2847]
+                - gridcell "-" [ref=f5e2849]
+                - gridcell [ref=f5e2851]:
+                  - link [ref=f5e2853] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004782323"
+                    - mark [ref=f5e2855]: UNIVERSO
+                - gridcell [ref=f5e2856]:
+                  - paragraph [ref=f5e2858]: 07/09/2026
+                - gridcell [ref=f5e2859]:
+                  - paragraph [ref=f5e2861]: "33"
+                - gridcell "Solicitada" [ref=f5e2862]
+                - gridcell [ref=f5e2864]:
+                  - link "Argentina - INPI" [ref=f5e2866] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2867]:
+                      - generic [ref=f5e2868]: 
+                      - generic: 
+                - gridcell [ref=f5e2869]:
+                  - link "4782323" [ref=f5e2871] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004782323"
+                - gridcell [ref=f5e2873]:
+                  - paragraph [ref=f5e2875]: AGUIRRE CIRO EMANUEL 100,00%
+            - rowgroup [ref=f5e2876]:
+              - row [ref=f5e2877]:
+                - gridcell "" [ref=f5e2878] [cursor=pointer]
+                - gridcell [ref=f5e2881]:
+                  - checkbox [ref=f5e2885]
+                - gridcell "-" [ref=f5e2887]
+                - gridcell [ref=f5e2889]:
+                  - link [ref=f5e2891] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001898277"
+                    - mark [ref=f5e2893]: UNIVERSO
+                - gridcell [ref=f5e2894]:
+                  - paragraph [ref=f5e2896]: 08/11/1993
+                - gridcell [ref=f5e2897]:
+                  - paragraph [ref=f5e2899]: "25"
+                - gridcell "Vencida" [ref=f5e2900]
+                - gridcell [ref=f5e2902]:
+                  - link "Argentina - INPI" [ref=f5e2904] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2905]:
+                      - generic [ref=f5e2906]: 
+                      - generic: 
+                - gridcell [ref=f5e2907]:
+                  - link "1898277" [ref=f5e2909] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000001898277"
+                - gridcell [ref=f5e2911]:
+                  - paragraph [ref=f5e2913]: SAHADE Y CIA S.A. 100,00%
+            - rowgroup [ref=f5e2914]:
+              - row [ref=f5e2915]:
+                - gridcell "" [ref=f5e2916] [cursor=pointer]
+                - gridcell [ref=f5e2919]:
+                  - checkbox [ref=f5e2923]
+                - gridcell [ref=f5e2925]:
+                  - generic [ref=f5e2926]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000003291384"
+                - gridcell [ref=f5e2927]:
+                  - link [ref=f5e2929] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003291384"
+                    - mark [ref=f5e2931]: UNIVERSO
+                - gridcell [ref=f5e2932]:
+                  - paragraph [ref=f5e2934]: 14/11/2013
+                - gridcell [ref=f5e2935]:
+                  - paragraph [ref=f5e2937]: "2"
+                - gridcell "Finalizada" [ref=f5e2938]
+                - gridcell [ref=f5e2940]:
+                  - link "Argentina - INPI" [ref=f5e2942] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2943]:
+                      - generic [ref=f5e2944]: 
+                      - generic: 
+                - gridcell [ref=f5e2945]:
+                  - link "3291384" [ref=f5e2947] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000003291384"
+                - gridcell [ref=f5e2949]:
+                  - paragraph [ref=f5e2951]: VEGA, ELSA BEATRIZ 100,00%
+            - rowgroup [ref=f5e2952]:
+              - row [ref=f5e2953]:
+                - gridcell "" [ref=f5e2954] [cursor=pointer]
+                - gridcell [ref=f5e2957]:
+                  - checkbox [ref=f5e2961]
+                - gridcell [ref=f5e2963]:
+                  - generic [ref=f5e2964]:
+                    - generic:
+                      - link:
+                        - /url: "#/tmview/detail/AR500000004555870"
+                - gridcell [ref=f5e2965]:
+                  - link [ref=f5e2967] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004555870"
+                    - mark [ref=f5e2969]: UNIVERSO
+                - gridcell [ref=f5e2970]:
+                  - paragraph [ref=f5e2972]: 12/08/2025
+                - gridcell [ref=f5e2973]:
+                  - paragraph [ref=f5e2975]: "35"
+                - gridcell "Solicitada" [ref=f5e2976]
+                - gridcell [ref=f5e2978]:
+                  - link "Argentina - INPI" [ref=f5e2980] [cursor=pointer]:
+                    - /url: http://www.inpi.gob.ar
+                    - text: Argentina - INPI
+                    - generic [ref=f5e2981]:
+                      - generic [ref=f5e2982]: 
+                      - generic: 
+                - gridcell [ref=f5e2983]:
+                  - link "4555870" [ref=f5e2985] [cursor=pointer]:
+                    - /url: "#/tmview/detail/AR500000004555870"
+                - gridcell [ref=f5e2987]:
+                  - paragraph [ref=f5e2989]: DANIEL A. BASGALL S.R.L. 100,00%
+        - generic [ref=f5e2992]:
+          - generic [ref=f5e2993]:
+            - generic: 
+            - generic: 
+          - generic [ref=f5e2994]: 1-30 de 982
+          - generic [ref=f5e2995] [cursor=pointer]: 
+  - contentinfo [ref=f5e217]:
+    - generic [ref=f5e218]:
+      - navigation [ref=f5e220]:
+        - link "Buscar" [ref=f5e221] [cursor=pointer]:
+          - /url: "#/tmview"
+        - link "Oficinas participantes" [ref=f5e222] [cursor=pointer]:
+          - /url: "#/tmview/participating"
+        - link "Ayuda" [ref=f5e223] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - generic [ref=f5e224] [cursor=pointer]: Comentarios
+      - generic [ref=f5e225]:
+        - link "EUIPN (Red de Propiedad Intelectual de la Unión Europea)" [ref=f5e227] [cursor=pointer]:
+          - /url: https://euipn.org
+          - text: EUIPN (Red de Propiedad Intelectual de la Unión Europea)
+          - generic [ref=f5e228]:
+            - generic [ref=f5e229]: 
+            - generic: 
+        - generic [ref=f5e231]: Avenida de Europa, 4, E-03008 Alicante (España)
+        - generic [ref=f5e233]: "Centro de información: +34 96 513 9100"
+      - navigation [ref=f5e235]:
+        - generic [ref=f5e236]: Copyright 2007-2026 EUIPO
+        - generic [ref=f5e237]:
+          - text: "Este sitio web está gestionado y mantenido por:"
+          - strong [ref=f5e238]: Oficina de Propiedad Intelectual de la Unión Europea
+      - generic [ref=f5e239]:
+        - generic [ref=f5e240]: Las herramientas de búsqueda TMview y DesignView no constituyen registros oficiales y la información contenida en dichas herramientas no tiene ningún efecto legal.
+        - navigation [ref=f5e241]:
+          - link "Véanse los términos y condiciones" [ref=f5e242] [cursor=pointer]:
+            - /url: "#/tmview/disclaimer"
+      - generic [ref=f5e243]:
+        - generic [ref=f5e244]: TMDSVIEW-4.5.1-RC1.1
+        - navigation [ref=f5e245]:
+          - link [ref=f5e246] [cursor=pointer]:
+            - /url: https://www.tmdn.org/network/compatibility
+            - strong [ref=f5e247]: Compatibilidad
+          - link [ref=f5e248] [cursor=pointer]:
+            - /url: "#/tmview/data-protection"
+            - strong [ref=f5e249]: Protección de datos
+          - link [ref=f5e250] [cursor=pointer]:
+            - /url: https://www.euipn.org/en/info/legal-notices
+            - strong [ref=f5e251]: Aviso Legal
+          - link "Acerca de" [ref=f5e252] [cursor=pointer]:
+            - /url: "#/tmview/about"
+  - text: 

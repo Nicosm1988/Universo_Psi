@@ -1,4 +1,4 @@
-import { ExternalLink, FileCheck2, ShieldCheck, UserRoundSearch } from "lucide-react";
+import { ExternalLink, FileCheck2, Inbox, ShieldCheck, UserRoundSearch } from "lucide-react";
 import type { Metadata, Route } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import {
   resolveCredentialAction,
   resolvePublicationAction,
+  resolveSupportRequestAction,
 } from "@/app/admin/actions";
 import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
@@ -39,6 +40,29 @@ type PendingCredential = {
   submitted_at: string;
 };
 
+type SupportRequest = {
+  id: string;
+  topic: string;
+  status: string;
+  full_name: string;
+  email: string;
+  message: string;
+  landing_path: string | null;
+  consent_version: string;
+  consented_at: string;
+  internal_notes: string | null;
+  created_at: string;
+};
+
+const supportTopicLabels: Record<string, string> = {
+  PRIVACIDAD: "Derechos sobre datos",
+  BAJA: "Baja de cuenta o plan",
+  REPORTE: "Reporte de perfil o contenido",
+  SOPORTE: "Ayuda con la plataforma",
+  COMERCIAL: "Consulta comercial",
+  OTRO: "Otro motivo",
+};
+
 type PendingProfile = {
   id: string;
   slug: string;
@@ -69,12 +93,13 @@ export default async function AdminPage({
   }
 
   const supabase = await createClient();
-  const [{ data: credentials }, { data: profileRows, error: profilesError }, { count: pendingReviews }, { count: pendingArticles }] =
+  const [{ data: credentials }, { data: profileRows, error: profilesError }, { count: pendingReviews }, { count: pendingArticles }, { data: supportRows }] =
     await Promise.all([
       supabase.rpc("admin_pending_credentials", { p_limit: 50 }),
       supabase.rpc("admin_pending_professional_profiles", { p_limit: 50 }),
       supabase.from("reviews").select("id", { count: "exact", head: true }).eq("status", "PENDING"),
       supabase.from("articles").select("id", { count: "exact", head: true }).eq("status", "PENDING"),
+      supabase.rpc("admin_support_requests", { p_limit: 50 }),
     ]);
   if (profilesError) {
     throw new Error("No se pudieron cargar los perfiles pendientes.", {
@@ -82,6 +107,10 @@ export default async function AdminPage({
     });
   }
   const profiles = (profileRows ?? []) as PendingProfile[];
+  const supportRequests = (supportRows ?? []) as SupportRequest[];
+  const openSupportRequests = supportRequests.filter(
+    (request) => request.status === "NEW" || request.status === "IN_PROGRESS",
+  );
 
   const credentialsWithLinks = await Promise.all(
     ((credentials ?? []) as PendingCredential[]).map(async (credential) => {
@@ -118,12 +147,13 @@ export default async function AdminPage({
           </div>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {[
             ["Credenciales", credentialsWithLinks.length],
             ["Perfiles", profiles.length],
             ["Opiniones", pendingReviews ?? 0],
             ["Artículos", pendingArticles ?? 0],
+            ["Mensajes", openSupportRequests.length],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-2xl border border-line bg-paper p-5">
               <p className="text-3xl font-semibold tracking-[-0.04em] text-ink">{value}</p>
@@ -224,6 +254,61 @@ export default async function AdminPage({
             </ul>
           ) : (
             <p className="mt-6 rounded-2xl border border-dashed border-line bg-mist p-8 text-center text-sm text-muted">No hay perfiles esperando publicación.</p>
+          )}
+        </section>
+
+        <section className="mt-8 rounded-[2rem] border border-line bg-paper p-6 sm:p-8">
+          <div className="flex items-center gap-3">
+            <Inbox className="size-6 text-senda" aria-hidden="true" />
+            <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink">Mensajes de contacto</h2>
+          </div>
+          <p className="mt-2 text-sm text-muted">
+            Canal oficial para derechos de datos, bajas y reportes. Los plazos de la Ley N° 25.326 se cuentan
+            desde la recepción registrada acá.
+          </p>
+          {supportRequests.length ? (
+            <ul className="mt-6 divide-y divide-line">
+              {supportRequests.map((request) => (
+                <li key={request.id} className="py-6 first:pt-0 last:pb-0">
+                  <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="font-semibold text-ink">{request.full_name}</p>
+                        <Badge tone={request.status === "NEW" ? "senda" : "neutral"}>{request.status}</Badge>
+                        <Badge tone="clay">{supportTopicLabels[request.topic] ?? request.topic}</Badge>
+                      </div>
+                      <p className="mt-2 text-sm text-muted">
+                        {request.email} · recibido el {formatDate(request.created_at)}
+                      </p>
+                      <p className="mt-3 max-w-2xl whitespace-pre-wrap text-sm leading-relaxed text-muted">
+                        {request.message}
+                      </p>
+                      <p className="mt-3 text-xs text-muted">
+                        Consentimiento {request.consent_version} · {formatDate(request.consented_at)}
+                        {request.landing_path ? ` · desde ${request.landing_path}` : ""}
+                      </p>
+                      {request.internal_notes ? (
+                        <p className="mt-2 text-xs text-muted">Nota interna: {request.internal_notes}</p>
+                      ) : null}
+                    </div>
+                    <form action={resolveSupportRequestAction} className="w-full max-w-md rounded-2xl border border-line bg-mist p-4">
+                      <input type="hidden" name="requestId" value={request.id} />
+                      <label className="block text-sm font-semibold text-ink">
+                        Nota interna
+                        <textarea className="mt-2 min-h-20 w-full rounded-xl border border-line bg-paper p-3 text-sm text-ink" name="notes" maxLength={4000} />
+                      </label>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <button className="min-h-11 rounded-full border border-line bg-paper px-4 text-sm font-semibold text-ink" type="submit" name="status" value="IN_PROGRESS">En curso</button>
+                        <button className="min-h-11 rounded-full bg-senda px-4 text-sm font-semibold text-white" type="submit" name="status" value="RESOLVED">Resuelto</button>
+                        <button className="min-h-11 rounded-full border border-red-300 bg-paper px-4 text-sm font-semibold text-red-800" type="submit" name="status" value="SPAM">Spam</button>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-6 rounded-2xl border border-dashed border-line bg-mist p-8 text-center text-sm text-muted">No hay mensajes de contacto registrados.</p>
           )}
         </section>
       </Container>

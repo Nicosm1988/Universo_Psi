@@ -1,13 +1,13 @@
+import { directoryReturnUrl } from "@/lib/directory-navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/public/breadcrumbs";
 import { EmptyState } from "@/components/public/empty-state";
 import { ProfessionalCard } from "@/components/public/professional-card";
 import { ProfessionalFiltersForm } from "@/components/public/professional-filters";
-import { buttonStyles } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { publicRepository } from "@/lib/data/public-repository";
-import { getNeedLabel, type ProfessionalFilters } from "@/lib/demo/public-data";
+import { getNeedLabel, professionalTypeOptions, modalityOptions, locationOptions, languageOptions, type ProfessionalFilters } from "@/lib/demo/public-data";
 
 export const metadata: Metadata = {
   title: "Profesionales de salud mental",
@@ -52,10 +52,29 @@ function countActiveFilters(filters: ProfessionalFilters) {
   );
 }
 
+function optionLabels(values: string[] | undefined, options: readonly { value: string; label: string }[]) {
+  return (values ?? []).map(value => options.find(option => option.value === value)?.label ?? value);
+}
+
 export default async function ProfessionalsPage({ searchParams }: { searchParams: SearchParams }) {
-  const filters = parseFilters(await searchParams);
+  const params = await searchParams;
+  const filters = parseFilters(params);
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    for (const entry of (Array.isArray(value) ? value : value ? [value] : [])) query.append(key, entry);
+  }
+  const returnTo = directoryReturnUrl(`/profesionales?${query}`);
   const professionals = await publicRepository.listProfessionals(filters);
   const activeCount = countActiveFilters(filters);
+  const selectedLabels = [
+    ...(filters.q ? [`Búsqueda: ${filters.q}`] : []),
+    ...(filters.need ?? []).map(getNeedLabel),
+    ...optionLabels(filters.type, professionalTypeOptions),
+    ...optionLabels(filters.modality, modalityOptions),
+    ...optionLabels(filters.location, locationOptions),
+    ...optionLabels(filters.language, languageOptions),
+    ...(filters.verified ? ["Sólo verificados"] : []),
+  ];
 
   return (
     <>
@@ -72,9 +91,7 @@ export default async function ProfessionalsPage({ searchParams }: { searchParams
                 Buscá por lo que necesitás, compará credenciales y opiniones, y contactá directamente.
               </p>
             </div>
-            <Link href="/ingresar?next=/profesionales" className={buttonStyles({ variant: "secondary", size: "sm" })}>
-              Ingresar
-            </Link>
+            <p className="text-sm text-muted">Explorá perfiles sin registrarte.</p>
           </div>
         </Container>
       </section>
@@ -96,13 +113,14 @@ export default async function ProfessionalsPage({ searchParams }: { searchParams
                     El orden combina pertinencia, calidad del perfil y señales públicas. Los destacados siempre están identificados.
                   </p>
                 </div>
-                {filters.need?.length ? (
-                  <div className="flex flex-wrap gap-2" aria-label="Necesidades seleccionadas">
-                    {filters.need.map((need) => (
-                      <span key={need} className="rounded-full bg-senda-soft px-3 py-1.5 text-xs font-semibold text-senda-dark">
-                        {getNeedLabel(need)}
+                {selectedLabels.length ? (
+                  <div className="flex flex-wrap items-center gap-2" aria-label="Filtros aplicados">
+                    {selectedLabels.map((label, index) => (
+                      <span key={`${index}-${label}`} className="max-w-full break-words rounded-full bg-senda-soft px-3 py-1.5 text-xs font-semibold text-senda-dark">
+                        {label}
                       </span>
                     ))}
+                    {professionals.length ? <Link href="/profesionales" className="inline-flex min-h-11 items-center rounded-full px-3 text-xs font-semibold text-ink underline underline-offset-4">Limpiar filtros</Link> : null}
                   </div>
                 ) : null}
               </div>
@@ -115,6 +133,7 @@ export default async function ProfessionalsPage({ searchParams }: { searchParams
                       professional={professional}
                       priority={index === 0}
                       variant="listing"
+                      returnTo={returnTo}
                     />
                   ))}
                 </div>

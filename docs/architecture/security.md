@@ -31,11 +31,17 @@ No guardar CUIT, documento, domicilio privado u otra PII si el caso no lo exige.
 - `user_roles` es la fuente autoritativa. Si se usan claims para acelerar lecturas, sólo `app_metadata`; considerar su posible desactualización hasta renovar JWT.
 - Para acciones admin críticas, verificar sesión y rol actual en DAL además del claim.
 - Diferenciar 401 (sin identidad) y 403 (identidad sin permiso) sin filtrar existencia de recursos.
-- Revocar sesiones antes de eliminar/bloquear cuentas sensibles; mantener expiración razonable.
+- Revocar sesiones antes de eliminar/bloquear cuentas sensibles; mantener expiración razonable. **Gap verificado el 2026-08-31:** `updatePasswordAction` (`src/app/(auth)/actions.ts`) llama `supabase.auth.updateUser({password})`, que no revoca sesiones activas en otros dispositivos/navegadores. Relevante porque la cookie de sesión no es HttpOnly (ver más abajo): un secuestro de sesión sobrevive a un cambio de contraseña hecho por la víctima. Pendiente de implementar.
 - `secure_password_change = true` está versionado y fue aplicado al proyecto alojado con el resto de la configuración Auth. El smoke real de recuperación/cambio requiere una cuenta autorizada.
 - Las aceptaciones se insertan por documento y versión en `private.legal_acceptances` con timestamp del servidor. El alta usa `accept_terms_from_signup_backend`; una sesión desactualizada debe pasar por `accept_current_terms`. No se sobreescribe evidencia histórica.
 
 Cada Server Action y Route Handler es invocable directamente: valida sesión, rol, ownership y transición de estado dentro del entrypoint/caso de uso.
+
+## Ciclo de vida de cuenta
+
+**Gap verificado el 2026-08-31 — no implementado:** no existe autoeliminación de cuenta por el usuario, ni deshabilitación/bloqueo de cuenta por un admin, ni columna `is_active`/`banned`/`deleted_at` a nivel de usuario en el schema. Lo único que existe es `publication_status = 'SUSPENDED'` sobre el perfil profesional público (`professional_profiles`), que oculta el listado del directorio pero no afecta el login ni el acceso al dashboard de esa persona. Sin este mecanismo no hay forma de reaccionar ante una cuenta comprometida o abusiva salvo intervención manual en Supabase, y la Ley de Protección de Datos Personales 25.326 exige poder dar de baja datos personales a pedido del titular (derecho de supresión). Pendiente: diseño de eliminación/anonimización de cuenta (soft delete vs. hard delete, qué pasa con leads/reseñas/reviews asociados) y bloqueo admin, antes de un release con usuarios reales.
+
+**Hallazgo histórico del 2026-08-31 — corregido el 2026-09-12:** `signUpAction` (`src/app/(auth)/actions.ts`) tiene un branch que, si el formulario público de `/registro` recibe un email hardcodeado específico (la casilla de QA del fundador), resetea esa cuenta real y dispara un email de recuperación. La excepción modificaba contraseña y confirmación antes de verificar la casilla, por lo que no debía ser accesible desde el registro público. Ahora requiere `UNIVERSO_PSI_TEST_MODE=true` y excluye explícitamente Vercel Production; el mismo email pasa por el alta normal en producción. Regresión automatizada verifica que no se consulta ni reinicia la cuenta existente.
 
 ## Supabase Data API
 
@@ -61,8 +67,8 @@ Cada Server Action y Route Handler es invocable directamente: valida sesión, ro
 
 - Zod en servidor para body, params, searchParams, headers y payload externo.
 - Límites de longitud, formatos, listas permitidas y normalización antes de persistir.
-- **Implementado:** rate limit server-side por fingerprint de red y por perfil/email en contacto; rate limit separado para analytics.
-- **Pendiente:** límites específicos para login, uploads y webhook cuando se habilite. Matching no tiene UI activa: no crea sesiones, no persiste respuestas ni emite eventos desde el recorrido público.
+- **Implementado:** rate limit server-side por fingerprint de red y por perfil/email en contacto; rate limit separado para analytics; rate limit por red y por cuenta en `signInAction` (10/5min red, 8/15min cuenta) y `signUpAction` (6/hora red, 3/hora cuenta) desde el 2026-08-31.
+- **Pendiente:** límites específicos para uploads y webhook cuando se habilite. Matching no tiene UI activa: no crea sesiones, no persiste respuestas ni emite eventos desde el recorrido público.
 - **Implementado:** honeypot, idempotencia/deduplicación diaria y límites por red/destinatario para leads. **Pendiente según abuso:** tiempo mínimo y captcha.
 - Sanitizar contenido enriquecido con allowlist; React escaping no cubre HTML arbitrario.
 - Queries parametrizadas mediante SDK/driver; nunca concatenar filtros u órdenes.
@@ -72,7 +78,7 @@ Cada Server Action y Route Handler es invocable directamente: valida sesión, ro
 
 - **Implementado en código:** Resend recibe destinatarios/templates server-side; los emails de lead omiten mensaje y datos de contacto. La entrega requiere `RESEND_API_KEY` y `EMAIL_FROM`; si faltan, la fila queda reintentable y nunca se marca `SENT`.
 - **Pendiente:** verificar dominio/remitente Resend y ejecutar un smoke real. No existe una variable de destinatario global: cada receptor se resuelve desde el lead/usuario al reclamar el outbox.
-- **Preparado y cerrado:** Mercado Pago. El Route Handler devuelve 503 y no modifica suscripciones hasta implementar firma sobre payload original, tolerancia temporal, ID único, idempotencia y reconciliación.
+- **Implementado (verificado en código el 2026-08-31):** Mercado Pago. `src/app/api/webhooks/mercado-pago/[account]/route.ts` verifica la firma HMAC-SHA256 sobre el manifest `id/request-id/ts` con comparación timing-safe (`src/lib/integrations/payments.ts`) antes de tocar cualquier suscripción, y reconcilia vía `apply_subscription_webhook_event`/`apply_subscription_payment_event` con `external_event_id` para idempotencia. Cuenta (`personal`/`company`) resuelta desde la URL, no desde el payload. **Pendiente:** validar `ts` contra una ventana temporal explícita (hoy sólo se usa para el manifest de firma, no se rechaza un timestamp viejo); mitigado en la práctica por la idempotencia del evento.
 - No confiar en monto, plan, estado o `professional_id` enviados por el navegador; reconciliar contra datos internos/proveedor.
 - Separar credenciales sandbox y producción. Un fake de tests jamás opera en producción silenciosamente.
 
@@ -99,7 +105,7 @@ No registrar tokens, passwords, API keys, archivos, mensajes completos, emails/t
 | Service key filtrada | `server-only`, variables Vercel y escaneo de secretos |
 | Spam/abuso de leads | rate limit, validación, dedupe y moderación |
 | Falso “Verificado” | estado sólo por workflow admin auditado |
-| Webhook falsificado/repetido | endpoint cerrado; firma, timestamp e idempotencia pendientes antes de activarlo |
+| Webhook falsificado/repetido | firma HMAC timing-safe + idempotencia por `external_event_id` implementadas; falta ventana temporal explícita para `ts` |
 | XSS en artículos/bios | escaping React + CSP; sanitización allowlist obligatoria si se habilita HTML enriquecido |
 | Inferencia clínica | no hay cuestionario; copy no diagnóstico, búsqueda explícita y pruebas de regresión |
 | Exposición comercial indebida | view/RPC/DTO/grants sin honorarios; planes B2P separados |

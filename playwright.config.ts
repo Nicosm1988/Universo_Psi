@@ -1,5 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
+import { cookieConsentStorageState } from "./tests/e2e/helpers/cookie-consent";
+
 const port = Number(process.env.PORT ?? 3000);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 
@@ -14,6 +16,7 @@ export default defineConfig({
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL,
+    storageState: cookieConsentStorageState(new URL(baseURL).origin),
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure",

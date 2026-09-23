@@ -1,0 +1,385 @@
+- generic [ref=f5e5]:
+  - banner [ref=f5e6]:
+    - generic [ref=f5e8]:
+      - img "image" [ref=f5e11] [cursor=pointer]
+      - generic [ref=f5e13]:
+        - generic [ref=f5e15]:
+          - button "" [ref=f5e16] [cursor=pointer]
+          - button "" [ref=f5e17] [cursor=pointer]
+          - button "" [ref=f5e18] [cursor=pointer]
+        - link "Ayuda" [ref=f5e20] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - button "Español (es) " [ref=f5e23] [cursor=pointer]:
+          - generic: Español (es)
+          - generic: 
+        - generic [ref=f5e25]:
+          - button "Iniciar sesión" [ref=f5e26] [cursor=pointer]
+          - button "Registro" [ref=f5e27] [cursor=pointer]
+  - generic [ref=f5e1521]:
+    - generic [ref=f5e1522]:
+      - generic [ref=f5e1525]:
+        - generic [ref=f5e1527] [cursor=pointer]:
+          - button "" [ref=f5e1529]:
+            - generic:
+              - generic: 
+              - generic: 
+          - generic [ref=f5e1532]:
+            - generic [ref=f5e1533]: "Oficinas de marcas: AR;"
+            - generic [ref=f5e1535]: "Territorios: AR;"
+        - generic [ref=f5e1537]:
+          - generic [ref=f5e1542]:
+            - generic [ref=f5e1543]: "Nombre de la marca:"
+            - group [ref=f5e1544]:
+              - generic [ref=f5e1546]:
+                - generic [ref=f5e1547]:
+                  - button "Contiene " [ref=f5e1549] [cursor=pointer]:
+                    - generic: Contiene
+                    - generic: 
+                  - generic [ref=f5e5477]:
+                    - combobox "Introducir el nombre de la marca" [ref=f5e5479]: universo
+                    - button "" [ref=f5e5480] [cursor=pointer]
+                - button "Buscar" [ref=f5e1556] [cursor=pointer]
+          - generic [ref=f5e1557]:
+            - button " Guardar esta búsqueda" [disabled] [ref=f5e1559]:
+              - generic: 
+              - text: Guardar esta búsqueda
+            - button " Compartir por correo" [ref=f5e1561] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+              - text: Compartir por correo
+            - button "image" [ref=f5e1564] [cursor=pointer]:
+              - img "image"
+      - generic [ref=f5e1568]:
+        - generic [ref=f5e1569]:
+          - button " Exportar" [ref=f5e3275] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Exportar
+          - button " Comparar" [disabled] [ref=f5e3276] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Comparar
+          - button " Avisos" [disabled] [ref=f5e3277] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Avisos
+          - button " Etiquetas" [disabled] [ref=f5e3278] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Etiquetas
+        - img "Loading interface..." [ref=f5e5482]
+        - generic [ref=f5e1593]:
+          - button " Vista de estadísticas" [ref=f5e3282] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+            - generic: Vista de estadísticas
+          - generic [ref=f5e1596]:
+            - button " Vista de lista" [ref=f5e3283]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de lista
+            - button " Vista de galería" [ref=f5e3284] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Vista de galería
+          - generic [ref=f5e1600]:
+            - button " Editar columnas" [ref=f5e3285] [cursor=pointer]:
+              - generic:
+                - generic: 
+                - generic: 
+                - generic: 
+              - generic: Editar columnas
+            - text:                        
+          - button "" [ref=f5e3286] [cursor=pointer]
+    - generic [ref=f5e1605]:
+      - generic [ref=f5e1608]:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - button " Editar":
+                    - generic:
+                      - generic: 
+                      - generic: 
+                      - generic: 
+                    - generic: Editar
+            - button ""
+          - generic:
+            - button "Eliminar filtros"
+            - button "Aplicar" [disabled]
+          - generic:
+            - generic: Oficinas
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Argentina - INPI (185)"
+                      - generic:
+                        - generic: Argentina - INPI
+                        - generic: (185)
+          - generic:
+            - generic: Productos y servicios
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "35 Publicidad; Gestión, organización y administración de negocios comerciales; Trabajos de oficina (185)" [checked]: 
+                      - generic:
+                        - generic: 35 Publicidad; Gestión, organización y administración de negocios comerciales; Trabajos de oficina
+                        - generic: (185)
+          - generic:
+            - generic: Códigos de Viena
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "01.01 ESTRELLAS, COMETAS (2)"
+                      - generic:
+                        - generic: 01.01 ESTRELLAS, COMETAS
+                        - generic: (2)
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "01.03 SOL (2)"
+                      - generic:
+                        - generic: 01.03 SOL
+                        - generic: (2)
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "01.05 TIERRA, GLOBOS TERRESTRES, PLANETAS (6)"
+                      - generic:
+                        - generic: 01.05 TIERRA, GLOBOS TERRESTRES, PLANETAS
+                        - generic: (6)
+                - button "Mostrar los 28 resultados"
+          - generic:
+            - generic: Estado de la marca
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Finalizada (26)"
+                      - generic:
+                        - generic: Finalizada
+                        - generic: (26)
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Vencida (19)"
+                      - generic:
+                        - generic: Vencida
+                        - generic: (19)
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Solicitada (11)"
+                      - generic:
+                        - generic: Solicitada
+                        - generic: (11)
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Registrada (129)"
+                      - generic:
+                        - generic: Registrada
+                        - generic: (129)
+          - generic:
+            - generic: Tipo de marca
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Combinada (117)"
+                      - generic:
+                        - generic: Combinada
+                        - generic: (117)
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Verbal (68)"
+                      - generic:
+                        - generic: Verbal
+                        - generic: (68)
+          - generic:
+            - generic: Nombre del solicitante
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Seleccionar un filtro
+                          - generic:
+                            - combobox
+                        - generic: 
+          - generic:
+            - generic: Fecha de solicitud
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Hoy"
+                      - generic: Hoy
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 día a 1 semana"
+                      - generic: De 1 día a 1 semana
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 semana a un mes"
+                      - generic: De 1 semana a un mes
+                - button "Mostrar los 7 resultados"
+          - generic:
+            - generic: Fecha de registro
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "Hoy"
+                      - generic: Hoy
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 día a 1 semana"
+                      - generic: De 1 día a 1 semana
+                - generic:
+                  - generic:
+                    - generic:
+                      - checkbox "De 1 semana a un mes"
+                      - generic: De 1 semana a un mes
+                - button "Mostrar los 7 resultados"
+          - generic:
+            - generic: Oponible ahora
+            - generic:
+              - generic:
+                - generic:
+                  - checkbox "Oponible ahora"
+                  - text: Oponible ahora
+          - generic:
+            - generic: Antigüedad reivindicada
+            - generic:
+              - generic:
+                - generic:
+                  - checkbox "Antigüedad reivindicada"
+                  - text: Antigüedad reivindicada
+          - generic:
+            - button "Eliminar filtros"
+            - button "Aplicar" [disabled]
+      - generic [ref=f5e1807]:
+        - generic [ref=f5e5485]:
+          - img "Loading interface..." [ref=f5e5488]
+          - img "Loading interface..." [ref=f5e5492]
+          - img "Loading interface..." [ref=f5e5496]
+          - img "Loading interface..." [ref=f5e5500]
+          - img "Loading interface..." [ref=f5e5504]
+          - img "Loading interface..." [ref=f5e5508]
+          - img "Loading interface..." [ref=f5e5512]
+          - img "Loading interface..." [ref=f5e5516]
+          - img "Loading interface..." [ref=f5e5520]
+          - img "Loading interface..." [ref=f5e5524]
+          - img "Loading interface..." [ref=f5e5528]
+          - img "Loading interface..." [ref=f5e5532]
+          - img "Loading interface..." [ref=f5e5536]
+          - img "Loading interface..." [ref=f5e5540]
+          - img "Loading interface..." [ref=f5e5544]
+          - img "Loading interface..." [ref=f5e5548]
+          - img "Loading interface..." [ref=f5e5552]
+          - img "Loading interface..." [ref=f5e5556]
+          - img "Loading interface..." [ref=f5e5560]
+          - img "Loading interface..." [ref=f5e5564]
+          - img "Loading interface..." [ref=f5e5568]
+          - img "Loading interface..." [ref=f5e5572]
+          - img "Loading interface..." [ref=f5e5576]
+          - img "Loading interface..." [ref=f5e5580]
+          - img "Loading interface..." [ref=f5e5584]
+          - img "Loading interface..." [ref=f5e5588]
+          - img "Loading interface..." [ref=f5e5592]
+          - img "Loading interface..." [ref=f5e5596]
+          - img "Loading interface..." [ref=f5e5600]
+          - img "Loading interface..." [ref=f5e5604]
+          - img "Loading interface..." [ref=f5e5608]
+        - generic [ref=f5e4931]:
+          - generic [ref=f5e4932]:
+            - generic [ref=f5e5070] [cursor=pointer]: 
+            - generic [ref=f5e5072] [cursor=pointer]: 
+          - generic [ref=f5e4933]: 151-180 de 185
+          - generic [ref=f5e4934] [cursor=pointer]: 
+  - contentinfo [ref=f5e217]:
+    - generic [ref=f5e218]:
+      - navigation [ref=f5e220]:
+        - link "Buscar" [ref=f5e221] [cursor=pointer]:
+          - /url: "#/tmview"
+        - link "Oficinas participantes" [ref=f5e222] [cursor=pointer]:
+          - /url: "#/tmview/participating"
+        - link "Ayuda" [ref=f5e223] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - generic [ref=f5e224] [cursor=pointer]: Comentarios
+      - generic [ref=f5e225]:
+        - link "EUIPN (Red de Propiedad Intelectual de la Unión Europea)" [ref=f5e227] [cursor=pointer]:
+          - /url: https://euipn.org
+          - text: EUIPN (Red de Propiedad Intelectual de la Unión Europea)
+          - generic [ref=f5e228]:
+            - generic [ref=f5e229]: 
+            - generic: 
+        - generic [ref=f5e231]: Avenida de Europa, 4, E-03008 Alicante (España)
+        - generic [ref=f5e233]: "Centro de información: +34 96 513 9100"
+      - navigation [ref=f5e235]:
+        - generic [ref=f5e236]: Copyright 2007-2026 EUIPO
+        - generic [ref=f5e237]:
+          - text: "Este sitio web está gestionado y mantenido por:"
+          - strong [ref=f5e238]: Oficina de Propiedad Intelectual de la Unión Europea
+      - generic [ref=f5e239]:
+        - generic [ref=f5e240]: Las herramientas de búsqueda TMview y DesignView no constituyen registros oficiales y la información contenida en dichas herramientas no tiene ningún efecto legal.
+        - navigation [ref=f5e241]:
+          - link "Véanse los términos y condiciones" [ref=f5e242] [cursor=pointer]:
+            - /url: "#/tmview/disclaimer"
+      - generic [ref=f5e243]:
+        - generic [ref=f5e244]: TMDSVIEW-4.5.1-RC1.1
+        - navigation [ref=f5e245]:
+          - link [ref=f5e246] [cursor=pointer]:
+            - /url: https://www.tmdn.org/network/compatibility
+            - strong [ref=f5e247]: Compatibilidad
+          - link [ref=f5e248] [cursor=pointer]:
+            - /url: "#/tmview/data-protection"
+            - strong [ref=f5e249]: Protección de datos
+          - link [ref=f5e250] [cursor=pointer]:
+            - /url: https://www.euipn.org/en/info/legal-notices
+            - strong [ref=f5e251]: Aviso Legal
+          - link "Acerca de" [ref=f5e252] [cursor=pointer]:
+            - /url: "#/tmview/about"
+  - text: 

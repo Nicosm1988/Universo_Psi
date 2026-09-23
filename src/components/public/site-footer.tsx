@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { CookiePreferencesButton } from "@/components/consent/cookie-preferences-button";
 import { Logo } from "@/components/public/logo";
 
 const footerGroups = [
@@ -24,6 +25,8 @@ const footerGroups = [
     title: "Universo Psi",
     links: [
       ["Cómo verificamos", "/para-profesionales#verificacion"],
+      ["Preguntas frecuentes", "/preguntas-frecuentes"],
+      ["Contacto", "/contacto"],
       ["Privacidad", "/privacidad"],
       ["Términos", "/terminos"],
     ],
@@ -61,9 +64,16 @@ export function SiteFooter() {
             ))}
           </div>
         </div>
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/12 pt-6 text-xs text-white/48 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/12 pt-6 text-xs text-white/48 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Universo Psi. Hecho en Argentina.</p>
-          <p>Decisiones profesionales, acompañadas por personas.</p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <p>Decisiones profesionales, acompañadas por personas.</p>
+            <CookiePreferencesButton
+              className="theme-inverse border-white/25 bg-transparent text-white hover:border-white hover:bg-white/10"
+              label="Preferencias de cookies"
+              variant="secondary"
+            />
+          </div>
         </div>
       </Container>
     </footer>

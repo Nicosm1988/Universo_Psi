@@ -19,7 +19,7 @@ export const signUpSchema = z
     password: z
       .string()
       .min(10, "Usá al menos 10 caracteres.")
-      .max(128)
+      .refine((value) => new TextEncoder().encode(value).length <= 72, "La contraseña es demasiado larga. Usá una más corta.")
       .regex(/[a-z]/, "Incluí una minúscula.")
       .regex(/[A-Z]/, "Incluí una mayúscula.")
       .regex(/[0-9]/, "Incluí un número."),
@@ -42,7 +42,7 @@ export const passwordUpdateSchema = z
     password: z
       .string()
       .min(10, "Usá al menos 10 caracteres.")
-      .max(128)
+      .refine((value) => new TextEncoder().encode(value).length <= 72, "La contraseña es demasiado larga. Usá una más corta.")
       .regex(/[a-z]/, "Incluí una minúscula.")
       .regex(/[A-Z]/, "Incluí una mayúscula.")
       .regex(/[0-9]/, "Incluí un número."),

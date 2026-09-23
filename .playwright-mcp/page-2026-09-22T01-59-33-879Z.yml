@@ -1,0 +1,195 @@
+- generic [ref=f3e266]:
+  - banner [ref=f3e267]:
+    - generic [ref=f3e269]:
+      - img "image" [ref=f3e272] [cursor=pointer]
+      - generic [ref=f3e274]:
+        - generic [ref=f3e276]:
+          - button "" [ref=f3e277] [cursor=pointer]
+          - button "" [ref=f3e278] [cursor=pointer]
+          - button "" [ref=f3e279] [cursor=pointer]
+        - link "Ayuda" [ref=f3e281] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - button "Español (es) " [ref=f3e284] [cursor=pointer]:
+          - generic: Español (es)
+          - generic: 
+        - generic [ref=f3e286]:
+          - button "Iniciar sesión" [ref=f3e287] [cursor=pointer]
+          - button "Registro" [ref=f3e288] [cursor=pointer]
+  - generic [ref=f3e290]:
+    - generic [ref=f3e291]:
+      - heading "Noticias más recientes" [level=1] [ref=f3e292]
+      - generic [ref=f3e293]:
+        - generic [ref=f3e294]:
+          - button "" [ref=f3e295] [cursor=pointer]
+          - button "" [ref=f3e296] [cursor=pointer]
+        - generic [ref=f3e299] [cursor=pointer]:
+          - generic [ref=f3e300]: 02/09/2026
+          - generic [ref=f3e301]: "Strengthen your TMview account security: activate Multi-Factor Authentication"
+      - button "" [ref=f3e303] [cursor=pointer]
+    - generic [ref=f3e305]:
+      - generic [ref=f3e308]:
+        - heading [level=1] [ref=f3e310]:
+          - text: Busca
+          - strong [ref=f3e311]: 142.975.686
+          - text: marcasen toda la UE y otros países
+        - generic [ref=f3e313]:
+          - generic [ref=f3e314]:
+            - group [ref=f3e316]:
+              - generic [ref=f3e318]:
+                - generic [ref=f3e319]:
+                  - button "Contiene " [ref=f3e321] [cursor=pointer]:
+                    - generic: Contiene
+                    - generic: 
+                  - combobox "Introducir el nombre de la marca" [active] [ref=f3e326]
+                  - generic [ref=f3e329]:
+                    - generic [ref=f3e330]: 
+                    - generic: 
+                - button "Buscar" [ref=f3e331] [cursor=pointer]
+                - button "Búsqueda avanzada" [ref=f3e332] [cursor=pointer]
+            - generic [ref=f3e336] [cursor=pointer]:
+              - generic [ref=f3e338]:
+                - generic [ref=f3e339]: 
+                - generic: 
+                - generic: 
+              - generic [ref=f3e340]:
+                - generic [ref=f3e341]: Arrastre y suelte una imagen o cárguela desde su ordenador.
+                - generic [ref=f3e342]: JPGPNGGIFTIFF
+                - generic [ref=f3e343]: "Con el apoyo de estas oficinas: AL, AP, AR, AT, AU, BA, BG, BN, BR, BX, BZ, CA, CH, CL, CN, CO, CR, CU, CY, CZ, DE, DK, DO, EE, EG, EM, ES, FI, FR, GB, GE, GR, HR, HU, IE, IL, IN, IS, IT, JO, JP, KH, KR, LA, LI, LT, LV, MA, MC, MD, ME, MK, MT, MX, MY, NO, NZ, OA, PE, PH, PL, PT, PY, RO, RS, RU, SE, SI, SK, SM, TH, TN, TR, TT, UA, UG, US, UY, VN, WO, ZM"
+          - button " Configure la búsqueda" [ref=f3e347] [cursor=pointer]:
+            - generic:
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic: Configure la búsqueda
+          - generic [ref=f3e349]:
+            - generic [ref=f3e350]: Territorios
+            - generic [ref=f3e355]:
+              - generic [ref=f3e356]:
+                - generic [ref=f3e357]: Seleccionar territorios
+                - combobox [ref=f3e359]
+              - generic [ref=f3e360] [cursor=pointer]: 
+            - generic [ref=f3e362]: 
+          - generic [ref=f3e366]:
+            - generic [ref=f3e367]: Oficinas de marcas
+            - generic [ref=f3e372]:
+              - generic [ref=f3e373]:
+                - generic [ref=f3e374]: Seleccione una o más oficinas
+                - combobox [ref=f3e376]
+              - generic [ref=f3e377] [cursor=pointer]: 
+            - generic [ref=f3e379]: 
+          - generic [ref=f3e383]:
+            - generic [ref=f3e384]: Productos y servicios
+            - generic [ref=f3e389]:
+              - generic [ref=f3e390]:
+                - generic [ref=f3e391]: Seleccionar productos y servicios
+                - textbox [ref=f3e394]
+              - generic [ref=f3e395]: 
+            - generic [ref=f3e398]: 
+      - generic [ref=f3e401]:
+        - generic [ref=f3e403]:
+          - generic [ref=f3e406]:
+            - generic [ref=f3e408]:
+              - generic [ref=f3e409]: 
+              - generic: 
+            - generic [ref=f3e410]: Últimas búsquedas
+          - generic [ref=f3e414]:
+            - generic [ref=f3e415]:
+              - generic [ref=f3e416]: 
+              - generic: 
+            - generic [ref=f3e417]:
+              - generic [ref=f3e418]: There are no past searches currently available.
+              - generic [ref=f3e419]: Your latest search criteria will appear here, providing you with an easier way to repeat a search. Create a new search by adding a value to the search field.
+            - button "Start new search" [ref=f3e421] [cursor=pointer]
+        - generic [ref=f3e423]:
+          - generic [ref=f3e426]:
+            - generic [ref=f3e428]:
+              - generic [ref=f3e429]: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+              - generic: 
+            - generic [ref=f3e430]: Noticias
+          - generic [ref=f3e433]:
+            - generic [ref=f3e434]:
+              - generic [ref=f3e436] [cursor=pointer]:
+                - generic [ref=f3e437]: 02/09/2026
+                - generic [ref=f3e438]: "Strengthen your TMview account security: activate Multi-Factor Authentication"
+                - generic [ref=f3e439]: Multi-Factor Authentication, MFA, is being introduced for users who access TMview using their EUIPN login. MFA adds an extra layer of security to the login process. In addition to your username and p...
+              - generic [ref=f3e441] [cursor=pointer]:
+                - generic [ref=f3e442]: 20/08/2026
+                - generic [ref=f3e443]: Polish Office detailed web services
+                - generic [ref=f3e444]: Dear Users, please be informed, that due to the infrastructure works the PL detailed services of TMView will be unavailable from 21/08/2026 16:00 until 22/08/2026 23:59. We apologize for the inconveni...
+              - generic [ref=f3e446] [cursor=pointer]:
+                - generic [ref=f3e447]: 27/05/2026
+                - generic [ref=f3e448]: "Refreshed look, stronger security: Enhanced EUIPN login experience for users"
+                - generic [ref=f3e449]: "Starting on Saturday, 6 June 2026, the EUIPN login screen will have an updated visual design. This is mainly a visual change: the login process, your credentials, and all underlying functionalities r..."
+              - generic [ref=f3e451] [cursor=pointer]:
+                - generic [ref=f3e452]: 20/05/2026
+                - generic [ref=f3e453]: Slovenian Office web services
+                - generic [ref=f3e454]: Dear users, due to infrastructure upgrade, sporadic interruptions of Slovenian web services are expected on 27 May 2026 between 18:00 and 20:00. Apologies for any inconvenience caused.
+            - link [ref=f3e456] [cursor=pointer]:
+              - /url: "#/tmview/news"
+              - button "Ver todas las novedades" [ref=f3e457]
+        - generic [ref=f3e460]:
+          - link [ref=f3e462] [cursor=pointer]:
+            - /url: https://whois.eurid.eu
+            - img "image" [ref=f3e463]
+          - link [ref=f3e465] [cursor=pointer]:
+            - /url: https://euipn.org
+            - img "image" [ref=f3e466]
+          - link [ref=f3e468] [cursor=pointer]:
+            - /url: /tmdsview-web/
+            - img "image" [ref=f3e469]
+          - link [ref=f3e471] [cursor=pointer]:
+            - /url: http://euipo.europa.eu/ec2/?lang=en
+            - img "image" [ref=f3e472]
+          - link [ref=f3e474] [cursor=pointer]:
+            - /url: https://www.ipenforcementportal.eu
+            - img "image" [ref=f3e475]
+  - contentinfo [ref=f3e477]:
+    - generic [ref=f3e478]:
+      - navigation [ref=f3e480]:
+        - link "Buscar" [ref=f3e481] [cursor=pointer]:
+          - /url: "#/tmview"
+        - link "Oficinas participantes" [ref=f3e482] [cursor=pointer]:
+          - /url: "#/tmview/participating"
+        - link "Ayuda" [ref=f3e483] [cursor=pointer]:
+          - /url: "#/tmview/help"
+        - generic [ref=f3e484] [cursor=pointer]: Comentarios
+      - generic [ref=f3e485]:
+        - link "EUIPN (Red de Propiedad Intelectual de la Unión Europea)" [ref=f3e487] [cursor=pointer]:
+          - /url: https://euipn.org
+          - text: EUIPN (Red de Propiedad Intelectual de la Unión Europea)
+          - generic [ref=f3e488]:
+            - generic [ref=f3e489]: 
+            - generic: 
+        - generic [ref=f3e491]: Avenida de Europa, 4, E-03008 Alicante (España)
+        - generic [ref=f3e493]: "Centro de información: +34 96 513 9100"
+      - navigation [ref=f3e495]:
+        - generic [ref=f3e496]: Copyright 2007-2026 EUIPO
+        - generic [ref=f3e497]:
+          - text: "Este sitio web está gestionado y mantenido por:"
+          - strong [ref=f3e498]: Oficina de Propiedad Intelectual de la Unión Europea
+      - generic [ref=f3e499]:
+        - generic [ref=f3e500]: Las herramientas de búsqueda TMview y DesignView no constituyen registros oficiales y la información contenida en dichas herramientas no tiene ningún efecto legal.
+        - navigation [ref=f3e501]:
+          - link "Véanse los términos y condiciones" [ref=f3e502] [cursor=pointer]:
+            - /url: "#/tmview/disclaimer"
+      - generic [ref=f3e503]:
+        - generic [ref=f3e504]: TMDSVIEW-undefined
+        - navigation [ref=f3e505]:
+          - link [ref=f3e506] [cursor=pointer]:
+            - /url: https://www.tmdn.org/network/compatibility
+            - strong [ref=f3e507]: Compatibilidad
+          - link [ref=f3e508] [cursor=pointer]:
+            - /url: "#/tmview/data-protection"
+            - strong [ref=f3e509]: Protección de datos
+          - link [ref=f3e510] [cursor=pointer]:
+            - /url: https://www.euipn.org/en/info/legal-notices
+            - strong [ref=f3e511]: Aviso Legal
+          - link "Acerca de" [ref=f3e512] [cursor=pointer]:
+            - /url: "#/tmview/about"
+  - text: 

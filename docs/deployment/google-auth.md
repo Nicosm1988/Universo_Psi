@@ -15,14 +15,36 @@ El botón Google era el primer submit dentro del mismo formulario de email/contr
 - Una configuración incompleta, una caída, un código vencido o una cancelación vuelven al ingreso con un mensaje en español y el destino interno preservado. El callback mantiene la exigencia de términos vigentes.
 - No se agrega una variable manual `GOOGLE_ENABLED` que pueda diferir de Supabase. La habilitación se refleja en la siguiente carga del formulario sin reconstruir el sitio.
 
+## Por qué la pantalla de Google dice `gwizdgboqwpzyiaqcxbb.supabase.co`
+
+La línea «Ir a …» que Google muestra debajo de «Selecciona una cuenta» es el host
+de la **URI de redirección** del cliente OAuth, no el del sitio. El retorno de
+Google va a Supabase (`https://<ref>.supabase.co/auth/v1/callback`) y recién
+después a `/auth/callback` en el sitio, así que Google nombra a Supabase.
+
+Cambiar ese texto por `universopsi.com` **no se arregla desde el código**:
+requiere el add-on de **Custom Domain** de Supabase, que expone el endpoint de
+auth en un subdominio propio (por ejemplo `auth.universopsi.com`). Con eso, la
+URI de redirección pasa a ser `https://auth.universopsi.com/auth/v1/callback` y
+es ese nombre el que ve la persona. Es una función paga del proyecto Supabase.
+
+El **logo y el nombre** de la aplicación en esa pantalla son otra cosa: se cargan
+en Google Cloud Console → *Branding*, y son independientes del dominio. Ahí van
+nombre visible, logo, correo de soporte, dominios autorizados y los enlaces a
+política de privacidad y términos —que ahora existen en `universopsi.com` y son
+requisito para que Google apruebe la verificación—.
+
+En resumen, son dos arreglos distintos: el logo se resuelve gratis en Google, el
+host feo sólo con el dominio propio de Supabase.
+
 ## Configuración necesaria
 
 1. En Google Auth Platform, crear o seleccionar el proyecto de Universo Psi. Configurar marca y audiencia Externa.
 2. Crear un cliente OAuth de tipo Aplicación web.
-3. Origen autorizado: `https://universo-psi-eight.vercel.app`.
+3. Orígenes autorizados: `https://universopsi.com` y `https://www.universopsi.com`. Conservar el `.vercel.app` mientras siga en uso.
 4. URI de redirección autorizada: `https://gwizdgboqwpzyiaqcxbb.supabase.co/auth/v1/callback` (el retorno de Google va a Supabase, no directamente al sitio).
 5. En Supabase → Authentication → Sign In / Providers → Google, cargar Client ID y Client Secret, habilitar y guardar. Las credenciales OAuth se almacenan en Supabase; no pertenecen al cliente Next.js ni al repositorio.
-6. Mantener Site URL `https://universo-psi-eight.vercel.app` y permitir el retorno `/auth/callback` con su `next`. La allowlist existente del proyecto cubre el sitio canónico.
+6. Site URL `https://universopsi.com` y permitir el retorno `/auth/callback` con su `next`, para el apex y para `www`. Mientras `NEXT_PUBLIC_SITE_URL` siga apuntando al `.vercel.app`, los enlaces de los correos vuelven al dominio viejo aunque el allowlist ya incluya el nuevo.
 7. En modo de pruebas de Google, incluir explícitamente los usuarios de prueba. Antes de ofrecer el acceso al público general, publicar la audiencia en Google. Solicitar sólo identidad básica: openid, email y perfil.
 
 Guía oficial: https://supabase.com/docs/guides/auth/social-login/auth-google

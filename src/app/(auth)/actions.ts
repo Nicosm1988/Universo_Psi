@@ -1,5 +1,6 @@
 "use server";
 
+import { after } from "next/server";
 import type { Route } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -16,6 +17,7 @@ import {
   resolveAuthEmailContent,
 } from "@/lib/integrations/auth-email-templates";
 import { deliverTransactionalEmail } from "@/lib/integrations/email";
+import { sendAccountEmail } from "@/lib/notifications/account-emails";
 import { TERMS_VERSION } from "@/lib/legal";
 import { consumeRateLimit } from "@/lib/rate-limit";
 import { createAdminClient, findAdminUserIdByEmail } from "@/lib/supabase/admin";
@@ -425,6 +427,15 @@ export async function updatePasswordAction(
       status: "error",
       message: "No pudimos actualizar la contraseña. Solicitá un enlace nuevo.",
     };
+  }
+
+  // Aviso de seguridad: si el cambio no lo hizo la persona titular, este correo
+  // es la única señal que recibe. No bloquea la respuesta.
+  const email = claims.claims.email;
+  if (typeof email === "string" && email.includes("@")) {
+    after(async () => {
+      await sendAccountEmail("password_changed", email);
+    });
   }
 
   return {

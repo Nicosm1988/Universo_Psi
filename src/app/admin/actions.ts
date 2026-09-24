@@ -2,6 +2,7 @@
 
 import type { Route } from "next";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -9,6 +10,7 @@ import { requireAdmin } from "@/lib/dal/auth";
 import { reconcileSubscriptionResources } from "@/lib/subscriptions/reconcile-search";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { sendAccountEmail } from "@/lib/notifications/account-emails";
 import {
   credentialResolutionSchema,
   publicationResolutionSchema,
@@ -58,6 +60,15 @@ export async function resolvePublicationAction(formData: FormData) {
 
   await requireAdmin();
   const supabase = await createClient();
+  // El correo de la persona vive en auth.users, así que se resuelve con el
+  // cliente administrativo antes de que la decisión cambie el estado.
+  const admin = createAdminClient();
+  const { data: owner } = await admin
+    .from("professional_profiles")
+    .select("user_id")
+    .eq("id", parsed.data.profileId)
+    .maybeSingle();
+
   const { error } = await supabase.rpc("admin_set_professional_publication", {
     p_profile_id: parsed.data.profileId,
     p_status: parsed.data.status,
@@ -67,6 +78,21 @@ export async function resolvePublicationAction(formData: FormData) {
     console.error("publication_resolution_failed", { code: error.code });
     redirect("/admin?error=publication-failed" as Route);
   }
+
+  // Avisar la decisión: sin esto, la persona sólo se entera si vuelve a entrar.
+  if (owner?.user_id) {
+    const { data: account } = await admin.auth.admin.getUserById(owner.user_id);
+    const email = account?.user?.email;
+    if (email) {
+      after(async () => {
+        await sendAccountEmail(
+          parsed.data.status === "PUBLISHED" ? "profile_published" : "profile_rejected",
+          email,
+        );
+      });
+    }
+  }
+
   revalidatePath("/admin");
   revalidatePath("/profesionales");
   redirect("/admin?notice=publication-resolved" as Route);

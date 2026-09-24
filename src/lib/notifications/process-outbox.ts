@@ -3,6 +3,11 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 
 import { deliverTransactionalEmail } from "@/lib/integrations/email";
+import {
+  renderBrandedEmailHtml,
+  renderBrandedEmailText,
+  type BrandedEmail,
+} from "@/lib/integrations/email-layout";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 type ClaimedNotification = {
@@ -24,6 +29,10 @@ type ProcessResult = {
   completionFailed: number;
 };
 
+function siteUrl() {
+  return process.env.NEXT_PUBLIC_SITE_URL ?? "https://universopsi.com";
+}
+
 function safeName(value: string | null, fallback: string) {
   const normalized = value?.replace(/\s+/g, " ").trim().slice(0, 80);
   return normalized || fallback;
@@ -37,16 +46,34 @@ function emailFor(notification: ClaimedNotification) {
   );
 
   if (notification.template_key === "professional_new_lead") {
+    const content: BrandedEmail = {
+      kicker: "Nueva consulta",
+      heading: `${recipientName}, recibiste una consulta`,
+      bodyText:
+        "Alguien te escribió a través de Universo Psi. Ingresá a tu panel para verla y responderla de forma segura.",
+      action: { label: "Ver la consulta", url: `${siteUrl()}/dashboard?seccion=consultas` },
+      footerNote:
+        "Por privacidad, los datos de contacto y el mensaje no viajan en este correo: se consultan dentro de tu panel.",
+    };
     return {
       subject: "Recibiste una nueva consulta en Universo Psi",
-      text: `${recipientName}:\n\nRecibiste una nueva consulta en Universo Psi. Ingresá a tu panel para verla y responderla de forma segura.\n\nPor privacidad, los datos de contacto y el mensaje no se incluyen en este email.\n\nEquipo Universo Psi`,
+      text: renderBrandedEmailText(content),
+      html: renderBrandedEmailHtml(content),
     };
   }
 
   if (notification.template_key === "consumer_lead_confirmation") {
+    const content: BrandedEmail = {
+      kicker: "Consulta enviada",
+      heading: `${recipientName}, recibimos tu consulta`,
+      bodyText: `Tu consulta para ${professionalName} quedó registrada. La persona profesional podrá verla en su panel y decidir cómo y cuándo responderte.`,
+      footerNote:
+        "Todavía no hay un turno confirmado. Si no reconocés esta acción, podés ignorar este correo.",
+    };
     return {
       subject: "Recibimos tu consulta en Universo Psi",
-      text: `${recipientName}:\n\nRecibimos tu consulta para ${professionalName}. La persona profesional podrá verla en su panel de Universo Psi.\n\nSi no reconocés esta acción, podés ignorar este email.\n\nEquipo Universo Psi`,
+      text: renderBrandedEmailText(content),
+      html: renderBrandedEmailHtml(content),
     };
   }
 

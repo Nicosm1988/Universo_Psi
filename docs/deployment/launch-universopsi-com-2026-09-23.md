@@ -70,3 +70,38 @@ Estos pasos no se pudieron aplicar desde esta sesión y quedan para el titular:
 
 Mientras 1 y 2 no estén hechos, conviene no difundir el dominio nuevo: el sitio
 responde, pero la autenticación y el SEO siguen atados al anterior.
+
+## Ejecución del vaciado (24/09/2026)
+
+La migración `20260923230000` se aplicó al proyecto productivo. El catálogo pasó
+de 7 perfiles a 0 y la home muestra el estado vacío. Se aplicó sólo esa
+migración: las tres de taxonomía del 30/08 siguen pendientes por decisión previa.
+
+## Defecto encontrado: 404 blando en perfiles inexistentes
+
+Al verificar el vaciado apareció un problema que **no** introdujo este cambio y
+que sigue abierto: una URL de perfil inexistente devuelve **HTTP 200** con el
+cuerpo de «no existe», en vez de 404. Se reproduce en local y afecta por igual a
+un slug borrado y a uno inventado. Una ruta desconocida fuera de
+`/profesionales/[slug]` sí devuelve 404 correctamente, porque la resuelve el
+router antes de renderizar.
+
+Causa: el layout raíz es `force-dynamic` para poder emitir el nonce de la CSP por
+request. React transmite el shell apenas está listo, así que cuando la página
+llama a `notFound()` el estado 200 ya se envió. Mover la comprobación a
+`generateMetadata` no alcanza: desde Next 15 los metadatos también se transmiten.
+
+Importa ahora porque las 7 URLs de perfiles piloto estuvieron indexadas y, al
+recibir 200, los buscadores las tratan como 404 blandos y tardan más en
+soltarlas. `robots.txt` productivo permite indexación, así que estuvieron
+expuestas de verdad.
+
+Mitigación aplicada: `sitemap.ts` pasa a revalidar cada hora. Antes se generaba
+en el build y quedaba congelado —se lo encontró sirviendo las 7 URLs muertas con
+`x-vercel-cache: HIT` y diez horas de antigüedad—, de modo que seguía
+ofreciéndolas activamente.
+
+Pendiente de resolver: devolver un 404 real. Las salidas razonables son emitir el
+nonce sin obligar a `force-dynamic` en el layout raíz, o resolver la existencia
+del perfil antes del render. Ninguna es un cambio de una línea y no se improvisó
+acá.

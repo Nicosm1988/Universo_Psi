@@ -1,6 +1,10 @@
 import type { MetadataRoute } from "next";
 import { publicRepository } from "@/lib/data/public-repository";
 
+// El sitemap lee el catálogo, que cambia cuando se publica o se da de baja un
+// perfil. Sin esto queda congelado en el build y sigue ofreciendo URLs muertas.
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (process.env.SITE_NOINDEX === "true" || process.env.VERCEL_ENV === "preview") {
     return [];

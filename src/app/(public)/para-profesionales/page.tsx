@@ -17,7 +17,6 @@ const productFeatures = [
   ["Contactos con contexto", "Recibí consultas que incluyen el momento de la persona y su motivo. Menos mensajes genéricos, mejores primeras conversaciones."],
   ["Visibilidad legible", "Participá del buscador y del ecosistema editorial. Cualquier posición destacada se identifica: la confianza no se compra."],
   ["Métricas útiles", "Entendé visitas, contactos y evolución sin convertir tu práctica en una competencia permanente por números."],
-  ["Convenios", "Postulate a programas de empresas, universidades y comunidades que se ajusten a tu experiencia y disponibilidad."],
   ["Red entre colegas", "Construimos las bases para derivaciones, encuentros y colaboración profesional con criterios compartidos."],
 ] as const;
 

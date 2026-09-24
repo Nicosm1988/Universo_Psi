@@ -39,11 +39,7 @@ for (const width of [1440, 390]) {
       await expect(page.getByRole("link", { name: "Ver planes", exact: true })).toBeVisible();
       await expect(page.getByRole("button", { name: "Continuar con el pago" })).toHaveCount(0);
       await page.screenshot({ path: `output/playwright/dashboard-menu-20260913/menu-${width}.png`, fullPage: true });
-      await nav.getByRole("link", { name: "Contenido", exact: true }).click();
-      await expect(page).toHaveURL(/\/recursos$/);
-      await expect(page.getByRole("heading", { level: 1 })).toContainText("Ideas para pensar");
-      await page.goBack();
-      await expect(page).toHaveURL(/seccion=suscripcion/);
+      await expect(nav.getByRole("link", { name: "Contenido", exact: true })).toHaveCount(0);
       await nav.getByRole("link", { name: "Mi perfil", exact: true }).click();
       await expect(page).toHaveURL(/\/profesionales\/sumarse$/);
       await expect(page.getByLabel("Nombre", { exact: true })).toBeVisible();

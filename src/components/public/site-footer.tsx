@@ -8,8 +8,7 @@ const footerGroups = [
     title: "Encontrar",
     links: [
       ["Buscar profesionales", "/profesionales"],
-      ["Recursos", "/recursos"],
-      ["Convenios", "/convenios"],
+      ["Preguntas frecuentes", "/preguntas-frecuentes"],
     ],
   },
   {
@@ -25,7 +24,6 @@ const footerGroups = [
     title: "Universo Psi",
     links: [
       ["Cómo verificamos", "/para-profesionales#verificacion"],
-      ["Preguntas frecuentes", "/preguntas-frecuentes"],
       ["Contacto", "/contacto"],
       ["Privacidad", "/privacidad"],
       ["Soporte y derechos", "/solicitudes"],

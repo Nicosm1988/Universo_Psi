@@ -9,11 +9,10 @@ Este documento separa la superficie existente del contrato objetivo. `Implementa
 | `/` | **Implementado en el repositorio** | Home corta: búsqueda compacta visible en la primera pantalla, accesos frecuentes e ingreso/registro; debajo, una franja controlable de profesionales y opiniones junto con una explicación breve de la red; index. |
 | `/profesionales` | **Implementado** | Directorio Supabase sólo de Psicología/Psicopedagogía, filtros URL con scroll propio y orden; index. |
 | `/profesionales/[slug]` | **Implementado** | Perfil `PUBLISHED`/elegible sin honorarios; rating y opiniones aprobadas; index y badge sólo cuando el estado calculado es `VERIFIED`. |
+| `/recursos`, `/convenios` | **Retiradas** | Secciones eliminadas del producto en el lanzamiento del dominio propio. Redirección permanente a `/profesionales`; sin entrada en sitemap ni navegación. |
 | `/matching` | **Legacy** | Redirección permanente a `/profesionales`; sin cuestionario, navegación, canonical propio ni entrada en sitemap. |
 | `/para-profesionales`, `/planes` | **Implementado** | Adquisición y comparación sin precio/cobro activos; index. |
 | `/profesionales/sumarse` | **Implementado** | Onboarding autenticado; noindex. |
-| `/convenios`, `/convenios/[slug]` | **Implementado demo** | Propuesta y convenios ficticios rotulados desde fixtures; index. Acceso institucional real pendiente. |
-| `/recursos`, `/recursos/[slug]` | **Implementado demo** | Recursos ficticios rotulados desde fixtures; index. Publicación desde DB pendiente. |
 | `/privacidad` | **Implementado** | Política de privacidad final de asesoría legal (versión 2026-09); index. |
 | `/terminos` | **Implementado** | Términos y condiciones de uso finales de asesoría legal (versión 2026-09); index. |
 | `/solicitudes` | **Implementado** | Baja, arrepentimiento, acceso, corrección, eliminación y reclamos sin cuenta; entrega constancia. `noindex`, enlazada desde el pie. |

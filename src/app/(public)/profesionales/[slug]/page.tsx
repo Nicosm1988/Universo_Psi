@@ -60,7 +60,7 @@ export default async function ProfessionalProfilePage({ params, searchParams }: 
     "@type": "ProfessionalService",
     name: professional.name,
     description: professional.headline,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://universo-psi-eight.vercel.app"}/profesionales/${professional.slug}`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://universopsi.com"}/profesionales/${professional.slug}`,
     areaServed: { "@type": "Country", name: professional.country },
     address: {
       "@type": "PostalAddress",

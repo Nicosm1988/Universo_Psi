@@ -2,6 +2,9 @@ import {
   HomeNetworkShowcase,
   type HomeShowcaseProfessional,
 } from "@/components/public/home-network-showcase";
+import Link from "next/link";
+
+import { buttonStyles } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { publicRepository } from "@/lib/data/public-repository";
 import { modalityLabel } from "@/lib/demo/public-data";
@@ -46,7 +49,44 @@ async function getHomeShowcaseProfessionals(): Promise<HomeShowcaseProfessional[
 
 export async function HomeNetworkShowcaseSection() {
   const professionals = await getHomeShowcaseProfessionals();
+  // Con el catálogo recién abierto todavía no hay perfiles publicados: un
+  // carrusel vacío se lee como una falla, así que se invita a sumarse.
+  if (professionals.length === 0) return <HomeNetworkShowcaseEmpty />;
   return <HomeNetworkShowcase professionals={professionals} />;
+}
+
+function HomeNetworkShowcaseEmpty() {
+  return (
+    <section aria-label="Profesionales de Universo Psi" className="border-y border-line bg-canvas py-8 sm:py-10">
+      <Container>
+        <div className="mx-auto grid max-w-[1240px] gap-6 lg:grid-cols-[minmax(250px,.62fr)_minmax(0,1.38fr)]">
+          <div className="rounded-[1.35rem] bg-ink p-6 text-white sm:p-7">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-sand">Qué es Universo Psi</p>
+            <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.035em] text-balance">
+              Una red para elegir acompañamiento con más claridad.
+            </h2>
+          </div>
+          <div className="flex flex-col justify-center gap-4 rounded-[1.35rem] border border-line bg-paper p-6 sm:p-7">
+            <h3 className="text-xl font-semibold tracking-[-0.02em] text-ink">
+              Estamos sumando a los primeros profesionales.
+            </h3>
+            <p className="text-sm leading-6 text-muted">
+              El catálogo se publica a medida que cada perfil completa su verificación. Si atendés en salud
+              mental, rehabilitación o disciplinas afines, podés crear el tuyo hoy.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link className={buttonStyles()} href="/para-profesionales">
+                Sumar mi perfil
+              </Link>
+              <Link className={buttonStyles({ variant: "secondary" })} href="/preguntas-frecuentes">
+                Cómo funciona
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
 }
 
 export function HomeNetworkShowcaseFallback() {

@@ -27,6 +27,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    // Recursos y convenios se retiraron del producto. Las URLs quedaron
+    // indexadas mientras existieron, así que se redirigen de forma permanente
+    // en lugar de devolver 404.
+    return [
+      { source: "/recursos", destination: "/profesionales", permanent: true },
+      { source: "/recursos/:slug", destination: "/profesionales", permanent: true },
+      { source: "/convenios", destination: "/profesionales", permanent: true },
+      { source: "/convenios/:slug", destination: "/profesionales", permanent: true },
+    ];
+  },
+
   async headers() {
     return [
       {

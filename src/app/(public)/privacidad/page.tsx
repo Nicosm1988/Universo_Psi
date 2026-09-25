@@ -96,6 +96,16 @@ export default function PrivacyPage() {
               de identificar su solicitud y remitirle la información de contacto requerida a su casilla de correo.
             </p>
             <p>
+              <strong className="font-semibold text-ink">Cuenta opcional de Visitantes y Usuarios.</strong> Quien
+              consulta puede, si lo desea, crear una cuenta gratuita. No es obligatoria para buscar ni para
+              contactar a un profesional. Su única finalidad es reunir en un espacio propio las consultas que la
+              persona envió y el estado en que se encuentran. Para crearla se tratan los mismos datos ya
+              indicados —nombre y correo electrónico— y, cuando el alta se realiza mediante un proveedor externo
+              de autenticación, los datos básicos de identidad que ese proveedor comunica. La supresión de esta
+              cuenta puede solicitarse en cualquier momento y no afecta las consultas ya remitidas a un
+              profesional.
+            </p>
+            <p>
               <strong className="font-semibold text-ink">Profesionales de la Salud Mental y similares.</strong>{" "}
               Para registrarse en la plataforma y publicar sus servicios en el catálogo del Sitio Web, Universo
               Psi requerirá de forma obligatoria que facilite datos personales y profesionales veraces,

@@ -164,3 +164,57 @@ test("ambos documentos legales identifican al titular", async ({ page }) => {
     await expect(main).toContainText("Av. Coronel Díaz 1465");
   }
 });
+
+test("las dos puertas están señalizadas y no se confunden", async ({ page }) => {
+  // Quien busca: sin cuenta, desde el ingreso profesional.
+  await page.goto("/ingresar");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("espacio profesional");
+  const salida = page.getByRole("link", { name: "Buscar profesional" });
+  await expect(salida).toHaveAttribute("href", "/profesionales");
+  await expect(page.getByText("No hace falta que crees una cuenta")).toBeVisible();
+
+  // Quien atiende: el alta cambia de discurso según la intención que trae.
+  await page.goto("/registro?next=/profesionales/sumarse");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Publicá tu perfil profesional");
+
+  await page.goto("/registro");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Seguí tus consultas");
+  await expect(page.getByRole("link", { name: "Sumarme como profesional" })).toHaveAttribute(
+    "href",
+    "/registro?next=/profesionales/sumarse",
+  );
+});
+
+test("sin sesión las dos puertas están en el encabezado", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+
+  const header = page.locator("header");
+  await expect(header.getByRole("link", { name: "Publicar mi perfil" })).toHaveAttribute(
+    "href",
+    "/registro?next=/profesionales/sumarse",
+  );
+  await expect(header.getByRole("link", { name: "Ingresar" })).toHaveAttribute("href", "/ingresar");
+});
+
+test("en pantalla angosta las puertas viven en el menú y nada desborda", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto("/");
+
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+
+  await page.getByText("Menú", { exact: true }).click();
+  const menu = page.getByRole("navigation", { name: "Navegación móvil" });
+  await expect(menu.getByRole("link", { name: "Buscar profesional", exact: true })).toBeVisible();
+  await expect(menu.getByRole("link", { name: "Publicar mi perfil" })).toHaveAttribute(
+    "href",
+    "/registro?next=/profesionales/sumarse",
+  );
+});
+
+test("mi espacio y el panel profesional exigen sesión", async ({ page }) => {
+  for (const path of ["/mi-espacio", "/dashboard"]) {
+    await page.goto(path);
+    await expect(page).toHaveURL(/\/ingresar/);
+  }
+});

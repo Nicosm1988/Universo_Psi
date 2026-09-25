@@ -387,6 +387,14 @@ export default function TermsPage() {
               personas humanas o jurídicas), quienes deberán crear una cuenta comercial en el enlace oficial de la
               plataforma: universopsi.com.ar.
             </p>
+            <p>
+              Los Visitantes y Usuarios no están obligados a registrarse: la búsqueda en el catálogo y el envío de
+              una consulta a un profesional son libres y no requieren cuenta. Sin perjuicio de ello, podrán crear
+              de forma voluntaria y gratuita una cuenta personal, cuya única función es reunir las consultas
+              enviadas y su estado. Esa cuenta no otorga prioridad, posición ni beneficio alguno en el catálogo, no
+              habilita funciones de publicación y puede darse de baja en cualquier momento sin afectar las
+              consultas ya remitidas.
+            </p>
 
             <h3 className={subheadingClassName}>Requisitos de registro y autenticación</h3>
             <p>

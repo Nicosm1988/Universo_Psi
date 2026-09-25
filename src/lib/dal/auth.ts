@@ -12,6 +12,8 @@ export type CurrentUser = {
   id: string;
   email: string | null;
   displayName: string | null;
+  /** Foto de la cuenta de Google, cuando el ingreso fue por ese proveedor. */
+  avatarUrl: string | null;
   roles: string[];
   hasAcceptedCurrentTerms: boolean;
 };
@@ -45,6 +47,13 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     return typeof role?.code === "string" ? [role.code] : [];
   });
 
+  // La foto viaja en los claims del proveedor: evita una consulta extra por
+  // cada render del encabezado.
+  const metadata = claimsData?.claims?.user_metadata as Record<string, unknown> | undefined;
+  const rawAvatar = metadata?.avatar_url ?? metadata?.picture;
+  const avatarUrl =
+    typeof rawAvatar === "string" && rawAvatar.startsWith("https://") ? rawAvatar : null;
+
   return {
     id: subject,
     email:
@@ -55,6 +64,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
       profile && typeof profile.display_name === "string"
         ? profile.display_name
         : null,
+    avatarUrl,
     roles,
     hasAcceptedCurrentTerms: profile?.terms_version === TERMS_VERSION,
   };

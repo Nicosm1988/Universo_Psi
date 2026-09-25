@@ -50,6 +50,7 @@ export function PrimaryNavigation() {
         <nav aria-label="Navegación móvil" className="absolute right-0 top-[calc(100%+10px)] flex max-h-[calc(100dvh-7rem)] w-[min(86vw,320px)] flex-col gap-1 overflow-y-auto rounded-2xl border border-line bg-paper p-3 shadow-soft">
           {links}
           <div className="my-1 border-t border-line" />
+          <Link href="/registro?next=/profesionales/sumarse" onNavigate={() => closeMenu()} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-ink px-3 text-sm font-semibold text-white hover:bg-senda">Publicar mi perfil</Link>
           <Link href="/planes" onNavigate={() => closeMenu()} className="inline-flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold text-ink hover:bg-mist">Ver planes profesionales</Link>
           <Link href="/ingresar" onNavigate={() => closeMenu()} className="inline-flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold text-ink hover:bg-mist">Ingresar</Link>
         </nav>

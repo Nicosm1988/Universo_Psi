@@ -17,7 +17,7 @@ function buildContentSecurityPolicy(nonce: string, supabaseUrl: string, embedded
     `style-src 'self' 'nonce-${nonce}'`,
     `style-src-elem 'self' 'nonce-${nonce}'`,
     "style-src-attr 'none'",
-    `img-src 'self' data: blob: ${supabaseOrigin}`,
+    `img-src 'self' data: blob: ${supabaseOrigin} https://lh3.googleusercontent.com`,
     "font-src 'self' data:",
     `connect-src 'self' ${supabaseOrigin} ${websocketOrigin} https://*.vercel-insights.com https://vitals.vercel-insights.com${embeddedCheckout ? " https://api.mercadopago.com https://*.mercadopago.com https://*.mercadolibre.com https://*.mlstatic.com" : ""}`,
     ...(embeddedCheckout ? ["frame-src https://*.mercadopago.com"] : []),

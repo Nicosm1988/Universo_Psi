@@ -70,7 +70,12 @@ const groups: QuestionGroup[] = [
       {
         question: "¿Tengo que pagar algún canon o registrarme para buscar un profesional?",
         answer:
-          "No, para nada. El acceso, la navegación y las búsquedas dentro del catálogo de Universo Psi son 100 % libres y gratuitos para toda la comunidad. No necesitás registrarte ni crear ninguna cuenta para buscar un terapeuta, psicólogo o especialista en rehabilitación.",
+          "No, para nada. El acceso, la navegación y las búsquedas dentro del catálogo de Universo Psi son 100 % libres y gratuitos para toda la comunidad. No necesitás registrarte ni crear ninguna cuenta para buscar un terapeuta, psicólogo o especialista en rehabilitación, ni para escribirle. Si querés, podés crear una cuenta gratuita y opcional para tener juntas las consultas que enviaste y seguir su estado; no cambia el precio ni te da prioridad.",
+      },
+      {
+        question: "¿Para qué sirve crear una cuenta si no es obligatoria?",
+        answer:
+          "Sólo para tu comodidad. Con una cuenta, las consultas que enviás quedan reunidas en tu espacio y podés ver si el profesional ya las leyó o te respondió. Sin cuenta, la consulta se envía igual y llega igual: el profesional la recibe de la misma manera. Podés pedir la baja de la cuenta cuando quieras desde el formulario de baja, arrepentimiento y privacidad.",
       },
       {
         question: "¿Qué datos me solicitan si decido contactar a un profesional?",

@@ -80,6 +80,9 @@ export default async function DashboardPage({
     });
   }
   const profile = profileRow as MyProfessionalProfile | null;
+  // Sin perfil profesional, esta persona entró como consultante: su lugar es
+  // «Mi espacio», no una invitación a publicarse.
+  if (!profile) redirect("/mi-espacio");
 
   const section = ["consultas", "suscripcion"].includes(feedback.seccion ?? "") ? feedback.seccion : undefined;
 

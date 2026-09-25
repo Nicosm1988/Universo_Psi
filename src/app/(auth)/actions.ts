@@ -362,6 +362,13 @@ export async function acceptCurrentTermsAction(formData: FormData) {
     p_terms_version: TERMS_VERSION,
   });
   if (error) {
+    // Sin esto, un rechazo de la función deja a la persona rebotando entre el
+    // panel y esta pantalla sin que quede rastro de la causa en ningún lado.
+    console.error("terms_acceptance_failed", {
+      code: error.code,
+      message: error.message,
+      version: TERMS_VERSION,
+    });
     const retry = new URL("/aceptar-terminos", publicEnv.NEXT_PUBLIC_SITE_URL);
     retry.searchParams.set("next", next);
     retry.searchParams.set("error", "No pudimos registrar tu aceptación. Probá nuevamente.");

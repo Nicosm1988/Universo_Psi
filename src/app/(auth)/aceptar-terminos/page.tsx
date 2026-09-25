@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { Route } from "next";
 import { redirect } from "next/navigation";
 
 import { acceptCurrentTermsAction } from "@/app/(auth)/actions";
 import { buttonStyles } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/dal/auth";
+import { safeInternalPath } from "@/lib/http/origin";
 
 export const metadata: Metadata = {
   title: "Aceptar términos | Universo Psi",
@@ -19,6 +21,11 @@ export default async function AcceptTermsPage({
   const user = await getCurrentUser();
   if (!user) redirect("/ingresar");
   const params = await searchParams;
+  // Quien ya aceptó la versión vigente no tiene nada que hacer acá: sin esta
+  // salida, llegar por un enlace viejo muestra un formulario que no cambia nada.
+  if (user.hasAcceptedCurrentTerms && !params.error) {
+    redirect(safeInternalPath(params.next ?? null) as Route);
+  }
 
   return (
     <>

@@ -245,12 +245,16 @@ async function createConfirmedUser(
   backend: SupabaseClient,
   email: string,
   displayName: string,
+  accountType: "PERSON" | "PROFESSIONAL" = "PROFESSIONAL",
 ) {
+  // El alta real guarda la intención declarada, y el producto la usa para
+  // decidir el destino tras ingresar. Sin ella, el usuario de prueba no
+  // representa a nadie que exista.
   const result = await backend.auth.admin.createUser({
     email,
     password: AUTH_E2E.password,
     email_confirm: true,
-    user_metadata: { display_name: displayName },
+    user_metadata: { display_name: displayName, requested_account_type: accountType },
   });
   assertNoError(result, `Crear usuario confirmado ${email}`);
   if (!result.data.user) {

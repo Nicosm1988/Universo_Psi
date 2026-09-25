@@ -80,9 +80,10 @@ export default async function DashboardPage({
     });
   }
   const profile = profileRow as MyProfessionalProfile | null;
-  // Sin perfil profesional, esta persona entró como consultante: su lugar es
-  // «Mi espacio», no una invitación a publicarse.
-  if (!profile) redirect("/mi-espacio");
+  // Sin perfil, la intención declarada al registrarse decide el destino: quien
+  // vino a publicarse todavía no lo creó y necesita seguir acá; quien vino a
+  // consultar no tiene nada que hacer en un panel que le pide publicarse.
+  if (!profile && user.requestedAccountType !== "PROFESSIONAL") redirect("/mi-espacio");
 
   const section = ["consultas", "suscripcion"].includes(feedback.seccion ?? "") ? feedback.seccion : undefined;
 

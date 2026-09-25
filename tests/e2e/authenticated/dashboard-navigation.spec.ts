@@ -10,7 +10,15 @@ for (const width of [1440, 390]) {
     const backend = createClient(env.supabaseUrl, env.secretKey, { auth: { persistSession: false } });
     const email = `e2e.menu.${randomUUID()}@universo-psi.test`;
     const password = `Local-${randomUUID()}!`;
-    const { data, error } = await backend.auth.admin.createUser({ email, password, email_confirm: true });
+    // Este recorrido es el del panel profesional, así que la cuenta declara esa
+    // intención como lo hace el alta real. Sin declararla, el producto la trata
+    // como alguien que viene a consultar y la deriva a «Mi espacio».
+    const { data, error } = await backend.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+      user_metadata: { requested_account_type: "PROFESSIONAL" },
+    });
     expect(error).toBeNull();
     try {
       await page.setViewportSize({ width, height: 900 });
